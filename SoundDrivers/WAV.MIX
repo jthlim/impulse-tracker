@@ -1,0 +1,1608 @@
+;
+; WAV output mix functions....
+; Uses Cubic Spline Interpolation
+;
+
+ALIGN 4
+
+WAVMixingTable     Label
+                                ; 8 bit, 16 bit
+                                ; No sound, stereo, surround
+                                ; No loop, forwards loop, ping pong loop
+
+        DW      Offset UpdateNoLoop, 0, 0, 0, 0
+        DW      Offset UpdateForwardsLoop, 0, 0, 0, 0
+        DW      Offset UpdatePingPongLoop, 0, 0, 0, 0
+
+        DW      Offset MixNoLoop, PreM32SMix8Bit, MFS8Bit, MBS8Bit, Mix32Stereo8Bit
+        DW      Offset MixForwardsLoop, PreM32SMix8Bit, MFS8Bit, MBS8Bit, Mix32Stereo8Bit
+        DW      Offset MixPingPongLoop, PreM32SMix8Bit, MFS8Bit, MBS8Bit, Mix32Stereo8Bit
+
+        DW      Offset MixNoLoop, PreM32UMix8Bit, MFS8Bit, MBS8Bit, Mix32Surround8Bit
+        DW      Offset MixForwardsLoop, PreM32UMix8Bit, MFS8Bit, MBS8Bit, Mix32Surround8Bit
+        DW      Offset MixPingPongLoop, PreM32UMix8Bit, MFS8Bit, MBS8Bit, Mix32Surround8Bit
+
+        DW      Offset UpdateNoLoop, 0, 0, 0, 0
+        DW      Offset UpdateForwardsLoop, 0, 0, 0, 0
+        DW      Offset UpdatePingPongLoop, 0, 0, 0, 0
+
+        DW      Offset MixNoLoop, PreM32SMix16Bit, MFS16Bit, MBS16Bit, Mix32Stereo16Bit
+        DW      Offset MixForwardsLoop, PreM32SMix16Bit, MFS16Bit, MBS16Bit, Mix32Stereo16Bit
+        DW      Offset MixPingPongLoop, PreM32SMix16Bit, MFS16Bit, MBS16Bit, Mix32Stereo16Bit
+
+        DW      Offset MixNoLoop, PreM32UMix16Bit, MFS16Bit, MBS16Bit, Mix32Surround16Bit
+        DW      Offset MixForwardsLoop, PreM32UMix16Bit, MFS16Bit, MBS16Bit, Mix32Surround16Bit
+        DW      Offset MixPingPongLoop, PreM32UMix16Bit, MFS16Bit, MBS16Bit, Mix32Surround16Bit
+
+LastLeftValue   DD      0
+LastRightValue  DD      0
+
+Sample1                 DD      0
+Sample2                 DD      0
+Sample3                 DD      0
+Sample4                 DD      0
+SampleValue             DD      0
+InterpolationOffset     DD      0
+Const3                  DD      3.0
+Const1On65536           DD      37800000h
+Const256On6             DD      422AAAAAh
+Const1On6               DD      3E2AAAAAh
+;Const65536              DD      65536.0
+Const32768              DD      32768.0
+Const1On32768           DD      38000000h
+;ConstLimiter            DD      3F000000h
+Const22713_0            DD      22713.0
+
+MAXFILTERVALUE          EQU     47000000h
+
+FILTERCLIPPINGTYPENONE          EQU     0
+FILTERCLIPPINGTYPECOMPRESSOR    EQU     1
+FILTERCLIPPINGTYPELIMIT         EQU     0
+
+;컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+
+Get8BitWaveform Macro           ; Puts waveform value in EBX, range -32k->+32k
+                Local X
+
+
+IF CUBICINTERPOLATION
+
+                Mov     BX, DI
+
+                Push    EDX
+                Push    DS
+
+                Push    CS
+                Pop     DS
+                        Assume DS:Driver
+
+                Sub     BX, 1
+                Mov     InterpolationOffset, ECX
+                AdC     BX, 0
+
+                FILD    InterpolationOffset
+                FMul    Const1On65536
+
+                MovSX   EAX, Byte Ptr [ES:BX]
+                MovSX   EBX, Byte Ptr [ES:DI]
+                Mov     Sample1, EAX
+                Mov     Sample2, EBX
+                FILD    Sample1
+                FILD    Sample2
+                FMul    Const3
+
+                MovSX   EAX, Byte Ptr [ES:DI+1]
+                MovSX   EBX, Byte Ptr [ES:DI+2]
+                Mov     Sample3, EAX
+                Mov     Sample4, EBX
+                FILD    Sample3
+                FMul    Const3
+                FILD    Sample4                 ; x, 3w, 3v, u, Interp
+
+; a = x+3v-3w-u
+; b = 3w+3u-6v
+; c = 6w-2u-x-3v
+; d = 6v
+
+; Assignments:
+; F = x+3v
+; -> a = F-3w-u
+; -> b = 3w+3u-6v
+; -> c = 6w-2u-F
+; -> d = 6v
+
+IF INTELOPTIMISED
+                FAdd    ST, ST(2)       ; x+3v[3], 3w, 3v, u, Interp
+                FLd     ST(1)           ; 3w, x+3v[3], 3w, 3v, u, Interp
+                FAdd    ST, ST(4)       ; 3w+u[3], x+3v[2], 3w, 3v, u, Interp
+                FXCh    ST(4)           ; u, x+3v[2], 3w, 3v, 3w+u[3], Interp
+                FAdd    ST, ST          ; 2u[3], x+3v[1], 3w, 3v, 3w+u[2], Interp
+                FXCh    ST(3)           ; 3v, x+3v[1], 3w, 2u[3], 3w+u[2], Interp
+                FLd     ST(1)           ; x+3v, 3v, x+3v, 3w, 2u[3], 3w+u[1], Interp
+                FSub    ST, ST(5)       ; a[3], 3v, x+3v, 3w, 2u[2], 3w+u, Interp
+                FXCh                    ; 3v, a[3], x+3v, 3w, 2u[2], 3w+u, Interp
+                FAdd    ST, ST          ; 6v[3], a[2], x+3v, 3w, 2u[1], 3w+u, Interp
+                FXCh    ST(5)           ; 3w+u, a[2], x+3v, 3w, 2u[1], 6v[3], Interp
+                FAdd    ST, ST(4)       ; 3w+3u[3], a[1], x+3v, 3w, 2u, 6v[2], Interp
+                FXCh                    ; a[1], 3w+3u[3], x+3v, 3w, 2u, 6v[2], Interp
+                FMul    ST, ST(6)       ; ax[3], 3w+3u[2], x+3v, 3w, 2u, 6v[1], Interp
+                FXCh    ST(2)           ; x+3v, 3w+3u[2], ax[3], 3w, 2u, 6v[1], Interp
+                FAddP   ST(4), ST       ; 3w+3u[1], ax[2], 3w, 2u+F[3], 6v, Interp
+                FSub    ST, ST(4)       ; 3w+3u-6v[3], ax[1], 3w, 2u+F[2], 6v, Interp
+                FXCh    ST(2)           ; 3w, ax[1], b[3], 2u+F[1], 6v, Interp
+                FAdd    ST, ST          ; 6w[3], ax, b[2], 2u+F, 6v, Interp
+                FXCh                    ; ax, 6w[3], b[2], 2u+F, 6v, Interp
+                FAddP   ST(2), ST       ; 6w[1], ax+b[3], 2u+f, d, Interp
+                FSubRP  ST(2), ST       ; ax+b, c[3], d, Interp
+                FMul    ST, ST(3)       ; ax^2+bx[3], c[2], d, Interp
+                FXCh    ST(3)           ; Interp, c[2], d, ax^2+bx[3]
+                FMul    Const256On6     ; sInterp[3], c, d, ax^2+bx[1]
+                FXCh                    ; c, sInterp[3], d, ax^2+bx[1]
+                FAddP   ST(3), ST       ; sInterp[2], d, ax^2+bx+c[3]
+                FXCh                    ; d, sInterp[2], ax^2+bx+c[3]
+                FMul    Const256On6     ; sd[3], sInterp[1], ax^2+bx+c[2]
+                FXCh                    ; sInterp[1], sd[3], ax^2+bx+c[2]
+                FMulP   ST(2), ST
+
+                Pop     DS
+                        Assume DS:Nothing
+                Mov     EDX, [DS:0]
+
+                FAdd                    ; SampleValue (16 bit value)
+
+                FLd     DWord Ptr [DS:0]        ; x(k-1), x(k)
+                FMul    DWord Ptr [DS:14h]      ; b.x(k-1), x(k)
+                FLd     DWord Ptr [DS:4]        ; x(k-2), b.x(k-1), x(k)
+                FMul    DWord Ptr [DS:18h]      ; c.x(k-2), b.x(k-1), x(k)
+                FXCh    ST(2)                   ; x(k), b.x(k-1), c.x(k-2)
+                FMul    DWord Ptr [DS:10h]      ; a.x(k), b.x(k-1), c.x(k-2)
+                FXCh    ST(2)                   ; c.x(k-2), b.x(k-1), a.x(k)
+                FAdd
+                Mov     EDX, [DS:0]
+                FAdd
+
+                Mov     [DS:4], EDX
+
+                FSt     DWord Ptr [DS:0]
+                FIStP   CS:SampleValue
+
+ELSE
+                FAdd    ST, ST(2)               ; x+3v, 3w, 3v, u, Interp
+                FLd     ST(1)                   ; 3w, x+3v, 3w, 3v, u, Interp
+                FSub    ST, ST(4)               ; 3w-u, x+3v, 3w, 3v, u, Interp
+                FAdd    ST, ST                  ; 6w-2u, x+3v, 3w, 3v, u, Interp
+                FSub    ST, ST(1)               ; "c", x+3v, 3w, 3v, u, Interp
+                FXCh                            ; x+3v, "c", 3w, 3v, u, Interp
+                FSub    ST, ST(2)               ; x+3v-3w, "c", 3w, 3v, u, Interp
+                FSub    ST, ST(4)               ; "a", "c", 3w, 3v, u, Interp
+                FMul    ST, ST(5)               ; "ax", "c", 3w, 3v, u, Interp
+                FXCh    ST(3)                   ; 3v, "c", 3w, "ax", u, Interp
+                FAdd    ST, ST                  ; 6v, "c", 3w, "ax", u, Interp
+                FXCh    ST(4)                   ; u, "c", 3w, "ax", 6v, Interp
+                FMul    Const3                  ; 3u, "c", 3w, "ax", 6v, Interp
+                FSub    ST, ST(4)               ; 3u-6v, "c", 3w, "ax", 6v, Interp
+                FAdd    ST, ST(2)               ; "b", "c", 3w, "ax", 6v, Interp
+                FAdd    ST, ST(3)               ; "ax+b", "c", 3w, "ax", 6v, Interp
+                FMul    ST, ST(5)               ; "ax^2+bx", "c", 3w, "ax", 6v, Interp
+                FAdd                            ; ax^2+bx+c, 3w, "ax", 6v, Interp
+                FMulP   ST(4), ST               ; 3w, "ax", 6v, ax^3+bx^2+cx
+                FComPP                          ; 6v, ax^3+bx^2+cx
+                FAdd                            ; SampleValue
+                FMul    Const256On6             ; x(k)
+
+                Pop     DS
+                        Assume DS:Nothing
+
+                FMul    DWord Ptr [DS:10h]
+
+                FLd     DWord Ptr [DS:0]        ; x(k-1), x(k)
+                FMul    DWord Ptr [DS:14h]      ; b.x(k-1), x(k)
+                FLd     DWord Ptr [DS:4]        ; x(k-2), b.x(k-1), x(k)
+                FMul    DWord Ptr [DS:18h]      ; c.x(k-2), b.x(k-1), x(k)
+                FAdd
+                Mov     EDX, [DS:0]
+                FAdd
+
+                Mov     [DS:4], EDX
+
+                FSt     DWord Ptr [DS:0]
+                FIStP   SampleValue
+
+ENDIF
+                Pop     EDX
+
+ IF FILTERCLIPPINGTYPENONE
+ ELSE
+                Mov     EAX, [DS:0]
+                And     EAX, 7FFFFFFFh
+                Cmp     EAX, MAXFILTERVALUE
+                JBE     X
+
+  IF FILTERCLIPPINGTYPECOMPRESSOR
+
+                Mov     EBX, [DS:0]
+                FLd     CS:Const22713_0
+                FLd     DWord Ptr [DS:0]
+                FAbs
+                FMul    CS:Const1On32768
+                FYL2X   ; ST = ln(x/65536) / ln(2) * 65536 * ln(2)
+                FAdd    CS:Const32768
+                SAR     EBX, 31
+                FIStP   SampleValue
+                Xor     SampleValue, EBX
+                Sub     SampleValue, EBX
+
+Comment ~
+                Mov     EBX, [DS:0]
+                FLd     DWord Ptr [DS:0]
+                FAbs
+                FSub    [CS:Const65536]
+                FMul    [CS:ConstLimiter]
+                FAdd    [CS:Const65536]
+                SAR     EBX, 31
+                FIStP   SampleValue
+                Xor     SampleValue, EBX
+                Sub     SampleValue, EBX
+;                FILD    SampleValue
+;                FStP    DWord Ptr [DS:0]
+~
+  ENDIF
+  IF FILTERCLIPPINGTYPELIMIT
+
+                Mov     EBX, [DS:0]
+                Mov     EAX, MAXFILTERVALUE
+                And     EBX, 80000000h
+                Or      EAX, EBX
+                Mov     [DS:0], EAX
+  ENDIF
+X:
+ ENDIF
+                Mov     EBX, SampleValue
+
+ENDIF
+
+IF QUADRATICINTERPOLATION
+
+                Push    EDX
+                Push    EBP
+
+                MovSX   EDX, Byte Ptr [ES:DI+2]         ; v
+                MovSX   EBX, Byte Ptr [ES:DI]           ; t
+                MovSX   EAX, Byte Ptr [ES:DI+1]         ; u
+
+                LEA     EBP, [EBX+EDX]          ; v+t
+                SAR     EBP, 1
+                Sub     EBP, EAX                ; (v+t)/2 - u
+                IMul    EBP, ECX                ; ax in 8.16 format
+                SAR     EBP, 10                 ; ax in 8.6 format
+
+                ShL     EAX, 7                  ; EBX = 2u<<6
+                Add     EDX, EBX                ; EDX = v+t
+                Add     EBX, EBX                ; EAX = 2t
+                Add     EBP, EAX                ; EBP = ax+2u
+                Add     EDX, EBX                ; 3t+v
+                ShL     EDX, 5                  ; (3t+v)/2 << 6
+                Sub     EBP, EDX                ; ax+b
+
+                ShL     EBX, 7
+
+                IMul    EBP, ECX                ; ax^2+bx in 8.22 form
+                SAR     EBP, 14                 ; ax^2+bx in 8.8 form
+
+                Add     EBX, EBP                ; ax^2+bx+c
+
+                Pop     EBP
+                Pop     EDX
+ENDIF
+
+
+IF LINEARINTERPOLATION
+                MovSX   EBX, Byte Ptr [ES:DI+1]
+                MovSX   EAX, Byte Ptr [ES:DI]
+                Sub     EBX, EAX
+                IMul    EBX, ECX
+                SAR     EBX, 8
+                ShL     EAX, 8
+                Add     EBX, EAX
+ENDIF
+
+IF POINTSAMPLED
+                MovSX   EBX, Byte Ptr [ES:DI]
+                ShL     EBX, 8
+ENDIF
+
+EndM
+
+Get16BitWaveform Macro          ; Puts waveform value in EBX, range -32k->+32k
+                Local X
+
+IF CUBICINTERPOLATION
+                Mov     EBX, EDI
+
+                Push    EDX
+                Push    DS
+
+                Push    CS
+                Pop     DS
+                        Assume DS:Driver
+
+                Sub     BX, 1
+                Mov     InterpolationOffset, ECX
+                AdC     BX, 0
+
+                FILD    InterpolationOffset
+                FMul    Const1On65536
+
+                MovSX   EAX, Word Ptr [ES:EBX+EBX]
+                MovSX   EBX, Word Ptr [ES:EDI+EDI]
+                Mov     Sample1, EAX
+                Mov     Sample2, EBX
+                FILD    Sample1
+                FILD    Sample2
+                FMul    Const3
+
+                MovSX   EAX, Word Ptr [ES:EDI+EDI+2]
+                MovSX   EBX, Word Ptr [ES:EDI+EDI+4]
+                Mov     Sample3, EAX
+                Mov     Sample4, EBX
+                FILD    Sample3
+                FMul    Const3
+                FILD    Sample4                 ; x, 3w, 3v, u, Interp
+
+
+; a = x+3v-3w-u
+; b = 3w+3u-6v
+; c = 6w-2u-x-3v
+; d = 6v
+
+; Assignments:
+; F = x+3v
+; -> a = F-3w-u
+; -> b = 3w+3u-6v
+; -> c = 6w-2u-F
+; -> d = 6v
+
+IF INTELOPTIMISED
+                FAdd    ST, ST(2)       ; x+3v[3], 3w, 3v, u, Interp
+                FLd     ST(1)           ; 3w, x+3v[3], 3w, 3v, u, Interp
+                FAdd    ST, ST(4)       ; 3w+u[3], x+3v[2], 3w, 3v, u, Interp
+                FXCh    ST(4)           ; u, x+3v[2], 3w, 3v, 3w+u[3], Interp
+                FAdd    ST, ST          ; 2u[3], x+3v[1], 3w, 3v, 3w+u[2], Interp
+                FXCh    ST(3)           ; 3v, x+3v[1], 3w, 2u[3], 3w+u[2], Interp
+                FLd     ST(1)           ; x+3v, 3v, x+3v, 3w, 2u[3], 3w+u[1], Interp
+                FSub    ST, ST(5)       ; a[3], 3v, x+3v, 3w, 2u[2], 3w+u, Interp
+                FXCh                    ; 3v, a[3], x+3v, 3w, 2u[2], 3w+u, Interp
+                FAdd    ST, ST          ; 6v[3], a[2], x+3v, 3w, 2u[1], 3w+u, Interp
+                FXCh    ST(5)           ; 3w+u, a[2], x+3v, 3w, 2u[1], 6v[3], Interp
+                FAdd    ST, ST(4)       ; 3w+3u[3], a[1], x+3v, 3w, 2u, 6v[2], Interp
+                FXCh                    ; a[1], 3w+3u[3], x+3v, 3w, 2u, 6v[2], Interp
+                FMul    ST, ST(6)       ; ax[3], 3w+3u[2], x+3v, 3w, 2u, 6v[1], Interp
+                FXCh    ST(2)           ; x+3v, 3w+3u[2], ax[3], 3w, 2u, 6v[1], Interp
+                FAddP   ST(4), ST       ; 3w+3u[1], ax[2], 3w, 2u+F[3], 6v, Interp
+                FSub    ST, ST(4)       ; 3w+3u-6v[3], ax[1], 3w, 2u+F[2], 6v, Interp
+                FXCh    ST(2)           ; 3w, ax[1], b[3], 2u+F[1], 6v, Interp
+                FAdd    ST, ST          ; 6w[3], ax, b[2], 2u+F, 6v, Interp
+                FXCh                    ; ax, 6w[3], b[2], 2u+F, 6v, Interp
+                FAddP   ST(2), ST       ; 6w[1], ax+b[3], 2u+f, d, Interp
+                FSubRP  ST(2), ST       ; ax+b, c[3], d, Interp
+                FMul    ST, ST(3)
+                FXCh    ST(3)           ; Interp, c[2], d, ax^2+bx[3]
+                FMul    Const1On6       ; sInterp[3], c, d, ax^2+bx[1]
+                FXCh                    ; c, sInterp[3], d, ax^2+bx[1]
+                FAddP   ST(3), ST       ; sInterp[2], d, ax^2+bx+c[3]
+                FXCh                    ; d, sInterp[2], ax^2+bx+c[3]
+                FMul    Const1On6       ; sd[3], sInterp[1], ax^2+bx+c[2]
+                FXCh                    ; sInterp[1], sd[3], ax^2+bx+c[2]
+                FMulP   ST(2), ST
+
+                Pop     DS
+                        Assume DS:Nothing
+                Mov     EDX, [DS:0]
+
+                FAdd                    ; SampleValue (16 bit value)
+
+                FLd     DWord Ptr [DS:0]        ; x(k-1), x(k)
+                FMul    DWord Ptr [DS:14h]      ; b.x(k-1), x(k)
+                FLd     DWord Ptr [DS:4]        ; x(k-2), b.x(k-1), x(k)
+                FMul    DWord Ptr [DS:18h]      ; c.x(k-2), b.x(k-1), x(k)
+                FXCh    ST(2)                   ; x(k), b.x(k-1), c.x(k-2)
+                FMul    DWord Ptr [DS:10h]      ; a.x(k), b.x(k-1), c.x(k-2)
+                FXCh    ST(2)                   ; c.x(k-2), b.x(k-1), a.x(k)
+                FAdd
+                Mov     EDX, [DS:0]
+                FAdd
+
+                Mov     [DS:4], EDX
+
+                FSt     DWord Ptr [DS:0]
+                FIStP   CS:SampleValue
+
+ELSE
+                FAdd    ST, ST(2)               ; x+3v, 3w, 3v, u, Interp
+                FLd     ST(1)                   ; 3w, x+3v, 3w, 3v, u, Interp
+                FSub    ST, ST(4)               ; 3w-u, x+3v, 3w, 3v, u, Interp
+                FAdd    ST, ST                  ; 6w-2u, x+3v, 3w, 3v, u, Interp
+                FSub    ST, ST(1)               ; "c", x+3v, 3w, 3v, u, Interp
+                FXCh                            ; x+3v, "c", 3w, 3v, u, Interp
+                FSub    ST, ST(2)               ; x+3v-3w, "c", 3w, 3v, u, Interp
+                FSub    ST, ST(4)               ; "a", "c", 3w, 3v, u, Interp
+                FMul    ST, ST(5)               ; "ax", "c", 3w, 3v, u, Interp
+                FXCh    ST(3)                   ; 3v, "c", 3w, "ax", u, Interp
+                FAdd    ST, ST                  ; 6v, "c", 3w, "ax", u, Interp
+                FXCh    ST(4)                   ; u, "c", 3w, "ax", 6v, Interp
+                FMul    Const3                  ; 3u, "c", 3w, "ax", 6v, Interp
+                FSub    ST, ST(4)               ; 3u-6v, "c", 3w, "ax", 6v, Interp
+                FAdd    ST, ST(2)               ; "b", "c", 3w, "ax", 6v, Interp
+                FAdd    ST, ST(3)               ; "ax+b", "c", 3w, "ax", 6v, Interp
+                FMul    ST, ST(5)               ; "ax^2+bx", "c", 3w, "ax", 6v, Interp
+                FAdd                            ; ax^2+bx+c, 3w, "ax", 6v, Interp
+                FMulP   ST(4), ST               ; 3w, "ax", 6v, ax^3+bx^2+cx
+                FComPP                          ; 6v, ax^3+bx^2+cx
+                FAdd                            ; SampleValue
+                FMul    Const1On6
+
+                Pop     DS
+                        Assume DS:Nothing
+
+                FMul    DWord Ptr [DS:10h]
+
+                FLd     DWord Ptr [DS:0]        ; x(k-1), x(k)
+                FMul    DWord Ptr [DS:14h]      ; b.x(k-1), x(k)
+                FLd     DWord Ptr [DS:4]        ; x(k-2), b.x(k-1), x(k)
+                FMul    DWord Ptr [DS:18h]      ; c.x(k-2), b.x(k-1), x(k)
+                FAdd
+                Mov     EDX, [DS:0]
+                FAdd
+
+                Mov     [DS:4], EDX
+
+                FSt     DWord Ptr [DS:0]
+                FIStP   SampleValue
+ENDIF
+                Pop     EDX
+
+ IF FILTERCLIPPINGTYPENONE
+ ELSE
+                Mov     EAX, [DS:0]
+                And     EAX, 7FFFFFFFh
+                Cmp     EAX, MAXFILTERVALUE
+                JBE     X
+
+  IF FILTERCLIPPINGTYPECOMPRESSOR
+
+                Mov     EBX, [DS:0]
+                FLd     CS:Const22713_0
+                FLd     DWord Ptr [DS:0]
+                FAbs
+                FMul    CS:Const1On32768
+                FYL2X   ; ST = ln(x/65536) / ln(2) * 65536 * ln(2)
+                FAdd    CS:Const32768
+                SAR     EBX, 31
+                FIStP   SampleValue
+                Xor     SampleValue, EBX
+                Sub     SampleValue, EBX
+
+Comment ~
+                Mov     EBX, [DS:0]
+                FLd     DWord Ptr [DS:0]
+                FAbs
+                FSub    [CS:Const65536]
+                FMul    [CS:ConstLimiter]
+                FAdd    [CS:Const65536]
+                SAR     EBX, 31
+                FIStP   SampleValue
+                XOr     SampleValue, EBX
+                Sub     SampleValue, EBX
+;                FILD    SampleValue
+;                FStP    DWord Ptr [DS:0]
+~
+
+  ENDIF
+  IF FILTERCLIPPINGTYPELIMIT
+
+                Mov     EBX, [DS:0]
+                Mov     EAX, MAXFILTERVALUE
+                And     EBX, 80000000h
+                Or      EAX, EBX
+                Mov     [DS:0], EAX
+  ENDIF
+X:
+ ENDIF
+                Mov     EBX, SampleValue
+
+ENDIF
+
+IF QUADRATICINTERPOLATION
+
+                Push    ECX
+                Push    EDX
+                Push    EBP
+
+                MovSX   EDX, Word Ptr [ES:EDI+EDI+4]     ; v
+                MovSX   EBX, Word Ptr [ES:EDI+EDI]       ; t
+                MovSX   EAX, Word Ptr [ES:EDI+EDI+2]     ; u
+
+                ShR     ECX, 3                  ; 0.13
+                LEA     EBP, [EBX+EDX]
+                SAR     EBP, 1
+                Sub     EBP, EAX                ; (v+t)/2 - u
+                IMul    EBP, ECX                ; 16.13
+                SAR     EBP, 14                 ; 15.0
+
+                Add     EDX, EBX                ; EDX = v+t
+                Add     EBP, EAX                ; EBP = ax+2u
+                LEA     EDX, [EDX+EBX*2]
+                SAR     EDX, 2                  ; EDX = (3t+v)/2
+                Sub     EBP, EDX                ; ax + b, 15 form
+
+                IMul    EBP, ECX                ; ax^2+bx in 15.13 form
+                SAR     EBP, 12                 ; ax^2+bx in 16.0 form
+
+                Add     EBX, EBP
+
+                Pop     EBP
+                Pop     EDX
+                Pop     ECX
+
+ENDIF
+
+IF LINEARINTERPOLATION
+                MovSX   EBX, Word Ptr [ES:EDI+EDI+2]
+                MovSX   EAX, Word Ptr [ES:EDI+EDI]
+                Sub     EBX, EAX
+                SAR     EBX, 1
+                IMul    EBX, ECX
+                SAR     EBX, 15
+                Add     EBX, EAX
+ENDIF
+
+IF POINTSAMPLED
+                MovSX   EBX, Word Ptr [ES:EDI+EDI]
+ENDIF
+
+EndM
+
+;컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+
+Proc            Mix32Stereo8Bit         ; Given DS:SI = buffer
+                                        ; Given ES:DI = sample
+                                        ; AX = bytes to mix
+                                        ; CX = error
+                                        ; DX = delta offset
+                                        ; BP = delta error
+
+                ShL     AX, 3
+                Add     AX, SI
+                Mov     Word Ptr [CS:M32S8BEND], AX
+
+Mix32Stereo8Bit1:
+                Get8BitWaveForm
+
+M32S8BLVC       EQU     $+3
+                IMul    EAX, EBX, 12345678h
+                Sub     [SI], EAX
+
+                Mov     CS:LastLeftValue, EAX
+
+M32S8BRVC       EQU     $+3
+                IMul    EAX, EBX, 12345678h
+                Sub     [SI+4], EAX
+
+                Mov     CS:LastRightValue, EAX
+
+                Add     CX, BP
+                AdC     DI, DX
+                Add     SI, 8
+
+M32S8BLVSet     EQU     $+2
+                Mov     EAX, 12345678h          ; Destination volume left
+M32S8BRVSet     EQU     $+2
+                Mov     EBX, 12345678h          ; Destination volume right
+
+                Sub     EAX, DWord Ptr [CS:M32S8BLVC]     ; Delta
+                Sub     EBX, DWord Ptr [CS:M32S8BRVC]
+
+                SAR     EAX, RAMPSPEED
+                SAR     EBX, RAMPSPEED
+
+                Add     DWord Ptr [CS:M32S8BLVC], EAX
+                Add     DWord Ptr [CS:M32S8BRVC], EBX
+
+M32S8BNoRightRamp:
+
+M32S8BEND       EQU     $+2
+                Cmp     SI, 1234h
+                JNE     Mix32Stereo8Bit1
+
+                Ret
+
+EndP            Mix32Stereo8Bit
+
+;컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+
+Proc            PreM32SMix8Bit
+
+IF VOLUMERAMP
+                PushAD
+
+                Xor     EAX, EAX
+                Xor     EBX, EBX
+                Xor     EDX, EDX
+                Xor     EBP, EBP
+                Xor     EDI, EDI
+
+                Mov     AX, Word Ptr [SI+0Ch]   ; New right volume
+                Mov     BX, Word Ptr [SI+0Eh]   ; New left volume
+
+                Mov     DX, Word Ptr [SI+1Ch]   ; Old right volume
+                Mov     BP, Word Ptr [SI+1Eh]   ; Old left volume
+
+                Mov     DWord Ptr [CS:M32S8BRVC], EDX
+                Mov     DWord Ptr [CS:M32S8BLVC], EBP
+
+; Compensate for upwards ramp.
+
+                Cmp     AX, DX
+                JB      PreM32Mix8BitNoRightCompensate
+
+                Add     AX, RAMPCOMPENSATE
+
+PreM32Mix8BitNoRightCompensate:
+
+                Cmp     BX, BP
+                JB      PreM32Mix8BitNoLeftCompensate
+
+                Add     BX, RAMPCOMPENSATE
+
+PreM32Mix8BitNoLeftCompensate:
+                Mov     DWord Ptr [CS:M32S8BRVSet], EAX
+                Mov     DWord Ptr [CS:M32S8BLVSet], EBX
+
+; Now to figure out exact final volumes
+
+                Push    SI
+                Mov     CX, CS:RealBytesToMix
+
+PreM32Mix8Bit1:
+                Mov     ESI, EAX        ; Set values
+                Mov     EDI, EBX
+                Sub     ESI, EDX        ; Current values
+                Sub     EDI, EBP
+                SAR     ESI, RAMPSPEED
+                SAR     EDI, RAMPSPEED
+                Add     EDX, ESI
+                Add     EBP, EDI
+
+                Loop    PreM32Mix8Bit1
+
+                Pop     SI
+
+                Mov     Word Ptr [SI+1Ch], DX
+                Mov     Word Ptr [SI+1Eh], BP
+
+                PopAD
+                Ret
+ELSE
+
+                Xor     EAX, EAX
+                Xor     EBX, EBX
+
+                Mov     AX, Word Ptr [SI+0Ch]
+                Mov     BX, Word Ptr [SI+0Eh]
+
+                Mov     DWord Ptr [CS:M32S8BRVC], EAX
+                Mov     DWord Ptr [CS:M32S8BLVC], EBX
+
+                Mov     DWord Ptr [CS:M32S8BRVSet], EAX
+                Mov     DWord Ptr [CS:M32S8BLVSet], EBX
+
+                Mov     [SI+1Ch], AX
+                Mov     [SI+1Eh], BX
+
+                Ret
+ENDIF
+
+EndP            PreM32SMix8Bit
+
+;컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+
+Proc            Mix32Surround8Bit       ; Given DS:SI = buffer
+                                        ; Given ES:DI = sample
+                                        ; AX = bytes to mix
+                                        ; CX = error
+                                        ; DX = delta offset
+                                        ; BP = delta error
+
+                ShL     AX, 3
+                Add     AX, SI
+                Mov     Word Ptr [CS:M32U8BEND], AX
+
+Mix32Surround8Bit1:
+                Get8BitWaveForm
+
+M32U8BLVC       EQU     $+3
+                IMul    EAX, EBX, 12345678h
+                Sub     [SI], EAX
+                Mov     CS:LastLeftValue, EAX
+
+                Neg     EAX
+M32U8BLVSet     EQU     $+2
+                Mov     EBX, 12345678h
+
+                Sub     [SI+4], EAX
+                Sub     EBX, DWord Ptr [CS:M32U8BLVC]
+
+
+                SAR     EBX, RAMPSPEED
+                Add     SI, 8
+
+                Add     CX, BP
+                AdC     DI, DX
+
+                Add     DWord Ptr [CS:M32U8BLVC], EBX
+
+M32U8BEND       EQU     $+2
+                Cmp     SI, 1234h
+                JNE     Mix32Surround8Bit1
+
+                Mov     EAX, CS:LastLeftValue
+                Neg     EAX
+                Mov     CS:LastRightValue, EAX
+                Ret
+
+EndP            Mix32Surround8Bit
+
+;컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+
+Proc            PreM32UMix8Bit
+
+IF VOLUMERAMP
+                Xor     EAX, EAX
+                Xor     EBX, EBX
+                Mov     AX, Word Ptr [SI+1Eh]   ; Old
+                Mov     BX, Word Ptr [SI+0Eh]   ; New
+                Mov     DWord Ptr [CS:M32U8BLVC], EAX
+
+; Compensate for upwards ramp.
+
+                Cmp     BX, AX
+                JB      PreM32MixU8Bit2
+
+                Add     BX, RAMPCOMPENSATE
+
+PreM32MixU8Bit2:
+                Mov     DWord Ptr [CS:M32U8BLVSet], EBX
+
+                Mov     CX, CS:RealBytesToMix
+
+PreM32UMix8Bit1:
+                Mov     EDX, EBX
+                Sub     EDX, EAX
+                SAR     EDX, RAMPSPEED
+                Add     EAX, EDX
+
+                Loop    PreM32UMix8Bit1
+
+                Mov     [SI+1Eh], AX
+                Ret
+
+ELSE
+                Xor     EAX, EAX
+                Mov     AX, Word Ptr [SI+0Eh]
+                Mov     DWord Ptr [CS:M32U8BLVC], EAX
+                Mov     DWord Ptr [CS:M32U8BLVSet], EAX
+                Mov     [SI+1Eh], AX
+
+                Ret
+ENDIF
+
+EndP            PreM32UMix8Bit
+
+;컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+
+Proc            Mix32Stereo16Bit
+
+                ShL     AX, 3
+                Add     AX, SI
+                Mov     Word Ptr [CS:M32S16BEND], AX
+
+Mix32Stereo16Bit1:
+                Get16BitWaveform
+
+M32S16BLVC      EQU     $+3
+                IMul    EAX, EBX, 12345678h
+                Sub     [SI], EAX
+
+                Mov     CS:LastLeftValue, EAX
+
+M32S16BRVC      EQU     $+3
+                IMul    EAX, EBX, 12345678h
+                Sub     [SI+4], EAX
+
+                Mov     CS:LastRightValue, EAX
+
+                Add     CX, BP
+                AdC     DI, DX
+
+M32S16BLVSet    EQU     $+2
+                Mov     EAX, 12345678h          ; Destination volume left
+M32S16BRVSet    EQU     $+2
+                Mov     EBX, 12345678h          ; Destination volume right
+
+                Sub     EAX, DWord Ptr [CS:M32S16BLVC]     ; Delta
+                Sub     EBX, DWord Ptr [CS:M32S16BRVC]
+
+                SAR     EAX, RAMPSPEED
+                SAR     EBX, RAMPSPEED
+
+                Add     DWord Ptr [CS:M32S16BLVC], EAX
+                Add     DWord Ptr [CS:M32S16BRVC], EBX
+
+                Add     SI, 8
+
+M32S16BEND      EQU     $+2
+                Cmp     SI, 1234h
+                JNE     Mix32Stereo16Bit1
+
+                Ret
+
+EndP            Mix32Stereo16Bit
+
+;컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+
+Proc            PreM32SMix16Bit
+
+IF VOLUMERAMP
+                PushAD
+
+                Xor     EAX, EAX
+                Xor     EBX, EBX
+                Xor     EDX, EDX
+                Xor     EBP, EBP
+                Xor     EDI, EDI
+
+                Mov     AX, Word Ptr [SI+0Ch]   ; New right volume
+                Mov     BX, Word Ptr [SI+0Eh]   ; New left volume
+
+                Mov     DX, Word Ptr [SI+1Ch]   ; Old right volume
+                Mov     BP, Word Ptr [SI+1Eh]   ; Old left volume
+
+                Mov     DWord Ptr [CS:M32S16BRVC], EDX
+                Mov     DWord Ptr [CS:M32S16BLVC], EBP
+
+; Compensate for upwards ramp.
+
+                Cmp     AX, DX
+                JB      PreM32Mix16BitNoRightCompensate
+
+                Add     AX, RAMPCOMPENSATE
+
+PreM32Mix16BitNoRightCompensate:
+
+                Cmp     BX, BP
+                JB      PreM32Mix16BitNoLeftCompensate
+
+                Add     BX, RAMPCOMPENSATE
+
+PreM32Mix16BitNoLeftCompensate:
+                Mov     DWord Ptr [CS:M32S16BRVSet], EAX
+                Mov     DWord Ptr [CS:M32S16BLVSet], EBX
+
+; Now to figure out exact final volumes
+
+                Push    SI
+                Mov     CX, CS:RealBytesToMix
+
+PreM32Mix16Bit1:
+                Mov     ESI, EAX        ; Set values
+                Mov     EDI, EBX
+
+                Sub     ESI, EDX        ; Current values
+                Sub     EDI, EBP
+
+                SAR     ESI, RAMPSPEED
+                SAR     EDI, RAMPSPEED
+
+                Add     EDX, ESI
+                Add     EBP, EDI
+
+                Loop    PreM32Mix16Bit1
+                Pop     SI
+
+                Mov     Word Ptr [SI+1Ch], DX
+                Mov     Word Ptr [SI+1Eh], BP
+
+                PopAD
+                Ret
+ELSE
+
+                Xor     EAX, EAX
+                Xor     EBX, EBX
+
+                Mov     AX, Word Ptr [SI+0Ch]
+                Mov     BX, Word Ptr [SI+0Eh]
+
+                Mov     DWord Ptr [CS:M32S16BRVC], EAX
+                Mov     DWord Ptr [CS:M32S16BLVC], EBX
+
+                Mov     DWord Ptr [CS:M32S16BRVSet], EAX
+                Mov     DWord Ptr [CS:M32S16BLVSet], EBX
+
+                Mov     [SI+1Ch], AX
+                Mov     [SI+1Eh], BX
+
+                Ret
+ENDIF
+
+EndP            PreM32SMix16Bit
+
+;컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+
+Proc            Mix32Surround16Bit       ; Given DS:SI = buffer
+                                        ; Given ES:DI = sample
+                                        ; AX = bytes to mix
+                                        ; CX = error
+                                        ; DX = delta offset
+                                        ; BP = delta error
+
+                ShL     AX, 3
+                Add     AX, SI
+                Mov     Word Ptr [CS:M32U16BEND], AX
+
+Mix32Surround16Bit1:
+                Get16BitWaveForm
+
+M32U16BLVC       EQU     $+3
+                IMul    EAX, EBX, 12345678h
+                Sub     [SI], EAX
+
+M32U16BLVSet     EQU     $+2
+                Mov     EBX, 12345678h
+
+                Neg     EAX
+                Sub     EBX, DWord Ptr [CS:M32U16BLVC]
+
+                Sub     [SI+4], EAX
+
+                SAR     EBX, RAMPSPEED
+                Add     SI, 8
+
+                Add     CX, BP
+                AdC     DI, DX
+
+                Add     DWord Ptr [CS:M32U16BLVC], EBX
+
+M32U16BEND      EQU     $+2
+                Cmp     SI, 1234h
+                JNE     Mix32Surround16Bit1
+
+                Mov     CS:LastRightValue, EAX
+                Neg     EAX
+                Mov     CS:LastLeftValue, EAX
+                Ret
+
+EndP            Mix32Surround16Bit
+
+;컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+
+Proc            PreM32UMix16Bit
+
+IF VOLUMERAMP
+                Xor     EAX, EAX
+                Xor     EBX, EBX
+                Mov     AX, Word Ptr [SI+1Eh]
+                Mov     BX, Word Ptr [SI+0Eh]
+                Mov     DWord Ptr [CS:M32U16BLVC], EAX
+
+; Compensate for upwards ramp.
+
+                Cmp     BX, AX
+                JB      PreM32MixU16Bit2
+
+                Add     BX, RAMPCOMPENSATE
+
+PreM32MixU16Bit2:
+
+                Mov     DWord Ptr [CS:M32U16BLVSet], EBX
+
+                Mov     CX, CS:RealBytesToMix
+
+PreM32UMix16Bit1:
+                Mov     EDX, EBX
+                Sub     EDX, EAX
+                SAR     EDX, RAMPSPEED
+                Add     EAX, EDX
+
+                Loop    PreM32UMix16Bit1
+
+                Mov     [SI+1Eh], AX
+                Ret
+
+ELSE
+                Xor     EAX, EAX
+                Mov     AX, Word Ptr [SI+0Eh]
+                Mov     DWord Ptr [CS:M32U16BLVC], EAX
+                Mov     DWord Ptr [CS:M32U16BLVSet], EAX
+                Mov     [SI+1Eh], AX
+                Ret
+ENDIF
+
+EndP            PreM32UMix16Bit
+
+;컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+
+NUMBEROFFILTERBANDS     EQU     4
+
+ALIGN 4
+LastClickRemovalLeft    DD      0
+LastClickRemovalRight   DD      0
+StartingChannelOffset   DW      0
+FilterParameters        DB      64 Dup (7Fh), 64 Dup (0)
+FilterValues            DD      4*256 Dup (0)
+SampleFilterCopyOffset  DW      16*64
+FreqMultiplier          DD      3A9F7867h   ; = 1/(2*PI*110.0*2^0.25)
+FreqParameterMultiplier DD      0B92AAAAAh  ; = -1/(24*256)
+FilterFreqValue         DW      0
+NewControlWord          DW      7Fh
+include q.inc
+
+LastFilter              DD      NUMBEROFFILTERBANDS*2 Dup (0) ; 4 stereo values
+FilterCoefficients      DD      NUMBEROFFILTERBANDS*2 Dup (0)
+FilterVolumes           DD      NUMBEROFFILTERBANDS   Dup (0)
+
+;컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+
+Proc            IsSampleMode            ; returns zero flag if sample mode.
+
+                Push    DS
+
+                Mov     DS, CS:SongDataArea
+                Test    Byte Ptr [DS:2Ch], 4
+
+                Pop     DS
+                Ret
+
+EndP            IsSampleMode
+                Assume DS:Nothing
+
+;컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+
+Proc            M32MixHandler
+                                ; Clear output buffer first...
+
+                Mov     CS:StartingChannelOffset, SI
+
+                Push    CX
+
+                Mov     ES, CS:MixSegment
+                Mov     EAX, CS:BytesToMixFractional
+                Mov     CX, CS:BytesToMix
+                Add     CurrentFractional, EAX
+                AdC     CX, 0
+                Mov     CS:RealBytestoMix, CX
+;                Add     CX, CX          ; Stereo = 2 * BytesToMix
+;                Mov     DI, 32
+;                Xor     EAX, EAX
+;                Rep     StosD
+
+                Pop     CX
+
+                PushAD
+
+                Mov     EDX, CS:LastClickRemovalLeft
+                Mov     EBP, CS:LastClickRemovalRight
+
+; Do left first.
+                Mov     SI, 80
+                Mov     CX, CS:RealBytesToMix
+
+ClickRemoval3:
+
+Comment ~
+
+                Mov     [ES:SI], EDX
+                Mov     [ES:SI+4], EBP
+
+                Inc     EDX
+                JS      ClickRemoval4
+
+                Sub     EDX, 2
+                JGE     ClickRemoval4
+
+                Inc     EDX
+
+ClickRemoval4:
+                Inc     EBP
+                JS      ClickRemoval5
+
+                Sub     EBP, 2
+                JGE     ClickRemoval5
+
+                Inc     EBP
+
+ClickRemoval5:
+~
+
+                Mov     EAX, EDX
+                Mov     EBX, EBP
+                SAR     EAX, 12
+                SAR     EBX, 12
+                Mov     [ES:SI], EDX
+                Mov     [ES:SI+4], EBP
+
+                Sub     EAX, 1
+                AdC     EAX, 1
+                Sub     EBX, 1
+                AdC     EBX, 1
+
+                Sub     EDX, EAX
+                Sub     EBP, EBX
+
+                Add     SI, 8
+                Loop    ClickRemoval3
+
+                Mov     CS:LastClickRemovalLeft, EDX
+                Mov     CS:LastClickRemovalRight, EBP
+
+                PopAD
+
+                                ; Check each channel...
+                                ; Prepare mixing stuff
+
+; Work backwards
+                Mov     AX, CX
+                Dec     AX
+                ShL     AX, 7
+                Add     SI, AX
+
+M32MixHandler1:
+                Test    Byte Ptr [SI], 1
+                JZ      M32MixHandlerEnd2
+                Cmp     Byte Ptr [SI+36h], 100
+                JE      M32MixHandlerEnd2
+
+                Push    CX
+                Mov     BP, SI
+                Sub     BP, [CS:StartingChannelOffset]  ; BP = SlaveChannel*128
+                SHR     BP, 3                           ; BP = SlaveChannel*16
+                Mov     DI, BP
+                Add     BP, Offset FilterValues
+
+                Mov     CX, [SI]
+                Test    CH, 2
+                JZ      M32MixHandler13
+
+                                                        ; Note cut.
+                And     Byte Ptr [SI], Not 1            ; Turn off channel
+                Mov     Word Ptr [SI+4Ah], 0
+                Or      CL, 40h
+
+M32MixHandler13:
+                Test    CL, 20h         ; New freq?
+                JZ      M32MixHandler3
+
+                Mov     AX, [SI+10h]
+                Mov     DX, [SI+12h]
+                Mov     BX, MixSpeed
+                Cmp     DX, BX
+                JAE     M32MixHandlerError
+
+                Div     BX
+                ShL     EAX, 16
+                Xor     AX, AX
+                Div     BX
+                Mov     STEPVALUE, EAX
+
+M32MixHandler3:
+                Test    CH, 1                   ; New note?
+                JZ      M32MixHandler12
+
+                Xor     EAX, EAX
+                Mov     DWord Ptr [SI+1Ch], EAX
+                Mov     DWord Ptr [CS:BP], EAX
+                Mov     DWord Ptr [CS:BP+4], EAX
+                Mov     DWord Ptr [CS:BP+8], 3F800000h
+                Mov     DWord Ptr [CS:BP+0Ch], EAX
+
+M32MixHandler12:
+                Test    CX, 8440h               ; New volume, loop or pan?
+                JZ      M32MixHandler4
+
+                Mov     AL, [SI+3Ah]
+                Test    AL, AL
+                JNS     M32MixHandlerFilter1
+
+                Mov     BL, [SI+3Fh]
+                Jmp     M32MixHandlerFilter2
+
+M32MixHandlerFilter1:
+                Mov     DI, AX
+                And     DI, 63
+                Add     DI, Offset FilterParameters
+
+                Mov     AL, [CS:DI]
+                Mov     BL, [CS:DI+64]
+                Mov     [SI+5Bh], AL
+                Mov     [SI+3Fh], BL
+
+M32MixHandlerFilter2:
+                Mov     AL, [SI+3Eh]
+                Mul     Byte Ptr [SI+5Bh]
+                Mov     CS:FilterFreqValue, AX
+                ShR     AX, 8
+                Mov     AH, BL
+                AdC     AX, 0
+
+                Cmp     AX, 7Fh
+                JE      M32MixHandlerNoFilter
+
+                And     BX, 0FFh
+                ShL     BX, 2
+
+                FNInit
+                FLdCW   [CS:NewControlWord]
+
+                FILD    [CS:FilterFreqValue]         ; 0->127*256
+                FMul    [CS:FreqParameterMultiplier] ; -i/(24*256)
+                FLd     ST
+                FRndInt
+                FSub    ST(1), ST
+                FXCh
+                F2XM1
+                FLd1
+                FAdd
+                FScale                              ; = 2^(i/24*256)
+                FMul    [CS:FreqMultiplier]         ; = r
+                FLd     ST                              ; r, r
+                FMul    ST(1), ST                       ; r, r^2
+
+                FLd     [CS:QualityFactorTable+BX]      ; 2d, r, r^2
+                FMul    ST(1), ST                       ; 2d, 2dr, r^2
+                FLd1                                    ; 1, 2d, 2dr, r^2
+                FSubP   ST(1), ST                       ; 2d-1, 2dr, r^2
+                FAdd
+
+                FLd1                                    ; 1, d, e
+                FAdd    ST, ST(1)
+                FAdd    ST, ST(2)                       ; 1+d+e, d, e
+                FLd1                                    ; 1, 1+d+e, d, e
+                FDivRP  ST(1), ST                       ; 1/(1+d+e), d, e
+                FSt     DWord Ptr [CS:BP+8]
+                FXCh                                    ; d, 1/(1+d+e), e
+                FAdd    ST, ST(2)
+                FAddP   ST(2), ST                       ; 1/(1+d+e), d+2e
+                FMul
+                FStP    DWord Ptr [CS:BP+0Ch]
+                FStP    ST
+
+M32MixHandlerNoFilter:
+
+IF REGISTERED
+                Test    CH, 8
+                JNZ     M32MixHandler7
+
+                Cmp     CS:Stereo, 0
+                JE      M32MixHandler6
+
+                Mov     AL, [SI+37h]            ; Final pan
+                Cmp     AL, 100
+                JE      M32MixHandler6
+
+                Mul     Byte Ptr MixVolume
+                Mul     Word Ptr [SI+4Ah]
+                SHRD    AX, DX, 14
+
+                Mov     [SI+0Ch], AX            ; Store into right volume
+
+                Mov     AL, 64                  ; Do left volume
+                Sub     AL, [SI+37h]            ; AL = 64-FinalPan
+                Mul     Byte Ptr MixVolume
+                Mul     Word Ptr [SI+4Ah]       ; Final volume
+                SHRD    AX, DX, 14
+                Mov     [SI+0Eh], AX
+
+                                                ; Now to decide on mixing method
+                Cmp     DWord Ptr [SI+0Ch], 0
+                JNE     M32MixHandler5
+ELSE
+                Test    CH, 8
+                JZ      M32MixHandler6
+
+ENDIF
+
+M32MixHandler7:
+                                                ; Zero volume
+                Xor     EAX, EAX
+                Mov     [SI+0Ch], EAX
+                Cmp     [SI+1Ch], EAX           ; Last volumes = 0?
+                JE      M32MixHandler8
+
+M32MixHandler5:                                ; Other.. (ie. panned)
+                Mov     AX, 30
+                Jmp     M32MixHandler8
+
+M32MixHandler6:                                ; Surround sound
+                Mov     AX, [SI+4Ah]
+                Mul     MixVolume
+
+IF REGISTERED
+                ShRD    AX, DX, 8
+                Cmp     CS:Stereo, 0
+                JE      M32MixHandlerHalfStereoVolume
+
+                ShR     AX, 1
+
+M32MixHandlerHalfStereoVolume:
+
+ELSE
+
+                ShRD    AX, DX, 9
+ENDIF
+
+                Mov     [SI+0Ch], AX
+                Mov     [SI+0Eh], AX
+
+                Test    AX, AX
+                JNZ     M32MixHandlerSurround1
+
+                Cmp     DWord Ptr [SI+1Ch], 0
+                JE      M32MixHandler7
+
+M32MixHandlerSurround1:
+                Mov     AX, 60
+
+M32MixHandler8:
+                Mov     BL, [SI+0Ah]
+                Test    Byte Ptr [SI+18h], 2
+                JZ      M32MixHandler9
+
+                Add     AX, 90
+
+M32MixHandler9:
+                Cmp     BL, 8
+                JB      M32MixHandler11        ; No loop
+                JE      M32MixHandler10
+
+                Add     AX, 10
+
+M32MixHandler10:
+                Add     AX, 10
+
+M32MixHandler11:
+                Add     AX, Offset WAVMixingTable
+                Mov     [SI+8], AX              ; Offset...
+
+M32MixHandler4:
+                                                ; Mixing routine call...
+                Mov     BX, [SI+8]              ; BX = offset into
+                Mov     EAX, [CS:BX+2]
+                Mov     DWord Ptr PreMixFunction, EAX
+                Mov     EAX, [CS:BX+6]
+                Mov     DWord Ptr MixFunctionSeparateBackwards, EAX
+
+                Mov     AX, RealBytesToMix
+                Mov     MixBlockSize, AX
+                Mov     MixBufferOffset, 80
+
+                Mov     EAX, CURRENTPOSITION
+                Mov     OLDPOSITION, EAX
+
+                Cmp     CS:StartNoRamp, 0
+                JE      NoStartRamp
+
+                Test    CH, 1
+                JZ      NoStartRamp
+                Cmp     DWord Ptr [SI+4Ch], 0
+                JNE     NoStartRamp
+
+                Mov     EAX, [SI+0Ch]
+                Mov     [SI+1Ch], EAX
+
+NoStartRamp:
+
+                Mov     ES, CS:MixSegment       ; Get filter data
+                Mov     EAX, [CS:BP]            ; Last sample 1
+                Mov     EDX, [CS:BP+4]          ; Last sample 2
+                Mov     [ES:0], EAX
+                Mov     [ES:4], EDX
+                Mov     EAX, [CS:BP+8]          ; Filtera
+                Mov     EDX, [CS:BP+0Ch]        ; Filterb
+                Mov     [ES:10h], EAX
+                Mov     [ES:14h], EDX
+                FLd1
+                FSub    DWord Ptr [ES:10h]
+                FSub    DWord Ptr [ES:14h]
+                FStP    DWord Ptr [ES:18h]      ; Filterc
+
+                Push    BP
+                Call    Word Ptr [CS:BX]
+                Pop     BP
+
+                Mov     ES, CS:MixSegment       ; Store filter data
+                Mov     EAX, [ES:0]
+                Mov     EDX, [ES:4]
+                Mov     [CS:BP], EAX
+                Mov     [CS:BP+4], EDX
+
+                And     Word Ptr [SI], 0111100010001101b
+
+                Call    IsSampleMode
+                JNE     M32MixHandlerEnd
+
+                Mov     [CS:BP+16*64], EAX
+                Mov     [CS:BP+16*64+4], EDX
+                Mov     EAX, [CS:BP+8]
+                Mov     EDX, [CS:BP+0Ch]
+                Mov     [CS:BP+16*64+8], EAX
+                Mov     [CS:BP+16*64+0Ch], EDX
+
+                Jmp     M32MixHandlerEnd
+
+M32MixHandlerError:
+                Mov     Word Ptr [SI], 200h
+
+                Test    Byte Ptr [SI+3Ah], 80h
+                JNZ     M32MixHandlerEnd
+
+                Mov     BX, [SI+38h]
+                And     Byte Ptr [BX], Not 4    ; Turn off channel
+
+M32MixHandlerEnd:
+                Pop     CX
+
+M32MixHandlerEnd2:
+                Sub     SI, 128
+                Dec     CX
+                JNZ     M32MixHandler1
+
+                Push    CS
+                Pop     DS
+                        Assume DS:Driver
+
+                Xor     DI, DI
+                Mov     SI, Offset LastFilter
+                Mov     CX, 80/4
+                Mov     ES, MixSegment
+
+                Rep     MovsD
+
+; Now do filtering.
+                FNInit
+                Mov     CX, RealBytesToMix
+
+                Push    ES
+                Pop     DS
+                        Assume DS:Nothing
+
+                Mov     SI, 80
+
+OutputFilter1:
+                FILD    DWord Ptr [SI]          ; Left sample
+                FILD    DWord Ptr [SI+4]        ; R, L
+
+                FLd     DWord Ptr [DS:20h]      ; LB, R, L
+                FMul    ST, ST(2)               ; L.LB, R, L
+                FLd     DWord Ptr [DS:20h]      ; LB, L.LB, R, L
+                FMul    ST, ST(2)               ; R.LB, L.LB, R, L
+                FLd     DWord Ptr [DS:0]        ; OL, R.LB, L.LB, R, L
+                FMul    DWord Ptr [DS:24h]      ; OL.LB, R.LB, L.LB, R, L
+                FLd     DWord Ptr [DS:4]        ; OR, OL.LB, R.LB, L.LB, R, L
+                FMul    DWord Ptr [DS:24h]      ; OR.LB, OL.LB, R.LB, L.LB, R, L
+
+                FXCh                            ; OL.LB, OR.LB, R.LB, L.LB, R, L
+                FAddP   ST(3), ST
+                FAdd                            ; RLB, LLB, R, L
+
+                FLd     DWord Ptr [DS:28h]      ; MB, RLB, LLB, R, L
+                FMul    ST, ST(4)               ; L.MB, RLB, LLB, R, L
+                FLd     DWord Ptr [DS:28h]      ; MB, L.MB, RLB, LLB, R, L
+                FMul    ST, ST(4)               ; R.MB, L.MB, RLB, LLB, R, L
+                FLd     DWord Ptr [DS:8]        ; OL, R.MB, L.MB, RLB, LLB, R, L
+                FMul    DWord Ptr [DS:2Ch]      ; OL.MB, R.MB, L.MB, RLB, LLB, R, L
+                FLd     DWord Ptr [DS:0Ch]      ; OR, OL.MB, R.MB, L.MB, RLB, LLB, R, L
+                FMul    DWord Ptr [DS:2Ch]      ; OR.MB, OL.MB, R.MB, L.MB, RLB, LLB, R, L
+
+                FXCh                            ; OL.MB, OR.MB, R.MB, L.MB, RLB, LLB, R, L
+                FAddP   ST(3), ST
+                FAdd                            ; RMB, LMB, RLB, LLB, R, L
+                FXCh    ST(3)                   ; LLB, LMB, RLB, RMB, R, L
+                FStP    DWord Ptr [DS:0]
+                FStP    DWord Ptr [DS:8]
+                FStP    DWord Ptr [DS:4]
+                FStP    DWord Ptr [DS:0Ch]
+
+                FLd     DWord Ptr [DS:30h]
+                FMul    ST, ST(2)
+                FLd     DWord Ptr [DS:30h]
+                FMul    ST, ST(2)
+                FLd     DWord Ptr [DS:10h]
+                FMul    DWord Ptr [DS:34h]
+                FLd     DWord Ptr [DS:14h]
+                FMul    DWord Ptr [DS:34h]
+
+                FXCh
+                FAddP   ST(3), ST
+                FAdd
+
+                FLd     DWord Ptr [DS:38h]
+                FMul    ST, ST(4)
+                FLd     DWord Ptr [DS:38h]
+                FMul    ST, ST(4)
+                FLd     DWord Ptr [DS:18h]
+                FMul    DWord Ptr [DS:3Ch]
+                FLd     DWord Ptr [DS:1Ch]
+                FMul    DWord Ptr [DS:3Ch]
+
+                FXCh
+                FAddP   ST(3), ST
+                FAdd
+                FXCh    ST(3)
+                FStP    DWord Ptr [DS:10h]
+                FStP    DWord Ptr [DS:18h]
+                FStP    DWord Ptr [DS:14h]
+                FStP    DWord Ptr [DS:1Ch]      ; R, L
+
+; For each one, output value += ((band value) - (previous band value)) * Volume
+
+                FLd     DWord Ptr [DS:18h]
+                FSub    DWord Ptr [DS:10h]      ; L4, R, L
+                FLd     DWord Ptr [DS:1Ch]
+                FSub    DWord Ptr [DS:14h]      ; R4, L4, R, L
+                FLd     DWord Ptr [DS:10h]
+                FSub    DWord Ptr [DS:8]
+                FLd     DWord Ptr [DS:14h]
+                FSub    DWord Ptr [DS:0Ch]      ; R3, L3, R4, L4, R, L
+                FLd     DWord Ptr [DS:8]
+                FSub    DWord Ptr [DS:0]
+                FLd     DWord Ptr [DS:0Ch]
+                FSub    DWord Ptr [DS:4]        ; R2, L2, R3, L3, R4, L4, R, L
+                FXCh    ST(5)                   ; L4, L2, R3, L3, R4, R2, R, L
+                FMul    DWord Ptr [DS:4Ch]      ; L4V, L2, R3, L3, R4, R2, R, L
+                FXCh    ST(4)                   ; R4, L2, R3, L3, L4V, R2, R, L
+                FMul    DWord Ptr [DS:4Ch]      ; R4V, L2, R3, L3, L4V, R2, R, L
+                FXCh    ST(3)                   ; L3, L2, R3, R4V, L4V, R2, R, L
+                FMul    DWord Ptr [DS:48h]      ; L3V, L2, R3, R4V, L4V, R2, R, L
+                FXCh    ST(2)                   ; R3, L2, L3V, R4V, L4V, R2, R, L
+                FMul    DWord Ptr [DS:48h]      ; R3V, L2, L3V, R4V, L4V, R2, R, L
+                FXCh                            ; L2, R3V, L3V, R4V, L4V, R2, R, L
+                FMul    DWord Ptr [DS:44h]      ; L2V, R3V, L3V, R4V, L4V, R2, R, L
+                FXCh    ST(5)                   ; R2, R3V, L3V, R4V, L4V, L2V, R, L
+                FMul    DWord Ptr [DS:44h]      ; R2V, R3V, L3V, R4V, L4V, L2V, R, L
+                FXCh    ST(4)                   ; L4V, R3V, L3V, R4V, R2V, L2V, R, L
+                FAddP   ST(7), ST               ; R3V, L3V, R4V, R2V, L2V, R, L
+                FAddP   ST(5), ST               ; L3V, R4V, R2V, L2V, R, L
+                FAddP   ST(3), ST
+                FAdd
+                FLd     DWord Ptr [DS:0]
+                FMul    DWord Ptr [DS:40h]      ; L1V, RV, LV, R, L
+                FLd     DWord Ptr [DS:4]        ;
+                FMul    DWord Ptr [DS:40h]      ; R1V, L1V, RV, LV, R, L
+                FXCh    ST(2)                   ; RV, L1V, R1V, LV, R, L
+                FAddP   ST(4), ST               ; L1V, R1V, LV, R, L
+                FAddP   ST(4), ST               ; R1V, LV, R, L
+                FAddP   ST(2), ST
+                FAddP   ST(2), ST
+
+                FIStP   DWord Ptr [SI+4]
+                FIStP   DWord Ptr [SI]
+
+                Add     SI, 8
+                Dec     CX
+                JNZ     OutputFilter1
+
+; Transfer contents out
+                Push    CS
+                Pop     ES
+
+                Mov     DI, Offset LastFilter
+                Xor     SI, SI
+                Mov     CX, 32/4
+
+                Rep     MovsD
+; Finished output filtering!
+
+                Ret
+
+EndP            M32MixHandler
+
+;컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�

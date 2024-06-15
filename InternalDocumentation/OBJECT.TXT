@@ -1,0 +1,233 @@
+Object Types
+
+ Type 0: Box
+   Offset 0:            DW      0
+   Offset 2-5:          DB      Left/Top/Right/Bottom coordinates
+   Offset 6:            DB      Style.
+
+   Style Variables
+    0:  Thin box, dark all around
+    1:  Thin box, light all around
+    2:  Thick box, dark all around
+    3:  Thick box, light all around
+    4:  Thin box, 'Up'
+    5:  Thin box, 'Down'
+    6:  Thick box, 'Up'
+    7:  Thick box, 'Down'
+    8:  Within thin box, 'Up'
+    9:  Within thin box, 'Down'
+    10: Within thick box, 'Up'
+    11: Within thick box, 'Down'
+    12: Within thin box, dark            }
+    13: Within thin box, light           } Empty boxes.
+    14: Within thick box, dark           }
+    15: Within thick box, light          }
+    +16 = empty within.
+
+ Type 1: Text
+  Offset 0:             DW      1
+  Offset 2,3:           DB      X/Y coordinates
+  Offset 4:             DB      Colour
+  Offset 5:             [Text]
+
+ Type 2: Button
+  Offset 0:             DW      2
+  Offset 2-9:           DW      Up/Down/Left/Right associations
+  Offset 10:            DW      ButtonUsageType
+  Offset 12-15:         [UsageType Data]
+  Offset 16:            DW      ButtonEffectType
+  Offset 18-27:         [ButtonEffectType Data]
+  Offset 28-31:         DB      Left/Top/Right/Bottom coordinates
+  Offset 32:            DB      Button Style (refer to box style)
+  Offset 33:            DB      Button flags
+                                Bit 0: Up/Down flag (0=up, 1=down)
+                                Bit 1:
+  Offset 34:            [Button Text]
+
+  ButtonUsageType Variable
+   0:  Normal press-release buttons
+       Data: None
+   1:  Toggle press/release buttons
+       Data: None
+   2:  Radio button effect (one of selection)
+       Data:    DW      Min list range, Max list range
+
+  ButtonEffectType
+   0:  Return Value
+       Data:    DW      Return Value
+   1:  New Object List
+       Data:    DD      DWord Ptr ObjectList
+   2:  Call Function
+       Data:    DD      DWord Ptr Function
+   3:  Set Button variable
+       Data:    DW      VariableOffset
+                DW      Value
+   4:  Jump to Function
+       Data     DD      DWord Ptr Function
+   5:  Set variable
+       Data     DD      DWord Ptr Function, returning ES:DI with mem location
+                DW      Value to set it to/check for
+                DW      2 * Value to pass to function
+   6:  Check variable, and jump to function
+       Data     DD      DWord Ptr Function, returning ES:DI with mem location
+                DW      Value to set it to/check for
+                DD      Function to jump to
+
+ Type 3: Empty
+ Type 4: Empty
+
+ Type 5: Select Direct Screen
+  Offset 0:             DW      5
+  Offset 2:             DB      Mode (0=Buffered, 1=Direct)
+
+ Type 6: Redefine Characters
+  Offset 0:             DW      6
+  Offset 2:             DW      FirstCharacterToDefine
+  Offset 4:             DW      NumberOfCharactersToDefine
+  Offset 6:             [CharacterDefinitionTable]
+
+ Type 7: Empty
+
+ Type 8: Call Far Function
+  Offset 0:             DW      8
+  Offset 2:             DD      DWord Ptr (Pre)Function
+
+ Type 9: Thumb bar
+  Offset 0:             DW      9
+  Offset 2:             DB      X/Y coordinates
+  Offset 4:             DW      MinRange, MaxRange
+  Offset 8:             DW      WriteData1, WriteData2
+  Offset 12:            DW      Up/Down/Tab/Shift-Tab associations
+                        DW      PgUp/PgDn
+
+   WriteData1:
+    0:Panning
+    1:GetPEVariables
+    2:Sample Variables
+    3:GetMusicVariables (Song)
+    4:Channel Volume settings
+    5:LoadSampleVariables
+    6:InstrumentVariables
+    7:Screen Variables (eg. palette)
+    8:Inst (segment) variable
+    9:Driver segment, WriteData2 = offset
+
+ Type 10: Infoline
+  Offset 0:             DW      10
+  Offset 2:             [Text]
+
+ Type 11: Set help context
+  Offset 0:             DW      11
+  Offset 2:             DW      HelpContextNumber
+
+ Type 12: OrderListData
+  Offset 0:             DW      12
+  Offset 2:             DB      X/Y coordinates
+  Offset 4:             DW      Length of list (vertical)
+  Offset 6-9:           DW      Left/Right associations
+
+ Type 13: 3 Num Entry
+  Offset 0:             DW      13
+  Offset 2:             DB      X/Y coordinates
+  Offset 4:             DW      Ptr Info 1
+  Offset 6:             DW      Ptr Info 2
+  Offset 8:             DD      DWord Ptr CheckFunction (0=none)
+  Offset 12:            DW      Up/Down/Right/Left associations
+
+   Ptr Info 1:
+    0: Instrument header. Ptr Info 2 = offset
+
+
+ Type 14: Scalable Thumb bar
+  Offset 0:             DW      14
+  Offset 2:             DB      X/Y coordinates
+  Offset 4:             DW      MinRange, MaxRange
+  Offset 8:             DW      WriteData1, WriteData2
+  Offset 12:            DW      Up/Down/Tab/Shift-Tab associations
+                        DW      PgUp/PgDn
+  Offset 24             DW      DisplayLength
+
+   WriteData1:
+    0:Panning
+    1:GetPEVariables
+    2:Sample Variables
+    3:GetMusicVariables (Song)
+    4:Channel Volume settings
+    5:LoadSampleVariables
+    6:InstrumentVariables
+    7:Screen Variables (eg. palette)
+    8:Inst (segment) variable
+    9:Driver segment, WriteData2 = offset
+
+ Type 15: Call Far Function 2
+  Offset 0:             DW      15
+  Offset 2:             DD      DWord Ptr PreFunction
+  Offset 6:             DD      DWord Ptr DrawFunction
+  Offset 10:            DD      DWord Ptr Postfunction
+
+ Type 16: String Input
+  Offset 0:             DW      16
+  Offset 2:             DB      X/Y coordinates
+  Offset 4:             DW      LocationFunctionNumber1, LocationFunctionNumber2
+  Offset 8:             DW      Size (Length, including terminating null)
+  Offset 10:            DD      DWord Ptr FunctionOnEnter (0 = no function)
+  Offset 14:            DW      Up/Down/Tab/Shift-Tab associations
+
+   LocationFunctionNumber1
+    0: Disk segment, LFN2 = Offset
+    1: SamplePtr.
+    2: Instrument segment, LFN2 = Offset
+    3: Load Sample Ptr.
+    4: Music (song) segment, LFN2 = offset
+    5: Function segment, LFN2 = offset
+    6: Instrument Ptr.
+
+ Type 17: Toggle
+  Offset 0:             DW      17
+  Offset 2:             DB      X/Y coordinates
+  Offset 4:             DW      Ptr Info 1
+  Offset 6:             DW      Ptr Info 2
+  Offset 8:             DB      Bit Toggle
+  Offset 9:             DW      Up/Down/Right/Left associations
+
+   Ptr Info 1:
+    0: Sample header. Ptr Info 2 = offset in header.
+    1: Pattern segment (code). Ptr Info 2 = offset.
+    2: Music (song) segment. Ptr Info 2 = offset
+    3: Load sample header. Ptr info 2 = offset in header.
+    4: Instrument header. Ptr Info 2 = offset in header.
+
+ Type 18: 5NumEntry
+  Offset 0:             DW      18
+  Offset 2:             DB      X/Y coordinates
+  Offset 4:             DW      Ptr Info 1
+  Offset 6:             DW      Ptr Info 2
+  Offset 8:             DD      DWord Ptr CheckFunction (0=none)
+  Offset 12:            DW      Up/Down/Right/Left associations
+
+   Ptr Info 1:
+    0: Sample header. Ptr Info 2 = offset.
+    1: Sample load header. Ptr Info 2 = offset.
+    2: Inst Segment (for sample resize).
+
+
+Main menu return values.
+  0: Function not handled
+  1: Redraw screen
+  2: Goto prefunction
+  3: Goto keyboard input
+  4: Handled, return value.
+  5: New list in CX:DX, SI contains new action
+
+;------------
+
+Special string data:
+        ; 0 = End of string
+        ; 13 = Next line
+        ; 10 = Toggle character sets
+        ; 0FFh, x, n = repeat character n 'x' times
+        ; 0FEh, x = set colour to x
+        ; 0FDh, 'D' = show decimal number
+        ; 0FDh, 'X' = show hex number
+        ; 0FDh, 'S' = show signed number
+        ; 0FDh, 'L' = show long number

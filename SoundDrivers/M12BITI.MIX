@@ -1,0 +1,866 @@
+
+                        ; Different mixing routines required:
+                        ;  Left         } shared
+                        ;  Right        }
+                        ;  Central
+                        ;  Surround
+                        ;  Panned ; Each requires 8 bit and 16 bit
+                        ; Single output - for Mono, pure left/pure right
+
+                ; Interpolation = [DI+1]*Error + [DI]*(1-Error)
+                ;               = [DI+1]*Error + [DI] - [DI]*Error
+                ;               = Error*([DI+1]-[DI]) + [DI]
+
+
+Get8BitIWaveform Macro
+        MovSX   EBX, Byte Ptr [ES:DI]   ; 5
+        MovSX   EAX, Byte Ptr [ES:DI+1] ; 5
+        Sub     EAX, EBX                ; 2
+        IMul    EAX, ECX
+        SAR     EAX, 16                 ; 3
+        Add     BL, AL                  ; 1
+
+EndM
+
+Get16BitIWaveform Macro
+        MovSX   EBX, Byte Ptr [ES:EDI+EDI+1]   ; 5
+        MovSX   EAX, Byte Ptr [ES:EDI+EDI+3] ; 5
+        Sub     EAX, EBX                ; 2
+        IMul    EAX, ECX
+        SAR     EAX, 16                 ; 3
+        Add     BL, AL                  ; 1
+
+EndM
+
+M12Mix8ISingle Macro Index
+
+M12Mix8ISingle&Index&:
+        Get8BitIWaveform
+
+M12Mix8ISingleVolume&Index&   EQU $+1
+        Mov     BH, 12h
+        Add     BX, BX
+
+        Add     ERROR, DELTAERROR
+        Mov     AX, [BX]
+        AdC     DI, DELTAOFFSET                                 ;; 1
+        Sub     [SI+(Index-15)*MixResolution/4+EXTRAOFFSET], AX ;; 3
+
+EndM
+
+M12Mix8ICentral Macro   Index
+
+M12Mix8ICentral&Index&:
+        Get8BitIWaveform
+
+M12Mix8ICentralVolume&Index&   EQU $+1
+        Mov     BH, 12h
+        Add     BX, BX
+
+        Add     ERROR, DELTAERROR                               ;; 1
+        Mov     AX, [BX]                                        ;; 2
+        AdC     DI, DELTAOFFSET                                 ;; 1
+        Sub     [SI+(Index-15)*MixResolution/4+EXTRAOFFSET], AX ;; 3
+        Sub     [SI+(Index-15)*MixResolution/4+MixResolution/8+EXTRAOFFSET], AX ;; 3
+
+EndM
+
+M12Mix8ISurround Macro   Index
+
+M12Mix8ISurround&Index&:
+        Get8BitIWaveform
+
+M12Mix8ISurroundVolume&Index&   EQU $+1
+        Mov     BH, 12h
+        Add     BX, BX
+
+        Add     ERROR, DELTAERROR                               ;; 1
+        Mov     AX, [BX]                                        ;; 2
+        AdC     DI, DELTAOFFSET                                 ;; 1
+        Sub     [SI+(Index-15)*MixResolution/4+EXTRAOFFSET], AX ;; 3
+        Add     [SI+(Index-15)*MixResolution/4+MixResolution/8+EXTRAOFFSET], AX ;; 3
+
+EndM
+
+M12Mix8IPanned Macro Index
+
+M12Mix8IPanned&Index&:
+        Get8BitIWaveform
+
+M12Mix8IPannedVolume&Index&   EQU $+1
+        Mov     BH, 12h
+        Add     BX, BX
+
+        Add     ERROR, DELTAERROR
+        AdC     DI, DELTAOFFSET
+        Mov     AX, [BX]
+        Sub     [SI+(Index-15)*MixResolution/4+EXTRAOFFSET], AX
+
+M12Mix8IPannedRightVolumeOffset&Index&  EQU $+3
+        Mov     AX, [BX+1200h]
+        Sub     [SI+(Index-15)*MixResolution/4+MixResolution/8+EXTRAOFFSET], AX
+
+EndM
+
+M12Mix16ISingle Macro Index
+
+M12Mix16ISingle&Index&:
+        Get16BitIWaveForm
+
+M12Mix16ISingleVolume&Index&   EQU $+1
+        Mov     BH, 12h
+        Add     BX, BX
+
+        Add     ERROR, DELTAERROR
+        Mov     AX, [BX]
+        AdC     DI, DELTAOFFSET
+        Sub     [SI+(Index-15)*MixResolution/4+EXTRAOFFSET], AX
+
+EndM
+
+M12Mix16ICentral Macro Index
+
+M12Mix16ICentral&Index&:
+        Get16BitIWaveform
+
+M12Mix16ICentralVolume&Index&   EQU $+1
+        Mov     BH, 12h
+        Add     BX, BX
+
+        Add     ERROR, DELTAERROR
+        Mov     AX, [BX]
+        AdC     DI, DELTAOFFSET
+        Sub     [SI+(Index-15)*MixResolution/4+EXTRAOFFSET], AX
+        Sub     [SI+(Index-15)*MixResolution/4+MixResolution/8+EXTRAOFFSET], AX
+
+EndM
+
+M12Mix16ISurround Macro Index
+
+M12Mix16ISurround&Index&:
+        Get16BitIWaveform
+
+M12Mix16ISurroundVolume&Index&   EQU $+1
+        Mov     BH, 12h
+        Add     BX, BX
+
+        Add     ERROR, DELTAERROR
+        Mov     AX, [BX]
+        AdC     DI, DELTAOFFSET
+        Sub     [SI+(Index-15)*MixResolution/4+EXTRAOFFSET], AX
+        Add     [SI+(Index-15)*MixResolution/4+MixResolution/8+EXTRAOFFSET], AX
+
+EndM
+
+                        ; Panned output
+M12Mix16IPanned Macro Index
+
+M12Mix16IPanned&Index&:
+        Get16BitIWaveform
+
+M12Mix16IPannedVolume&Index&   EQU $+1
+        Mov     BH, 12h
+        Add     BX, BX
+
+        Add     ERROR, DELTAERROR
+        AdC     DI, DELTAOFFSET
+        Mov     AX, [BX]
+        Sub     [SI+(Index-15)*MixResolution/4+EXTRAOFFSET], AX
+
+M12Mix16IPannedRightVolumeOffset&Index&  EQU $+3
+        Mov     AX, [BX+1200h]
+        Sub     [SI+(Index-15)*MixResolution/4+MixResolution/8+EXTRAOFFSET], AX
+
+EndM
+
+;ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
+
+Mix12Single8BitIOffsetTable      Label   Word
+
+        IndexCounter    =       15
+
+        M12Mix8ISingleOffset Macro Index
+                DW      Offset M12Mix8ISingle&Index&
+        EndM
+
+        REPT 16
+                M12Mix8ISingleOffset     %IndexCounter
+                IndexCounter = IndexCounter-1
+        EndM
+
+Proc            Mix12Single8BitI
+                                                ; AX = count...
+
+                ; Number of times to loop = (Count-1) / 16
+
+                Dec     AX
+                Mov     BX, AX
+                And     AX, 0Fh
+                ShR     BX, 4
+                Add     AX, AX
+                Inc     BX
+                Mov     LoopCounter, BX
+                Mov     BX, AX
+
+                ShL     AX, RESOLUTIONSHIFT-1
+
+                Add     SI, AX
+
+                Jmp     [CS:Mix12Single8BitIOffsetTable+BX]
+
+                M12Mix8ISingle 0
+                M12Mix8ISingle 1
+                M12Mix8ISingle 2
+                M12Mix8ISingle 3
+                M12Mix8ISingle 4
+                M12Mix8ISingle 5
+                M12Mix8ISingle 6
+                M12Mix8ISingle 7
+                M12Mix8ISingle 8
+                M12Mix8ISingle 9
+                M12Mix8ISingle 10
+                M12Mix8ISingle 11
+                M12Mix8ISingle 12
+                M12Mix8ISingle 13
+                M12Mix8ISingle 14
+                M12Mix8ISingle 15
+
+                Add     SI, 16*MIXRESOLUTION/4
+                Dec     LoopCounter
+                JNZ     M12Mix8ISingle0
+
+                Ret
+
+EndP            Mix12Single8BitI
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Proc            PreMix12Left8BitI
+
+                Mov     AL, [SI+0Eh]
+
+PreMix12Left8BitI1:
+
+        IndexCounter = 0
+
+        PreMix12Single8BitIMacro Macro Index
+                Mov     Byte Ptr [CS:M12Mix8ISingleVolume&Index&], AL
+        EndM
+
+        REPT 16
+                PreMix12Single8BitIMacro  %IndexCounter
+                IndexCounter = IndexCounter+1
+        EndM
+
+                Ret
+
+EndP            PreMix12Left8BitI
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Proc            PreMix12Right8BitI
+
+                Add     MixBufferOffset, MixResolution/8
+                Mov     AL, [SI+0Ch]
+                Jmp     PreMix12Left8BitI1
+
+                Ret
+
+EndP            PreMix12Right8BitI
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Mix12Central8BitIOffsetTable      Label   Word
+
+        IndexCounter    =       15
+
+        M12Mix8ICentralOffset Macro Index
+                DW      Offset M12Mix8ICentral&Index&
+        EndM
+
+        REPT 16
+                M12Mix8ICentralOffset    %IndexCounter
+                IndexCounter = IndexCounter-1
+        EndM
+
+Proc            Mix12Central8BitI
+
+                Dec     AX
+                Mov     BX, AX
+                And     AX, 0Fh
+                ShR     BX, 4
+                Add     AX, AX
+                Inc     BX
+                Mov     LoopCounter, BX
+                Mov     BX, AX
+
+                ShL     AX, RESOLUTIONSHIFT-1
+
+                Add     SI, AX
+
+                Jmp     [CS:Mix12Central8BitIOffsetTable+BX]
+
+                M12Mix8ICentral 0
+                M12Mix8ICentral 1
+                M12Mix8ICentral 2
+                M12Mix8ICentral 3
+                M12Mix8ICentral 4
+                M12Mix8ICentral 5
+                M12Mix8ICentral 6
+                M12Mix8ICentral 7
+                M12Mix8ICentral 8
+                M12Mix8ICentral 9
+                M12Mix8ICentral 10
+                M12Mix8ICentral 11
+                M12Mix8ICentral 12
+                M12Mix8ICentral 13
+                M12Mix8ICentral 14
+                M12Mix8ICentral 15
+
+                Add     SI, 16*MIXRESOLUTION/4
+                Dec     LoopCounter
+                JNZ     M12Mix8ICentral0
+
+                Ret
+
+EndP            Mix12Central8BitI
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Proc            PreMix12Central8BitI
+
+                Mov     AL, [SI+0Eh]
+
+        IndexCounter = 0
+
+        PreMix12Central8BitIMacro Macro Index
+                Mov     Byte Ptr [CS:M12Mix8ICentralVolume&Index&], AL
+        EndM
+
+        REPT 16
+                PreMix12Central8BitIMacro  %IndexCounter
+                IndexCounter = IndexCounter+1
+        EndM
+
+                Ret
+
+EndP            PreMix12Central8BitI
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Mix12Surround8BitIOffsetTable      Label   Word
+
+        IndexCounter    =       15
+
+        M12Mix8ISurroundOffset Macro Index
+                DW      Offset M12Mix8ISurround&Index&
+        EndM
+
+        REPT 16
+                M12Mix8ISurroundOffset    %IndexCounter
+                IndexCounter = IndexCounter-1
+        EndM
+
+Proc            Mix12Surround8BitI
+
+                Dec     AX
+                Mov     BX, AX
+                And     AX, 0Fh
+                ShR     BX, 4
+                Add     AX, AX
+                Inc     BX
+                Mov     LoopCounter, BX
+                Mov     BX, AX
+
+                ShL     AX, RESOLUTIONSHIFT-1
+
+                Add     SI, AX
+
+                Jmp     [CS:Mix12Surround8BitIOffsetTable+BX]
+
+                M12Mix8ISurround 0
+                M12Mix8ISurround 1
+                M12Mix8ISurround 2
+                M12Mix8ISurround 3
+                M12Mix8ISurround 4
+                M12Mix8ISurround 5
+                M12Mix8ISurround 6
+                M12Mix8ISurround 7
+                M12Mix8ISurround 8
+                M12Mix8ISurround 9
+                M12Mix8ISurround 10
+                M12Mix8ISurround 11
+                M12Mix8ISurround 12
+                M12Mix8ISurround 13
+                M12Mix8ISurround 14
+                M12Mix8ISurround 15
+
+                Add     SI, 16*MIXRESOLUTION/4
+                Dec     LoopCounter
+                JNZ     M12Mix8ISurround0
+
+                Ret
+
+EndP            Mix12Surround8BitI
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Proc            PreMix12Surround8BitI
+
+                Mov     AL, [SI+0Eh]
+
+        IndexCounter = 0
+
+        PreMix12Surround8BitIMacro Macro Index
+                Mov     Byte Ptr [CS:M12Mix8ISurroundVolume&Index&], AL
+        EndM
+
+        REPT 16
+                PreMix12Surround8BitIMacro  %IndexCounter
+                IndexCounter = IndexCounter+1
+        EndM
+
+                Ret
+
+EndP            PreMix12Surround8BitI
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Mix12Panned8BitIOffsetTable      Label   Word
+
+        IndexCounter    =       15
+
+        M12Mix8IPannedOffset Macro Index
+                DW      Offset M12Mix8IPanned&Index&
+        EndM
+
+        REPT 16
+                M12Mix8IPannedOffset    %IndexCounter
+                IndexCounter = IndexCounter-1
+        EndM
+
+Proc            Mix12Panned8BitI
+
+                Dec     AX
+                Mov     BX, AX
+                And     AX, 0Fh
+                ShR     BX, 4
+                Add     AX, AX
+                Inc     BX
+                Mov     LoopCounter, BX
+                Mov     BX, AX
+
+                ShL     AX, RESOLUTIONSHIFT-1
+
+                Add     SI, AX
+
+                Jmp     [CS:Mix12Panned8BitIOffsetTable+BX]
+
+                M12Mix8IPanned 0
+                M12Mix8IPanned 1
+                M12Mix8IPanned 2
+                M12Mix8IPanned 3
+                M12Mix8IPanned 4
+                M12Mix8IPanned 5
+                M12Mix8IPanned 6
+                M12Mix8IPanned 7
+                M12Mix8IPanned 8
+                M12Mix8IPanned 9
+                M12Mix8IPanned 10
+                M12Mix8IPanned 11
+                M12Mix8IPanned 12
+                M12Mix8IPanned 13
+                M12Mix8IPanned 14
+                M12Mix8IPanned 15
+
+                Add     SI, 16*MIXRESOLUTION/4
+                Dec     LoopCounter
+                JNZ     M12Mix8IPanned0
+
+                Ret
+
+EndP            Mix12Panned8BitI
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Proc            PreMix12Panned8BitI
+
+                Mov     AL, [SI+0Eh]
+
+        IndexCounter    =       0
+
+        PreMix12Panned8BitIMacro Macro Index
+                Mov     Byte Ptr [CS:M12Mix8IPannedVolume&Index&], AL
+        EndM
+
+        REPT 16
+                PreMix12Panned8BitIMacro    %IndexCounter
+                IndexCounter = IndexCounter+1
+        EndM
+
+                Mov     AL, [SI+0Ch]
+                Sub     AL, [SI+0Eh]
+                Add     AL, AL
+
+        IndexCounter    =       0
+
+        PreMix12Panned8BitIMacro2 Macro Index
+                Mov     Byte Ptr [CS:M12Mix8IPannedRightVolumeOffset&Index&], AL
+        EndM
+
+        REPT 16
+                PreMix12Panned8BitIMacro2   %IndexCounter
+                IndexCounter = IndexCounter+1
+        EndM
+
+                Ret
+
+EndP            PreMix12Panned8BitI
+
+;ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
+
+Mix12Single16BitIOffsetTable      Label   Word
+
+        IndexCounter    =       15
+
+        M12Mix16ISingleOffset Macro Index
+                DW      Offset M12Mix16ISingle&Index&
+        EndM
+
+        REPT 16
+                M12Mix16ISingleOffset     %IndexCounter
+                IndexCounter = IndexCounter-1
+        EndM
+
+Proc            Mix12Single16BitI
+                                                ; AX = count...
+
+                ; Number of times to loop = (Count-1) / 16
+
+                Dec     AX
+                Mov     BX, AX
+                And     AX, 0Fh
+                ShR     BX, 4
+                Add     AX, AX
+                Inc     BX
+                Mov     LoopCounter, BX
+                Mov     BX, AX
+
+                ShL     AX, RESOLUTIONSHIFT-1
+
+                Add     SI, AX
+
+                Jmp     [CS:Mix12Single16BitIOffsetTable+BX]
+
+                M12Mix16ISingle 0
+                M12Mix16ISingle 1
+                M12Mix16ISingle 2
+                M12Mix16ISingle 3
+                M12Mix16ISingle 4
+                M12Mix16ISingle 5
+                M12Mix16ISingle 6
+                M12Mix16ISingle 7
+                M12Mix16ISingle 8
+                M12Mix16ISingle 9
+                M12Mix16ISingle 10
+                M12Mix16ISingle 11
+                M12Mix16ISingle 12
+                M12Mix16ISingle 13
+                M12Mix16ISingle 14
+                M12Mix16ISingle 15
+
+                Add     SI, 16*MIXRESOLUTION/4
+                Dec     LoopCounter
+                JNZ     M12Mix16ISingle0
+
+                Ret
+
+EndP            Mix12Single16BitI
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Proc            PreMix12Left16BitI
+
+                Mov     AL, [SI+0Eh]
+
+PreMix12Left16BitI1:
+
+        IndexCounter = 0
+
+        PreMix12Single16BitIMacro Macro Index
+                Mov     Byte Ptr [CS:M12Mix16ISingleVolume&Index&], AL
+        EndM
+
+        REPT 16
+                PreMix12Single16BitIMacro  %IndexCounter
+                IndexCounter = IndexCounter+1
+        EndM
+
+                Ret
+
+EndP            PreMix12Left16BitI
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Proc            PreMix12Right16BitI
+
+                Add     MixBufferOffset, MixResolution/8
+                Mov     AL, [SI+0Ch]
+
+                Jmp     PreMix12Left16BitI1
+
+EndP            PreMix12Right16BitI
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Mix12Central16BitIOffsetTable      Label   Word
+
+        IndexCounter    =       15
+
+        M12Mix16ICentralOffset Macro Index
+                DW      Offset M12Mix16ICentral&Index&
+        EndM
+
+        REPT 16
+                M12Mix16ICentralOffset    %IndexCounter
+                IndexCounter = IndexCounter-1
+        EndM
+
+Proc            Mix12Central16BitI
+
+                Dec     AX
+                Mov     BX, AX
+                And     AX, 0Fh
+                ShR     BX, 4
+                Add     AX, AX
+                Inc     BX
+                Mov     LoopCounter, BX
+                Mov     BX, AX
+
+                ShL     AX, RESOLUTIONSHIFT-1
+
+                Add     SI, AX
+
+                Jmp     [CS:Mix12Central16BitIOffsetTable+BX]
+
+                M12Mix16ICentral 0
+                M12Mix16ICentral 1
+                M12Mix16ICentral 2
+                M12Mix16ICentral 3
+                M12Mix16ICentral 4
+                M12Mix16ICentral 5
+                M12Mix16ICentral 6
+                M12Mix16ICentral 7
+                M12Mix16ICentral 8
+                M12Mix16ICentral 9
+                M12Mix16ICentral 10
+                M12Mix16ICentral 11
+                M12Mix16ICentral 12
+                M12Mix16ICentral 13
+                M12Mix16ICentral 14
+                M12Mix16ICentral 15
+
+                Add     SI, 16*MIXRESOLUTION/4
+                Dec     LoopCounter
+                JNZ     M12Mix16ICentral0
+
+                Ret
+
+EndP            Mix12Central16BitI
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Proc            PreMix12Central16BitI
+
+                Mov     AL, [SI+0Eh]
+
+        IndexCounter = 0
+
+        PreMix12Central16BitIMacro Macro Index
+                Mov     Byte Ptr [CS:M12Mix16ICentralVolume&Index&], AL
+        EndM
+
+        REPT 16
+                PreMix12Central16BitIMacro  %IndexCounter
+                IndexCounter = IndexCounter+1
+        EndM
+                Ret
+
+EndP            PreMix12Central16BitI
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Mix12Surround16BitIOffsetTable      Label   Word
+
+        IndexCounter    =       15
+
+        M12Mix16ISurroundOffset Macro Index
+                DW      Offset M12Mix16ISurround&Index&
+        EndM
+
+        REPT 16
+                M12Mix16ISurroundOffset    %IndexCounter
+                IndexCounter = IndexCounter-1
+        EndM
+
+Proc            Mix12Surround16BitI
+
+                Dec     AX
+                Mov     BX, AX
+                And     AX, 0Fh
+                ShR     BX, 4
+                Add     AX, AX
+                Inc     BX
+                Mov     LoopCounter, BX
+                Mov     BX, AX
+
+                ShL     AX, RESOLUTIONSHIFT-1
+
+                Add     SI, AX
+
+                Jmp     [CS:Mix12Surround16BitIOffsetTable+BX]
+
+                M12Mix16ISurround 0
+                M12Mix16ISurround 1
+                M12Mix16ISurround 2
+                M12Mix16ISurround 3
+                M12Mix16ISurround 4
+                M12Mix16ISurround 5
+                M12Mix16ISurround 6
+                M12Mix16ISurround 7
+                M12Mix16ISurround 8
+                M12Mix16ISurround 9
+                M12Mix16ISurround 10
+                M12Mix16ISurround 11
+                M12Mix16ISurround 12
+                M12Mix16ISurround 13
+                M12Mix16ISurround 14
+                M12Mix16ISurround 15
+
+                Add     SI, 16*MIXRESOLUTION/4
+                Dec     LoopCounter
+                JNZ     M12Mix16ISurround0
+
+                Ret
+
+EndP            Mix12Surround16BitI
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Proc            PreMix12Surround16BitI
+
+                Mov     AL, [SI+0Eh]
+
+        IndexCounter = 0
+
+        PreMix12Surround16BitIMacro Macro Index
+                Mov     Byte Ptr [CS:M12Mix16ISurroundVolume&Index&], AL
+        EndM
+
+        REPT 16
+                PreMix12Surround16BitIMacro  %IndexCounter
+                IndexCounter = IndexCounter+1
+        EndM
+
+                Ret
+
+EndP            PreMix12Surround16BitI
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Mix12Panned16BitIOffsetTable      Label   Word
+
+        IndexCounter    =       15
+
+        M12Mix16IPannedOffset Macro Index
+                DW      Offset M12Mix16IPanned&Index&
+        EndM
+
+        REPT 16
+                M12Mix16IPannedOffset    %IndexCounter
+                IndexCounter = IndexCounter-1
+        EndM
+
+Proc            Mix12Panned16BitI
+
+                Dec     AX
+                Mov     BX, AX
+                And     AX, 0Fh
+                ShR     BX, 4
+                Add     AX, AX
+                Inc     BX
+                Mov     LoopCounter, BX
+                Mov     BX, AX
+
+                ShL     AX, RESOLUTIONSHIFT-1
+
+                Add     SI, AX
+
+                Jmp     [CS:Mix12Panned16BitIOffsetTable+BX]
+
+Pan12BitI16Loop:
+                M12Mix16IPanned 0
+                M12Mix16IPanned 1
+                M12Mix16IPanned 2
+                M12Mix16IPanned 3
+                M12Mix16IPanned 4
+                M12Mix16IPanned 5
+                M12Mix16IPanned 6
+                M12Mix16IPanned 7
+                M12Mix16IPanned 8
+                M12Mix16IPanned 9
+                M12Mix16IPanned 10
+                M12Mix16IPanned 11
+                M12Mix16IPanned 12
+                M12Mix16IPanned 13
+                M12Mix16IPanned 14
+                M12Mix16IPanned 15
+
+                Add     SI, 16*MIXRESOLUTION/4
+                Dec     LoopCounter
+                JNZ     Pan12BitI16Loop
+
+                Ret
+
+EndP            Mix12Panned16BitI
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Proc            PreMix12Panned16BitI
+
+                Mov     AL, [SI+0Eh]
+
+        IndexCounter    =       0
+
+        PreMix12PannedMacro Macro Index
+                Mov     Byte Ptr [CS:M12Mix16IPannedVolume&Index&], AL
+        EndM
+
+        REPT 16
+                PreMix12PannedMacro    %IndexCounter
+                IndexCounter = IndexCounter+1
+        EndM
+
+                Mov     AL, [SI+0Ch]
+                Sub     AL, [SI+0Eh]
+                Add     AL, AL
+
+        IndexCounter    =       0
+
+        PreMix12PannedMacro2 Macro Index
+                Mov     Byte Ptr [CS:M12Mix16IPannedRightVolumeOffset&Index&], AL
+        EndM
+
+        REPT 16
+                PreMix12PannedMacro2   %IndexCounter
+                IndexCounter = IndexCounter+1
+        EndM
+
+                Ret
+
+EndP            PreMix12Panned16BitI
+
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+

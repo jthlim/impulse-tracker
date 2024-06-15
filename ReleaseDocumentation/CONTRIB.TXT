@@ -1,0 +1,595 @@
+
+      To all of the following people listed, I offer my heartfelt thanks.
+              Impulse Tracker would not be the same without them.
+
+                       ---------------------------------
+                         Demosongs for Impulse Tracker
+                       ---------------------------------
+
+        IT1.00 - "Firestorm"            - Chris Jarvis
+        IT1.01 - "Pale Dreams"          - Chris Jarvis
+        IT1.03 - "Firepower"            - Chris Jarvis
+        IT1.05 - "Sidewalk"             - Chris Jarvis
+        IT1.06 - "Creation of Gaia"     - Sherman Wu (ZaStaR)
+        IT2.00 - "Fallen World"         - Chris Jarvis
+        IT2.01 - "A Hidden Fate"        - Chris Jarvis
+        IT2.04 - "Winter's Dream"       - Andy Sega (Necros)
+        IT2.08 - "Acid Dreams"          - Liam Widdowson (Legend)
+        IT2.14 - "Blue Flame"           - Chris Jarvis
+
+
+                   -----------------------------------------
+                     Additional Coding for Impulse Tracker
+                   -----------------------------------------
+
+        Impulse Tracker Font Customiser - Sherman Wu (ZaStaR)
+        Impulse Tracker Text Importer   - Sherman Wu (ZaStaR)
+        Music Module Compression        - Emmanual Giasson (Zirconia)
+        Keyboard Configuration files    - Stefan Kucharik (Eliot)
+
+
+                             ----------------------
+                               Website Management
+                             ----------------------
+
+        USA Site                - Shawn Mativetsky (Shawn202)
+                                  http://www.noisemusic.org/it
+        UK Site                 - Andi Simpson (Imminent)
+                                  http://www.mixbbs.demon.co.uk
+        European Site           - Joost Baaij (CH:ilm)
+                                  (no longer operational)
+        Spanish Site            - Javier Gutierrez
+                                  http://www.musica.org/impulse
+        Music and Tracking Site - Matthias Ziegs (MAZ)
+                                  http://www.maz-sound.com
+        IT Resource Central     - Matthew Gardner
+                                  http://www.unidev.com/~logic/music/it
+
+
+                             ----------------------
+                               Documentation Help
+                             ----------------------
+
+        ASCII Logos               - Ze`ev Nissan (Cruel Creator)
+        FILE_ID.DIZ               - Ze`ev Nissan (Cruel Creator)
+        MIDI Output documentation - Andre Pang (Ozone)
+
+
+--------------------------------------------------------------------------------
+
+                                Hardware Thanks
+
+                    (Sorted alphabetically by company name)
+
+                    ---------------------------------------
+
+Company:  Advanced Micro Devices (AMD)
+Received: Interwave Board
+Website:  http://www.amd.com
+Notes:    AMD has discontinued the production of the Interwave chips.
+          Nonetheless, thank-you to Christopher Cox for his excellent service.
+
+                    ---------------------------------------
+
+Company:  Creative Laboratories
+Received: Sound Blaster AWE32
+Website:  http://www.creaf.com
+
+                    ---------------------------------------
+
+Company:  Hanmesoft / Hoontech, Korea
+Received: Sound Track '97
+          Sound Track '97 PCI
+Website:  http://www.hoontech.com
+Notes:    The Sound Track '97 PCI is the worlds first fully SBPro and WSS
+          compatible PCI card and has some of the best features ever seen
+          on a soundcard! For bangs per buck, it's hard to beat one of these!
+
+          Thanks go to Haejin Park and to Seungho Pak!
+
+                    ---------------------------------------
+
+Company:  Synergy Advanced Technology (Taiwan)
+Received: ViperMAX
+Website:  http://www.synergy.ca/pctoybox
+Notes:    For a fully compatible Gravis UltraSound card with perfect Sound
+          Blaster compatibility, check out the ViperMAX cards - providing
+          the best of two worlds without the troubles of PnP.
+
+          Special thanks go to James Hsu, Synergy Advanced Technology.
+
+                    ---------------------------------------
+
+Company:  TerraTec International
+Received: AudioSystem EWS64XL
+          SoundSystem Maestro 32/96
+          SoundSystem Maestro 16/96
+          SoundSystem Gold 16/96
+          SoundSystem Base1
+Website:  http://www.terratec.de
+Notes:    Terratec produces extremely high quality soundcards to cover
+          everyone's needs - check out their high end EWS64XL cards!
+
+          Thanks go to the entire Terratec Team, especially Kay Bruns,
+          Wim Roegels and Sascha Kamps - 3 of the team that I've had
+          the pleasure to come in contact with!
+
+
+--------------------------------------------------------------------------------
+
+                                 Contributions
+                               -----------------
+
+(sorted in alphabetical order, listing is Full Name / Alias / Country + notes)
+
+Name                 Alias         Country         Notes
+-------------------------------------------------------------------------------
+
+<Withheld>           Dire          Portugal
+<Withheld>           KjWise        Iceland
+Egor Abramov                       Russia
+Habib Al-Assaad
+Tony Allen                         UK          MEGA HUGE contribution, thanks!
+Simon Altman         P'Wolverine   Australia
+Tal Amir                           Israel
+Asbjoern Andersen    Mystical      Denmark
+Steven Anderson                    USA         Big contribution, thanks!
+Mikael Andersson                   Sweden
+Thomas Andersson     Divion        Sweden
+Peter Andries                      Belgium
+Jose Angel                         Spain
+Tor Erik Arntzen                   Norway
+Nicolas Arrouet      Onix4MAN      France
+Patrick Arzul                      Sth Africa  Big contribution, thanks!
+Tal Asa
+Peter Askel”f                      Sweden
+Hans-Joachim Backe                 Germany
+Martin Bahner                      Norway
+Erick Baker                        USA         Big contribution, thanks!
+Rodger Ballard       Saqquara      USA
+Brandon Bannerman    Catspaw       USA
+John Barger                        USA         MEGA HUGE contribution, thanks!!
+Alex Barnell                       England
+Matthew Barnes                     USA
+Jayson Barrons                     USA
+Claus Bartels                      Germany
+Jonathan Bartlett
+Michael Baumann                    Germany
+David Benjamin                     USA
+Brian Bennetts       Daedalus      USA
+Vaughan Bentley                    South Africa
+John Bergman                       USA         Big contribution, thanks!
+Jeff Best                          Australia
+Allen Bettilyon      Tremlo        USA
+Bastiaan Bijl        Thanatos      Netherlands
+Mike Blaine
+Christian Bode                     Germany
+Lembrecht Bodo                     Germany
+Fabian Boes                        Germany
+Vicente Beltran Boil Razz          Spain
+Zozo Bogyo                         Hungary     Big contribution, thanks!
+Nathan Bonfiglio     Ash                       Please contact me!
+Eman Borg                          Malta
+Gianluca Bove        Yello '73     Italy
+Martin Boverhof                    Netherlands
+Alexander Brandon    Siren         USA
+Yannis Brown         Yannis        Australia
+Remko Brugman        Digistorm     Netherlands
+Michael Buchholtz                  Germany     Big contribution, thanks!
+J”rg Burbach                       Germany
+Mike Burrell         MikPos        Canada
+Clay Busker                        USA         Big contribution, thanks!
+Jeremy Butcher                     Netherlands
+Robert Buecker III                 USA
+Gunnar Buettner                    Germany
+Jim Cairns                         Canada
+Rimas Campe                        USA
+Mike Cantelon        Foolish Bird  Canada
+Isaac Carrasco                     Spain       Big contribution, thanks!
+Edward Cashin                      USA
+Zach Cappelletti     Shams Kitz    USA
+Michael Carlsson     Silverstance  Sweden
+Christopher Castiglione            USA
+Nilton Catsillo                    Chile
+Hector Chang         ZoneSeek      Canada      Big contribution, thanks!
+Eric Charlent        Spher-X       France
+Eric Chavanon                      France
+Andy Chen                          USA
+Charles Cho          Deadsoul      USA         Big contribution, thanks!
+Kenny Chou                         USA
+Rick Christy         GrymmJack     USA
+Rogier Claessens                   Netherlands Big contribution, thanks!
+Jeff Clement                       Canada
+David Clipperton                   Canada
+Mike Cody                          USA
+Shoshi Cohen                       Israel
+Caleb Coppock                      USA         Big contribution, thanks!
+Ben Cormier                        Canada
+David Cornish                      Australia   Big contribution, thanks!
+Martin Cosgrave                    UK
+Antony Cowderoy                    UK
+David Cox-Espenlaub                USA
+Matt Cramer                        USA
+Jim Crawford         Pfister       USA
+Dan Cunningham       Pentatonic    USA         Big contribution, thanks!
+Daniel Cunningham                  Ireland
+David Cuny                         USA
+Nicholas Dahlin                    Denmark
+Chad Dahlquist
+Christopher Daniel                 USA
+Tristan Daniel       Jesus2099     France
+Thomas Daniels III                 USA         MEGA HUGE contribution, thanks!
+Ben Dany
+Tulio Guimaraes da Silva           Brazil      HUGE contribution, thanks!
+Dave Davis                         USA
+Tomer Dayan                        Israel
+Fabio De Araujo Neves              Brazil
+Benoit De Greift     Eagle         Belgium
+David Dean           Sector4       Australia
+Pierre Decourcelles                France      Big contribution, thanks!
+Barthelemy Defossez                France
+Guy Detienne                       Belgium
+John Dietzel                       USA
+John Di Giacomo                    USA
+Luciano Di Lucrezia  Spectrum                  Big contribution, thanks!
+Nick Dinges                        Germany
+Robin Dittwald       Satixu        Germany
+Siem Doodeman                      Netherlands
+Asaf Dor
+Stephen Dredge                     Australia
+Andrew Dun                         Australia
+Dave Dunger                        Australia
+Andrew Durk                        USA
+Florian Dvorski      Thunk         Germany
+Brendan Ebel                       USA
+Adam Ebringer                      Australia
+Michael Edwards                    UK
+John Ehmann                        Canada
+Richard Eijkenbroek                Netherlands
+Michael Elis                       Isreal
+Garrett Ellis                      USA
+Irad Eshel                         Israel
+Scott Esposto                      USA
+Alexander Ewering    Internal      Germany
+Gary Feinmesser                    England
+Nick Feldman                       UK
+Jim Fergusson                      USA
+Robin Fernandes                    France
+Dan Fetherstonhaugh                England
+Reuben Firmin        Rubz          Scotland    Big contribution, thanks!
+Kyle Fischer                       USA
+Edward Flick                       USA
+Brad Folkens                       USA
+Adam Frank                         USA
+Andrew Franks        Derelict      USA
+Graham Freeman                     Australia
+Calvin French                      Canada
+Joseph Freund                      Australia
+David Friberg                      USA
+Matt Friedly         Subliminal    USA
+Richard Funke                      Norway
+James Furness                      UK
+Robert Gage                        Australia
+Miles Gannett                      USA
+Peter Gaywood                      UK
+Christopher General                Canada
+Giovanni Giampieri                 Italy       Big contribution, thanks!
+Slavko Glamocanin                  Slovenia
+Owen Godwin                        USA
+Markus Goetz         Cookie Jar    Germany     Big contribution, thanks!
+John Goforth                       USA
+David Goodale                      Canada
+Ferdinand Gozum      DJ            USA
+Jeff Graham                        USA         HUGE contribution, thanks!
+Joseph Graham        BrianXavier   USA
+Micah Greenlay                     USA
+Lorenzo Grifi                      Italy
+Sebastian Grillmaier Wayfinder     Germany
+Moritz Grimm         Maxx          Germany
+Karsten Grombach                   Germany     Big contribution, thanks!
+Ariel Gross          Stalker       USA         HUGE contribution, thanks!
+Sylvian Guiraud                    France      Big contribution, thanks!
+Joe Hahn                           USA
+Peter Hajba          Skaven        Finland
+Doris Hamburger                    USA
+Tim Hamers                         Netherlands
+David Hamilton                     England
+Eric Hamilton        Dilvish       USA         Big contribution, thanks!
+John Harris                        USA
+Todd Hartley         Tronster      USA
+Ian Haskin           SiN           Canada
+John Hastie                        USA
+Joshua Hastey        Ith           USA
+Thomas Havelka                     USA
+David Hays           D-Range       USA
+Axel Hedfors                       Sweden
+Brett Helgeson                     Australia   Big contribution, thanks!
+Greg Heo                           Canada      Big contribution, thanks!
+Liam Hesse           Lemm          England
+Anthony Hicks                      USA
+Robert Hilpert                     Germany     MEGA HUGE contribution, thanks!
+Erik Hjelmvik        Tweety        Sweden
+Jason Hlisic         isotone       Australia   Big contribution, thanks!
+John Hobson                        USA
+Rune Holm            TitanStar     Norway
+Krystal Holstein                   USA         Big contribution, thanks!
+Alexandre Holzhey                  Brazil
+Aake Honkaniemi      PAH           Finland     Big contribution, thanks!
+Raymon Hoving                      Finland
+Troy Howard                        USA         Big contribution, thanks!
+Ben Howell           Rhythm        USA
+Shu Hung                           Canada      Big contribution, thanks!
+Ryan Hunt            Pinion        USA
+David Hunter                       USA
+Steve Hunter                       UK          Big contribution, thanks!
+Samuel Hurst                       Australia
+Kohan Ikin                         Australia
+Sam Izzo             Jestyr        Australia
+Shane Jackson        MetaMan       Canada
+Keith Jagielski                    USA
+Daniel Janiak        Redrick       Slovakia    Big contribution, thanks!
+Marko Janssen                      Netherlands
+Simon Jarosch        Vivid         Germany
+Chris Jarvis                       Australia
+Dave Jeavons         Realclean     Australia   HUGE contribution, thanks!
+James Jeen                         Australia
+Joshua Jersild                     USA
+Jan Jirak                          Czechoslovakia
+Robert Johnson       Xenopraxis
+Mischa Jonker                      Netherlands
+Ben Just                           Australia   Big contribution, thanks!
+Jaakko Kaivosoja                   Finland
+Steffen Kamprath                   Germany
+Frank Kane                         USA
+Ben Kapper                         Netherlands
+Ilpo Karkkainen      Griffin       Finland
+Tero Karkinen                      Finland
+Thomas Karolczak     Mindflyer XS
+Cole Kelley                        USA
+Keith Kelly          Syrinx        USA
+Mehran Khalili       Screamager    Luxembourg
+Leonard Khiroug                    USA
+Richard Kidwell                    USA
+Thomas Kim                         USA
+David Klande                       Germany
+Martin Kleinman      Brain         Netherlands
+Martin Klossek                     Germany
+Bart Knol            Armadon       Netherlands
+Stephen Knowles                    USA
+Odd Henry Knutsen                  Netherlands
+Henning Koch                       Germany
+Alexander Koenig                   Germany
+David Kondrad                      USA
+Zaf Korbetis                       Australia   Big contribution, thanks!
+Evan Korzon                        USA
+Christopher Kowalski               USA
+Kristof Kowalski     Cyntax        Australia
+Kevin Krebs                        Canada
+Bert Kroes                         Netherlands
+Peter Kunath                       Germany     MEGA HUGE contribution, thanks!
+Rich La Bonte        Flatrich      USA
+Michael Ladanyi                    Canada
+Brian J LaMattina                  USA
+Perttu Lamminm„ki                  Finland
+William Lamy         willbe        France
+Adam Langdon-Thomas                UK
+Janet Lankester                    USA
+Patrick Lea                        Australia
+Jon Leahy                          UK          HUGE contribution, thanks!
+Steven LeBeau                      USA
+Eliot Lee            PrOtoCoL      USA         Big contribution, thanks!
+Nicolas Leveille     Knos          France
+Buzz Libre                         USA
+Rik Ling                           USA
+Randy Locklair                     USA         MEGA HUGE contribution, thanks!
+Michael Loftus                     USA         MEGA HUGE contribution, thanks!
+Kris Long                          USA
+Jerome Majewski                    USA         HUGE contribution, thanks!
+Sami M„kinen                       Finland
+Don Manton                         Canada
+Peter Mares                        South Africa
+Anthony Marin        Verminator    USA
+Norman Mark          Nothing More  Canada
+Alexander Martin                   Germany
+Mike Ma'rton                       Hungary
+Akos Matte           Bat & Cyborg  Hungary
+Lucas Higa Mattsson                Sweden
+Nicola McAleer                     Ireland
+Brad McKinnon        EtherWizard   USA         Big contribution, thanks!
+Ray McManus                        USA
+Keith McNally                      Canada
+Glen McNiece                       Australia
+Vincent Meijer                     Netherlands
+Mitchell Menghi                    Australia
+David Menkes         Behemoth      USA
+Mike Merker                        Canada
+Jonathan Mesiano-Crookston         Canada
+Christopher Micali   Zephyr        USA
+John Michael-Lloyd                 USA         Big contribution, thanks!
+Chris Michetti                     Canada
+Pekka Mikkola                      Finland
+Alex Milla                         Spain
+Matthew Miller                     Australia   HUGE contribution, thanks!
+Tracey Miller                      Australia   Big contribution, thanks!
+Matthew Mitchell                   USA         Big contribution, thanks!
+Chun-Yan Miu                       Hong Kong
+Mauro Molinari       DjM           Italy
+Lutz M”ller                        Germany
+Jo Moore                           USA
+Freddy Mousseau                    France
+Marten Mons                        Netherlands
+F. Edmund Mueller                  USA
+Markus Mueller       G42           Germany     Big contribution, thanks!
+Paul Munson                        Canada
+Aaron Murray                       USA
+Eric Nadeau                        Canada
+Riley Nagler                       USA
+Tirone Nel                         South Africa
+Frank Nentwich                     Germany
+Mikkel Nordberg                    Denmark     HUGE contribution, thanks!
+Gary Norris                        USA
+Fumihiro Odaki                     Japan
+Michiyasu Odaki                    Japan
+John O'Laughlin                    USA
+Anthony Oetzmann     AiRON         Germany
+Xavier Orengo                      USA
+Frido Otten          Cybertron     Netherlands Big contribution, thanks!
+Olli Paasovaara                    Finland
+Robert Pain                        UK
+Jonathan Pak         Maelstrom     Australia
+Andre Pang           Ozone         Australia
+Adam Parker                        USA
+Jourden Parks        AllenKray     USA
+Kiran Patil                        USA         Big contribution, thanks!
+Stefan Pavlov
+Christian Pfaff                    Germany     Big contribution, thanks!
+Jean-Luc Pedneault                 Canada
+Nick Pelling                       UK
+P-J Perrussel-Morin  CyberNitrox   France      Big contribution, thanks!
+Chaim Peter-Chester                USA
+Claus Peterson                     Denmark     Big contribution, thanks!
+Felix Petrescu       Waka X        Romania
+Henri Pihkala                      Estonia
+Jason Phelps                       USA         Big contribution, thanks!
+Miklavz Pirnat
+Eddie Plaskur        Mexican Beans Australia
+Harout Pogossian     HP
+Eric Pomerleau       O'Realitea    Canada
+Pascal Q. Porcupine  Spikey        USA         Big contribution, thanks!
+William Price                      USA
+Alexander Rahm                     Germany     HUGE contribution, thanks!
+Hazhir Ranjram       Balk          USA
+Alessandro Rascazzo  Antitesi      Italy
+Pasi Rastas                        Finland
+Justin Ray           Zinc          Canada
+Tobias Reckhard      Jester        Germany
+Jimmy Redfern        Jimmy         Ireland
+Justin Reid          Stein         USA
+Viktor Rez                         Hungary
+Owyn Richen
+Dan Richters                       USA         Big contribution, thanks!
+Jay Ridley                         Australia
+Michael Riegel                     USA
+Todd Rieger                        USA         Big contribution, thanks!
+James Rimmer                       USA
+Brendan Robert                     USA
+Jeff Robinson                      USA
+Josh Rodman          K8to          USA         MEGA HUGE contribution, thanks!
+Jens Roeben                        Germany
+Nick Rose            Phantasm      Canada
+Ryan Ross                          Canada
+Benjamin Rumbaugh                  USA
+Keijo Ruonamaa       Gze           Finland
+Geert Rutten         Loonatic      Netherlands
+Hannu Salonen        Salomon       Finland
+Kevin Salt                         Netherlands
+Mark Sanders                       USA
+Denis dos Santos                   Brazil
+Adi Sapir            Doc           Israel
+Janne Savolainen                   Finland
+Ben Saylor                         USA         Big contribution, thanks!
+Konrad Schandera     iCEWiND       GERMANY
+H.R. Scheper-Keuter  Josuf         Netherlands
+Gerben Schmidt                     Netherlands
+Martin Schmidt                     Germany
+Daniel Schwab                      Germany
+Wolfgang Schwarz                   Germany     Big contribution, thanks!
+Matthew Scott                      USA
+Kristian Sergiejew                 Poland
+Saurin Shah          Nebula        USA
+Jarrod Sharp                       Australia
+Dan Shaw                           USA
+Ryan Shaw                          USA
+Shaul Shentai                      Israel      HUGE contribution, thanks!
+Philip Shipley                     USA
+Oren Shomron                       Isreal
+Josh Silvey                        USA
+Morten Skarstad                    Norway
+Peter Skeide                       Norway      MEGA HUGE contribution, thanks!
+Steven Slater                      Canada
+Martijn Sneijder                   Netherlands
+Trond Smevik         Poke          Norway
+Greg Smith                         Canada
+Zachary Smith        Dr. Zachary   USA
+Christoph S”llner    AGENT S       Germany
+Scott Sorenson                     USA
+Nicolas Soudee       Zoner         USA         Big contribution, thanks!
+Michael Soutar       MSoutar       Australia
+Kasper Souren                      Netherlands
+Patrick Stacey                     Australia
+Nick Stanfield                     UK
+Andrew Ryan Stinnett               USA
+Ian Stocker          RabiteMan     USA         Big contribution, thanks!
+Mark Straver         Moonchild     Netherlands
+Jer Sypult                         USA
+Charles Tabourot                   France
+Ravon Tamar          RavEon        Israel
+Patrice Tarabbia     Mercure       France
+Jason Le Sueur Tatum               USA         Big contribution, thanks!
+Thor Teague                        USA
+Michael Teehan                     USA         Big contribution, thanks!
+Michel ten Voorde                  Netherlands
+Franck Theuex                      France      Big contribution, thanks!
+Michael Thomas                     USA
+Sebastian Thomas                   Scotland
+Jaymz Thompson
+Philip Thompson                    UK
+Franz Thues                        Germany
+Gabriele Tittarelli  T.S.P.        Italy
+Jason Tracer         Electric Keet USA
+Nash Trajkowski                    Australia
+Eric Tremblay        DeltaX        Canada
+Brad Turcotte                      Canada
+Michael Twarkowsky                 Germany
+Asbjorn Ulsberg                    Norway
+Martin Underwood                   UK
+Jani V„is„nen                      Finland
+Mathew Valente       TSSF          Canada
+David Van Dromme     Stormlord     Belgium
+Ryan Van Eerdewijk                 Canada
+Marti Van Lin
+Erik Van Hengstum                  Netherlands
+Ernst Van Rossum                   Netherlands
+Filip Van Schoor     Cantaloup     Belgium
+Jan Van Stiphout
+Maarten Van Strien   Crystal Score Netherlands
+Jos vd Geest                       Netherlands
+Oscar Vela                         Spain
+Markus Visti                       Finland
+Ganesh Viswanathan   Genosha       India
+Benjamin Vogt                      Australia
+Edwin Volkmer                      Netherlands
+Vincent Voois        Vv            Netherlands MEGA HUGE contribution, thanks!
+Fredrik Von Braun                  Sweden
+Arno Vryman                        Netherlands
+Petri Vuorio                       Finland
+Ben Waddington                     Australia   Big contribution, thanks!
+Gerd Wagner                        Germany
+Chris Wallace        CTS           USA
+Thomas Walter        Subsonic      Australia
+Adrian Ward                        England     HUGE contribution, thanks!
+Timothy Weller       Flukey        USA
+Bill Wells                         USA
+Mike Wells                         USA
+Inyoung Whang                      USA
+Jemi White                         Australia
+Brian Wickman        CD            USA
+Liam Widdowson       Legend        Australia
+Gene Wie             Psibelius     USA         Big contribution, thanks!
+David Wiernicki      Perisoft      USA         Big contribution, thanks!
+John Williams        Jackal        USA
+John Wilson                        USA
+Tobias Wilton                      Sweden      Big contribution, thanks!
+Mathias Wintzer
+Marco Wotschadlo                   Germany
+Doug Wright          Netriangle    USA
+Fuming Wu            Adi           Taiwan
+Takeshi Yamamoto                   Japan       Huge contribution, thanks!
+Shane Yates          AlphaRISC     Australia
+David Zearing                      USA
+Daniel Zegiel                      USA
+Matthias Ziegs       MAZ           Germany
+
+... where's your name? :)
+
+

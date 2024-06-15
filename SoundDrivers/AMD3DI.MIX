@@ -1,0 +1,56 @@
+
+; 8-bit interpolated mixing routine, 4 samples at a time. Rearranged
+; MM7 contains volume as packed floating point
+; MM6 contains offset as packed integer offset
+; MM5 = DeltaOffset
+
+; MM7 = RVol|LVol
+; MM6 = (1-Offset2)|Offset2|(1-Offset1)|Offset1
+
+        MovD            MM0, [SampleBlock1]     ; MM0 = x|x|x|x|S2H|S2L|S1H|S1L
+        MovQ            MM2, MM6
+
+        PSRAW           MM2, 1
+        PUnpckLBW       MM0, MM0                ; MM0 = S2H|S2L|S1H|S1L
+
+        PAddW           MM6, MM5
+        PMAddWD         MM0, MM2                ; MM0 = IS2|IS1
+
+        MovD            MM1, [SampleBlock2]     ; MM1 = x|x|x|x|S4H|S4L|S3H|S3L
+        MovQ            MM2, MM6
+
+        PUnpckLBW       MM1, MM1                ; MM1 = S4H|S4L|S3H|S3L
+        PSRAW           MM2, 1
+
+        PI2FD           MM0, MM0                ; MM0 = FIS2|FIS1
+        PMAddWD         MM1, MM2                ; MM1 = IS4|IS3
+
+        MovQ            MM2, MM0
+        PUnpckLDQ       MM0, MM0                ; MM0 = FIS1|FIS1
+
+        PUnpckHDQ       MM2, MM2                ; MM2 = FIS2|FIS2
+        PI2FD           MM1, MM1                ; MM1 = FIS4|FIS3
+
+        PFMul           MM0, MM7                ; MM0 = R1|L1
+        PAddW           MM6, MM5
+
+        PFMul           MM2, MM7                ; MM2 = R2|L2
+        MovQ            MM3, MM1
+
+        PFAdd           MM0, [Buffer1]
+        PUnpckLDQ       MM1, MM1                ; MM1 = FIS3|FIS3
+
+        PFAdd           MM2, [Buffer2]
+        PUnpckHDQ       MM3, MM3                ; MM3 = FIS4|FIS4
+
+        PFMul           MM1, MM7
+        MovQ            [Buffer1], MM0
+
+        PFMul           MM3, MM7
+        PFAdd           MM1, [Buffer3]
+
+        MovQ            [Buffer2], MM2
+        PFAdd           MM3, [Buffer4]
+
+        MovQ            [Buffer3], MM1
+        MovQ            [Buffer4], MM3

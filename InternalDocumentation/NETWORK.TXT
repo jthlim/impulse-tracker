@@ -1,0 +1,126 @@
+
+                      Network protocol for Impulse Tracker
+
+Impulse Tracker will only interface with similar versions of IT.
+
+Block format
+
+Offset  Size    Meaning
+0       Word    Block type
+2       Word    Block length
+4       Data    Basic data, depending on block type.
+x+[2]   Word    CRC Check
+
+Block types
+
+ออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออ
+Block type 0 - Acknowledge receipt - targeted
+ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+
+Offset  Size    Meaning
+0       Word    Block type received
+2       Word    Status
+
+Status: Bit 0 = Off = OK, On = resend
+
+ออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออ
+Block type 1 - Ping
+ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+
+Offset  Size    Meaning
+0       String  "Impulse Tracker 2.?? Ping Packet"
+
+ออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออ
+Block type 2 - Pattern data packet - global
+ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+
+Offset  Size    Meaning
+0       Byte    Pattern number
+1       Byte    Row
+2       Byte    Column
+3       Byte    Data mask
+4       Varies  Data
+
+Data mask
+ Bit 0: Note
+ Bit 1: Instrument
+ Bit 2: Volume
+ Bit 3: Effect
+ Bit 4: Effect data
+
+Absence of information does NOT imply clearing.
+
+ออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออ
+Block type 3 - Pattern data block packet - global
+ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+
+Offset  Size    Meaning
+0       Byte    Pattern number
+1       Byte    Block width
+2       Byte    Block height
+3       Varies  Data
+
+Data is a block_width * block_height array as structured:
+
+Data mask:
+ Bit 0: Note
+ Bit 1: Instrument
+ Bit 2: Volume
+ Bit 3: Effect
+ Bit 4: Effect data
+
+Absence of information DOES imply clearing.
+
+ออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออ
+Block type 4 - "Song Segment variable" modification - global
+ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+
+Offset  Size    Meaning
+0       Word    Offset in SongSegment
+2       Word    Length of data
+4       Varies  Data
+
+ออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออ
+Block type 5 - Sample data - global
+ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+
+Offset  Size    Meaning
+0       Word    Sample number
+4       DWord   Offset in sample
+8       Varies  Data
+
+ออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออ
+Block type 6 - Chat packet - targeted/global
+ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
+
+Offset  Size    Meaning
+0       Word    Length of data
+2       Varies  Data
+
+
+ออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออ
+                       Functions required of the drivers
+ออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออ
+
+Initialise - basic setup code. Return error if driver unavailable in current
+             environment.
+Connect Interface - provides connection interface, sets up a tracking
+                    connection, returns a handle
+Management Interface - provides management interface for connection,
+                       status information etc.
+Disconnect - shut down a tracking connection to a particular handle
+MaximumPacketSize - returns the maximum size in bytes that the driver can
+                    process at any time.
+Send data - given handle (0 = send to all), data packet (a maximum size as
+            returned by MaximumPacketsize)
+Receive data poll - called frequently by the main program to check for
+                    incoming data. Approx. 2nd highest priority (after
+                    sound driver IRQ)
+
+ออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออ
+                       Functions provided to the drivers
+ออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออ
+
+ProcessDataReveived - called when any data is received.
+UnloadDriver - remove driver from memory (when no connections exist any longer)
+Alert - when data is not being transferred.

@@ -1,0 +1,304 @@
+
+; 8-bit non interpolated mixing routine, 8 samples at a time. Not rearranged
+
+; MM7 contains volume as packed floating point  MM7 = RVol|LVol
+
+        MovD            MM0, [SampleBlock1]   ; Low 4 bytes contain samples 1-4
+        MovD            MM1, [SampleBlock2]   ; Low 4 bytes contain samples 5-8
+
+        PUnpckLBW       MM0, MM0        ; MM0 = S4|S3|S2|S1
+        PUnpckLBW       MM1, MM1        ; MM1 = S8|S7|S6|S5
+
+        MovQ            MM2, MM0
+        MovQ            MM3, MM1
+
+        PUnpckLWD       MM0, MM0        ; MM0 = S2|S1
+        PUnpckLWD       MM1, MM1        ; MM1 = S6|S5
+
+        PUnpckHWD       MM2, MM2        ; MM2 = S4|S3
+        PUnpckHWD       MM3, MM3        ; MM3 = S8|S7
+
+; What category do PI2FD instructions fall under? Are they AMD-3D ALU (ie.
+;  only one resource shared between pipes?)
+
+        PI2FD           MM0, MM0        ; MM0 = FS2|FS1
+        PI2FD           MM1, MM1        ; MM1 = FS6|FS5
+        PI2FD           MM2, MM2        ; MM2 = FS4|FS3
+        PI2FD           MM3, MM3        ; MM3 = FS8|FS7
+
+        MovQ            MM4, MM0
+        MovQ            MM5, MM2
+
+        PUnpckLDQ       MM0, MM0        ; MM0 = FS1|FS1
+        PUnpckHDQ       MM4, MM4        ; MM4 = FS2|FS2
+        PUnpckLDQ       MM2, MM2        ; MM2 = FS3|FS3
+        PUnpckHDQ       MM5, MM5        ; MM5 = FS4|FS4
+
+        PFMul           MM0, MM7        ; MM0 = R1|L1
+        PFMul           MM4, MM7        ; MM4 = R2|L2
+        PFMul           MM2, MM7        ; MM2 = R3|L3
+        PFMul           MM5, MM7        ; MM5 = R4|L4
+
+        PFAdd           MM0, [Buffer1]
+        PFAdd           MM4, [Buffer2]
+        PFAdd           MM2, [Buffer3]
+        PFAdd           MM5, [Buffer4]
+
+        MovQ            [Buffer1], MM0
+        MovQ            [Buffer2], MM4
+        MovQ            [Buffer3], MM2
+        MovQ            [Buffer4], MM5
+
+        MovQ            MM0, MM1
+        MovQ            MM2, MM3
+
+        PUnpckLDQ       MM0, MM0        ; MM0 = FS5|FS5
+        PUnpckHDQ       MM1, MM1        ; MM1 = FS6|FS6
+        PUnpckLDQ       MM2, MM2        ; MM2 = FS7|FS7
+        PUnpckHDQ       MM3, MM3        ; MM3 = FS8|FS8
+
+        PFMul           MM0, MM7
+        PFMul           MM1, MM7
+        PFMul           MM2, MM7
+        PFMul           MM3, MM7
+
+        PFAdd           MM0, [Buffer5]
+        PFAdd           MM1, [Buffer6]
+        PFAdd           MM2, [Buffer7]
+        PFAdd           MM3, [Buffer8]
+
+        MovQ            [Buffer5], MM0
+        MovQ            [Buffer6], MM1
+        MovQ            [Buffer7], MM2
+        MovQ            [Buffer8], MM3
+
+;-----------------------------------------------------------------------------
+; Rearranged to improve pairing
+; MM7 contains volume as packed floating point  MM7 = RVol|LVol
+
+        MovD            MM0, [SampleBlock1]   ; Low 4 bytes contain samples 1-4
+        MovD            MM1, [SampleBlock2]   ; Low 4 bytes contain samples 5-8
+
+        PUnpckLBW       MM0, MM0        ; MM0 = S4|S3|S2|S1
+        PUnpckLBW       MM1, MM1        ; MM1 = S8|S7|S6|S5
+
+        MovQ            MM2, MM0
+        PUnpckLWD       MM0, MM0        ; MM0 = S2|S1
+
+        MovQ            MM3, MM1
+        PUnpckLWD       MM1, MM1        ; MM1 = S6|S5
+
+        PUnpckHWD       MM2, MM2        ; MM2 = S4|S3
+        PI2FD           MM0, MM0        ; MM0 = FS2|FS1
+
+        PUnpckHWD       MM3, MM3        ; MM3 = S8|S7
+        PI2FD           MM1, MM1        ; MM1 = FS6|FS5
+
+        MovQ            MM4, MM0
+        PI2FD           MM2, MM2        ; MM2 = FS4|FS3
+
+        MovQ            MM5, MM2
+        PI2FD           MM3, MM3        ; MM3 = FS8|FS7
+
+        PUnpckLDQ       MM0, MM0        ; MM0 = FS1|FS1
+        PUnpckHDQ       MM4, MM4        ; MM4 = FS2|FS2
+
+        PFMul           MM0, MM7        ; MM0 = R1|L1
+        PUnpckLDQ       MM2, MM2        ; MM2 = FS3|FS3
+
+        PFMul           MM4, MM7        ; MM4 = R2|L2
+        PUnpckHDQ       MM5, MM5        ; MM5 = FS4|FS4
+
+        PFMul           MM2, MM7        ; MM2 = R3|L3
+        PFAdd           MM0, [Buffer1]
+
+        PFMul           MM5, MM7        ; MM5 = R4|L4
+        PFAdd           MM4, [Buffer2]
+
+        PFAdd           MM2, [Buffer3]
+        MovQ            [Buffer1], MM0
+
+        MovQ            [Buffer2], MM4
+        PFAdd           MM5, [Buffer4]
+
+        MovQ            [Buffer3], MM2
+        MovQ            MM0, MM1
+
+        MovQ            [Buffer4], MM5
+        MovQ            MM2, MM3
+
+        PUnpckLDQ       MM0, MM0        ; MM0 = FS5|FS5
+        PUnpckHDQ       MM1, MM1        ; MM1 = FS6|FS6
+
+        PFMul           MM0, MM7
+        PUnpckLDQ       MM2, MM2        ; MM2 = FS7|FS7
+
+        PFMul           MM1, MM7
+        PUnpckHDQ       MM3, MM3        ; MM3 = FS8|FS8
+
+        PFAdd           MM0, [Buffer5]
+        PFMul           MM2, MM7
+
+        PFAdd           MM1, [Buffer6]
+        PFMul           MM3, MM7
+
+        MovQ            [Buffer5], MM0
+        PFAdd           MM2, [Buffer7]
+
+        MovQ            [Buffer6], MM1
+        PFAdd           MM3, [Buffer8]
+
+        MovQ            [Buffer7], MM2  ; These will be rearranged to match
+        MovQ            [Buffer8], MM3  ; the next iteration.
+
+
+
+; 16-bit non interpolated mixing routine, 8 samples at a time. Not rearranged
+
+; MM7 contains volume as packed floating point  MM7 = RVol|LVol
+
+        MovQ            MM0, [SampleBlock1]   ; MM0 = S4|S3|S2|S1
+        MovQ            MM1, [SampleBlock2]   ; MM1 = S8|S7|S6|S5
+
+        MovQ            MM2, MM0
+        MovQ            MM3, MM1
+
+        PUnpckLWD       MM0, MM0        ; MM0 = S2|S1
+        PUnpckLWD       MM1, MM1        ; MM1 = S6|S5
+
+        PUnpckHWD       MM2, MM2        ; MM2 = S4|S3
+        PUnpckHWD       MM3, MM3        ; MM3 = S8|S7
+
+; What category do PI2FD instructions fall under? Are they AMD-3D ALU (ie.
+;  only one resource shared between pipes?)
+
+        PI2FD           MM0, MM0        ; MM0 = FS2|FS1
+        PI2FD           MM1, MM1        ; MM1 = FS6|FS5
+        PI2FD           MM2, MM2        ; MM2 = FS4|FS3
+        PI2FD           MM3, MM3        ; MM3 = FS8|FS7
+
+        MovQ            MM4, MM0
+        MovQ            MM5, MM2
+
+        PUnpckLDQ       MM0, MM0        ; MM0 = FS1|FS1
+        PUnpckHDQ       MM4, MM4        ; MM4 = FS2|FS2
+        PUnpckLDQ       MM2, MM2        ; MM2 = FS3|FS3
+        PUnpckHDQ       MM5, MM5        ; MM5 = FS4|FS4
+
+        PFMul           MM0, MM7        ; MM0 = R1|L1
+        PFMul           MM4, MM7        ; MM4 = R2|L2
+        PFMul           MM2, MM7        ; MM2 = R3|L3
+        PFMul           MM5, MM7        ; MM5 = R4|L4
+
+        PFAdd           MM0, [Buffer1]
+        PFAdd           MM4, [Buffer2]
+        PFAdd           MM2, [Buffer3]
+        PFAdd           MM5, [Buffer4]
+
+        MovQ            [Buffer1], MM0
+        MovQ            [Buffer2], MM4
+        MovQ            [Buffer3], MM2
+        MovQ            [Buffer4], MM5
+
+        MovQ            MM0, MM1
+        MovQ            MM2, MM3
+
+        PUnpckLDQ       MM0, MM0        ; MM0 = FS5|FS5
+        PUnpckHDQ       MM1, MM1        ; MM1 = FS6|FS6
+        PUnpckLDQ       MM2, MM2        ; MM2 = FS7|FS7
+        PUnpckHDQ       MM3, MM3        ; MM3 = FS8|FS8
+
+        PFMul           MM0, MM7
+        PFMul           MM1, MM7
+        PFMul           MM2, MM7
+        PFMul           MM3, MM7
+
+        PFAdd           MM0, [Buffer5]
+        PFAdd           MM1, [Buffer6]
+        PFAdd           MM2, [Buffer7]
+        PFAdd           MM3, [Buffer8]
+
+        MovQ            [Buffer5], MM0
+        MovQ            [Buffer6], MM1
+        MovQ            [Buffer7], MM2
+        MovQ            [Buffer8], MM3
+
+;-----------------------------------------------------------------------------
+; Rearranged to improve pairing
+; MM7 contains volume as packed floating point  MM7 = RVol|LVol
+
+        MovQ            MM0, [SampleBlock1]   ; MM0 = S4|S3|S2|S1
+        MovQ            MM1, [SampleBlock2]   ; MM1 = S8|S7|S6|S5
+
+        MovQ            MM2, MM0
+        PUnpckLWD       MM0, MM0        ; MM0 = S2|S1
+
+        MovQ            MM3, MM1
+        PUnpckLWD       MM1, MM1        ; MM1 = S6|S5
+
+        PI2FD           MM0, MM0        ; MM0 = FS2|FS1
+        PUnpckHWD       MM2, MM2        ; MM2 = S4|S3
+
+        PI2FD           MM1, MM1        ; MM1 = FS6|FS5
+        PUnpckHWD       MM3, MM3        ; MM3 = S8|S7
+
+; What category do PI2FD instructions fall under? Are they AMD-3D ALU (ie.
+;  only one resource shared between pipes?)
+
+        MovQ            MM4, MM0
+        PI2FD           MM2, MM2        ; MM2 = FS4|FS3
+
+        MovQ            MM5, MM2
+        PI2FD           MM3, MM3        ; MM3 = FS8|FS7
+
+        PUnpckLDQ       MM0, MM0        ; MM0 = FS1|FS1
+        PUnpckHDQ       MM4, MM4        ; MM4 = FS2|FS2
+
+        PFMul           MM0, MM7        ; MM0 = R1|L1
+        PUnpckLDQ       MM2, MM2        ; MM2 = FS3|FS3
+
+        PFMul           MM4, MM7        ; MM4 = R2|L2
+        PUnpckHDQ       MM5, MM5        ; MM5 = FS4|FS4
+
+        PFAdd           MM0, [Buffer1]
+        PFMul           MM2, MM7        ; MM2 = R3|L3
+
+        PFAdd           MM4, [Buffer2]
+        PFMul           MM5, MM7        ; MM5 = R4|L4
+
+        PFAdd           MM2, [Buffer3]
+        MovQ            [Buffer1], MM0
+
+        PFAdd           MM5, [Buffer4]
+        MovQ            [Buffer2], MM4
+
+        MovQ            MM0, MM1
+        MovQ            [Buffer3], MM2
+
+        MovQ            MM2, MM3
+        MovQ            [Buffer4], MM5
+
+        PUnpckLDQ       MM0, MM0        ; MM0 = FS5|FS5
+        PUnpckHDQ       MM1, MM1        ; MM1 = FS6|FS6
+
+        PFMul           MM0, MM7
+        PUnpckLDQ       MM2, MM2        ; MM2 = FS7|FS7
+
+        PFMul           MM1, MM7
+        PUnpckHDQ       MM3, MM3        ; MM3 = FS8|FS8
+
+        PFAdd           MM0, [Buffer5]
+        PFMul           MM2, MM7
+
+        PFAdd           MM1, [Buffer6]
+        PFMul           MM3, MM7
+
+        MovQ            [Buffer5], MM0
+        PFAdd           MM2, [Buffer7]
+
+        MovQ            [Buffer6], MM1
+        PFAdd           MM3, [Buffer8]
+
+        MovQ            [Buffer7], MM2
+        MovQ            [Buffer8], MM3
+

@@ -1,0 +1,279 @@
+                             Host Channel Structure
+
+       0   1   2   3   4   5   6   7   8   9   A   B   C   D   E   F
+     ÚÄÄÄÄÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄ¿
+0000:³ Flags ³Msk³Nte³Ins³Vol³Cmd&Val³OCm&Val³VCm&Val³MCh³MPr³Nt2³Smp³
+     ÃÄÄÄÂÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄ´
+0010:³DKL³EFG³O00³I00³J00³M00³N00³P00³Q00³T00³S00³OxH³W00³VCE³GOE³SFx³ GOE = Gxx
+     ÃÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÁÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄ´  with old
+0020:³HCN³CUC³VSe³LTr³SCOffst³PLR³PLC³PWF³PPo³PDp³PSp³LPn³LVi³CP ³CV ³  effects
+     ÃÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÄÄÄÄÁÄÄÄÁÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄ´
+0030:³VCh³TCD³Too³RTC³Porta Frequency³VWF³VPo³VDp³VSp³TWF³TPo³TDp³TSp³
+     ÃÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄÁÄÄÄ´
+0040:³ Misc Effect Data............................................. ³
+     ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+  Flags:
+   ş Update Mode
+      ù 2 Bits (0-3)
+       ú 0: Don't update effect
+       ú 1: Update effect if channel is on
+       ú 2: Always update effect
+
+   ş Channel On
+      ù 1 Bit (4)
+       ú 0: Channel is off
+       ú 1: Channel is on
+
+   ş Channel Cut                        ; No longer implemented
+      ù 1 Bit (8)
+       ú 0: No Channel Cut command
+       ú 1: Channel Cut command issued
+
+   ş Slide in progress (Commands G/L)
+      ù 1 Bit (16)
+       ú 0: No slide in progress
+       ú 1: Slide in progress
+
+   ş Freeplay note (ie. Don't check channel on/off)
+      ù 1 Bit (32)
+       ú 0: Not freeplay -> Check channel
+       ú 1: Freeplay -> Don't check channel
+
+   +64 = row updated.
+
+   + 128 = Apply random volume
+
+   +256 Volume column effect requires updating if channel on
+   +512 Volume column effect requires updating always.
+   +32768 = Dont' touch in interrupt!
+
+   ş Decoding Data
+      ù Msk, Nte, Ins, Vol, Cmd&Val, ONt, OIn, OVl, OCm&Val
+        Msk = Read mask: Bit 0 or 4 = Note read
+                         Bit 1 or 5 = Instrument read
+                         Bit 2 or 6 = Volume read
+                         Bit 3 or 7 = Command/Command Value read
+
+   ş Smp & Nt2
+      ù Sample Number (zero based) and Note (after translation if using inst.)
+
+   ş CP. = Channel Pan
+   ş CV. = Channel Volume
+
+   ş SCN = Slave Channel Number
+   ş CUC = Command Update Count. For playmode 0
+   ş SCOffst = Slave channel number offset
+
+   ş VWF = Vibrato wave form
+   ş TWF = Tremelo wave form
+   ş PWF = Panning wave form
+
+ PLR = Pattern loop row
+ PLC = pattern loop count.
+
+  VSe = Volume set
+
+  LVi = Last vibrato.
+  LTr = Last tremelo.
+  Dir = Porta direction
+  RTC = Retrig count
+  Too = tremor on/off                   ; on = 1
+  TCD = tremor count down
+
+  OxH = High order Offset for yxx00h
+
+        VCh = Volume change (For Command D)
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+                            Slave Channel Structure
+
+       0   1   2   3   4   5   6   7   8   9   A   B   C   D   E   F
+     ÚÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+0000:³ Flags ³ Device specific...............³LpM³LpD³ Left Volume   ³
+     ÃÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÂÄÄÄÅÄÄÄÁÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+0010:³ Frequency     ³ Frequency Set ³Bit³ViP³ViDepth³ RVol/MIDIFSet ³
+     ÃÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÅÄÄÄÂÄÄÄÂÄÄÄÄÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÂÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+0020:³FV ³Vol³VS ³CVl³SVl³FP ³FadeOut³DCT³DCA³Pan³PS ³OldSampleOffset³
+     ÃÄÄÄÁÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÁÄÄÄÅÄÄÄÂÄÄÄÅÄÄÄÁÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÂÄÄÄÂÄÄÄÄÄÄÄ´
+0030:³InsOffs³Nte³Ins³SmpOffs³Smp³FPP³HCOffst³HCN³NNA³MCh³MPr³ MBank ³
+     ÃÄÄÄÄÄÄÄÁÄÄÄÁÄÄÄÅÄÄÄÄÄÄÄÁÄÄÄÁÄÄÄÅÄÄÄÄÄÄÄÅÄÄÄÁÄÄÄÅÄÄÄÁÄÄÄÁÄÄÄÄÄÄÄ´
+0040:³ Loop Beginning³ Loop End      ³SmpErr.³16bVol ³ Sample Offset ³
+     ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄ´
+0050:³VEnvelopeValue ³VEnvelopeDelta ³VEnvPos³CurVEnN³NextVET³filtera³
+     ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄ´
+0060:³PEnvelopeValue ³PEnvelopeDelta ³PEnvPos³CurVEnN³NextPET³filterb³
+     ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄ´
+0070:³PtEnvelopeValue³PtEnvelopeDelta³PtEvPos³CurPtEN³NxtPtET³filterc³
+     ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÙ
+
+ For MIDI, [SI+0Bh] = Pattern note
+
+ Reqd values: VEnvValue (DWord), VEnvDelta (DWord), VEnvPos (Word), NextVEnvNode
+              PEnvValue (DWord), PEnvDelta (DWord), PEnvPos (Word), NextPEnvNode
+              PtEnvValue (DWord), PtEnvDelta (DWord), PtEnvPos (Word), NextPtEnv
+
+ Reqd flags: VolEnvOn, PEnvOn, PtEnvOn
+
+  FP = final pan.
+  FPP = final playing pan, taking into account reverse.
+
+  MBank also doubled as Filter freq, resonance
+
+  Flags:
+   ş Channel On
+      ù 1 Bit (1)
+       ú 0: Channel is off
+       ú 1: Channel is on
+   ş Recalculate panning (2)
+
+   ş Note Off (ie. Sustain)
+      ù 1 Bit (4)
+       ú 0: No Note Off command (ie. Sustain on)
+       ú 1: Note Off command issued (ie. Sustain off)
+   ş FadeOut
+      ù 1 Bit (8)
+       ú 0: No FadeOut command
+       ú 1: Apply FadeOut
+   ş Recalculate volume
+      ù 1 Bit (16)
+       ú 0: Volume doesn't need to be calculated
+       ú 1: Volume needs to be recalculated
+   ş Frequency change
+      ù 1 Bit (32)
+       ú 0: Frequency has NOT changed
+       ú 1: Frequency HAS changed
+   ş Recalculate Final volume...
+      ù 1 Bit (64)
+       ú 0: Final volume does not need to be calculated
+       ú 1: Final volume DOES need to be calculated.
+
+   ş Central pan...
+      ù 1 Bit (128)
+       ú 0: Use whatever is given.
+       ú 1: Always use central pan (for sample list/instrument list)
+
+   ş New note!
+      ù 1 Bit (256)
+       ú 0: No new note
+       ú 1: New note to play.
+
+   ş Note stop (cut)                    ; IMPORTANT FOR GUS!!!
+      ù 1 Bit (512)
+       ú 0: note NOT cut
+       ú 1: Note CUT
+
+   ş Loop changed. (1024)
+
+   ş Channel muted (2048)               ; 2^11
+
+   ş Vol Envelope on (4096)     ; 1000h
+   ş Pan Envelope on (8192)     ; 2000h
+   ş Pitch Envelope on (16384)  ; 4000h
+
+   ş Pan value changed          ; 8000h
+     Recalculate final pan
+
+  LpM
+   ş LoopMode
+      ù 0: No Loop
+      ù 8: Forwards Loop
+      ù 24: Ping Pong Loop              ; Values are just for GUS convenience
+
+  LpD
+   ş LoopDirection (for ping pong),     ; 0 = forwards, 1 = backwards.
+
+   ş FadeOut = Fadeout Count (0-255)
+   ş CVl = Channel Volume
+   ş HCN = Host Channel Number. +128 if "disowned"
+   ş Smp = Sample number
+   ş Pan: 0->64, 100 = Surround, >= 128 = muted.
+   ş FnV: Final Volume
+
+   ş Bit: 2 = 16, 0 = 8.
+
+   ş ViD: Vibrato Depth
+   ş ViS: Vibrato Speed
+
+   ş VEP: Volume Envelope position
+   ş VEV: Volume Envelope value
+
+   ş Ins: Instrument number (0 based, 0FFh if none)
+   ş Smp: Sample number (0 based)
+
+   ş Frequency = Final note frequency. Incorportes vibrato
+   ş Frequency Set = Calculated Frequency of note. Calculated once when played
+                     Altered by effects E,F,G,L
+
+   ş VS = Volume Set. Similar to Frequency Set. Affected by D,K,L
+   ş Vol = Volume. Altered by effects R,I
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+                         Sound Blaster Output Structure
+
+       0   1   2   3   4   5   6   7   8   9
+     ÚÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÄÄÄÄÂ
+0000:³(Flags)³  Skip Value   ³Vol³ x ³MixMode³
+     ÃÄÄÄÂÄÄÄÅÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÂÄÄÄÅ
+
+      For non-looped samples, 44h is LENGTH.
+
+                       Sound Blaster Pro Output Structure
+
+       0   1   2   3   4   5   6   7   8   9
+     ÚÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÄÄÄÄÂ
+0000:³(Flags)³  Skip Value   ³LVl³RVl³MixMode³
+     ÃÄÄÄÂÄÄÄÅÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÂÄÄÄÅ
+
+  Skip Value
+   ş 16.16 bit fixed point
+
+  Vol/LVl/RVl
+   ş Output Volume / Left Volume / Right Volume
+      ù Accounts for:
+       ú Channel Volume
+       ú Global Volume
+       ú Sample Global Volume
+       ú Fade Out
+
+  MMd: 0 If Left only
+       1 If right only
+       2 if Left = Right
+       3 if Panned
+       4 if Surround
+       5 if position update.
+
+
+       +32 for 16 bit samples
+       +8 for looped
+       +24 for ping pong.
+
+                        UltraSound Output Structure
+
+       0   1   2   3   4   5   6   7   8   9
+     ÚÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂ
+0000:³(Flags)³LastVol³Freqval³               ³
+     ÃÄÄÄÂÄÄÄÅÄÄÄÂÄÄÄÅÄÄÄÂÄÄÄÅÄÄÄÂÄÄÄÅÄÄÄÂÄÄÄÅ
+
+ Frequency Value used in dynamic GUS drivers
+
+                             AWE32 Output Structure
+
+       0   1   2   3   4   5   6   7   8   9
+     ÚÄÄÄÄÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂ
+0000:³(Flags)³ x ³ x ³  Freqvalue    ³       ³
+     ÃÄÄÄÂÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÅÄÄÄÂÄÄÄÅ
+
+ Frequency Value used in floating point AWE32 drivers
+
+                             SAM Output Structure
+
+       0   1   2   3   4   5   6   7   8   9
+     ÚÄÄÄÄÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÂÄÄÄÄÄÄÄÂ
+0000:³(Flags)³opn³ x ³   ³   ³   ³   ³       ³
+     ÃÄÄÄÂÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÅÄÄÄÂÄÄÄÅ
+
+ opn = 1 if voice is opened, 0 if not.
+

@@ -1,0 +1,770 @@
+
+                        ; Different mixing routines required:
+                        ;  Left         } shared
+                        ;  Right        }
+                        ;  Central
+                        ;  Surround
+                        ;  Panned ; Each requires 8 bit and 16 bit
+                        ; Single output - for Mono, pure left/pure right
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+GetUltra8BitWaveform Macro           ; Puts waveform value in EBX, range -32k->+32k
+
+                Push    EDX
+                Push    EBP
+
+                MovSX   EDX, Byte Ptr [ES:DI+2]         ; v
+                MovSX   EBX, Byte Ptr [ES:DI]           ; t
+                MovSX   EAX, Byte Ptr [ES:DI+1]         ; u
+
+                LEA     EBP, [EBX+EDX]          ; v+t
+                SAR     EBP, 1
+                Sub     EBP, EAX                ; (v+t)/2 - u
+                IMul    EBP, ECX                ; ax in 8.16 format
+                SAR     EBP, 10                 ; ax in 8.6 format
+
+                ShL     EAX, 7                  ; EBX = 2u<<6
+                Add     EDX, EBX                ; EDX = v+t
+                Add     EBX, EBX                ; EAX = 2t
+                Add     EBP, EAX                ; EBP = ax+2u
+                Add     EDX, EBX                ; 3t+v
+                ShL     EDX, 5                  ; (3t+v)/2 << 6
+                Sub     EBP, EDX                ; ax+b
+
+                ShL     EBX, 7
+
+                IMul    EBP, ECX                ; ax^2+bx in 8.22 form
+                SAR     EBP, 14                 ; ax^2+bx in 8.8 form
+
+                Add     EBX, EBP                ; ax^2+bx+c
+
+                Pop     EBP
+                Pop     EDX
+
+EndM
+
+GetUltra16BitWaveform Macro          ; Puts waveform value in EBX, range -32k->+32k
+
+                Push    ECX
+                Push    EDX
+                Push    EBP
+
+                MovSX   EDX, Word Ptr [ES:EDI+EDI+4]     ; v
+                MovSX   EBX, Word Ptr [ES:EDI+EDI]       ; t
+                MovSX   EAX, Word Ptr [ES:EDI+EDI+2]     ; u
+
+                ShR     ECX, 3                  ; 0.13
+                LEA     EBP, [EBX+EDX]
+                SAR     EBP, 1
+                Sub     EBP, EAX                ; (v+t)/2 - u
+                IMul    EBP, ECX                ; 16.13
+                SAR     EBP, 14                 ; 15.0
+
+                Add     EDX, EBX                ; EDX = v+t
+                Add     EBP, EAX                ; EBP = ax+2u
+                LEA     EDX, [EDX+EBX*2]
+                SAR     EDX, 2                  ; EDX = (3t+v)/2
+                Sub     EBP, EDX                ; ax + b, 15 form
+
+                IMul    EBP, ECX                ; ax^2+bx in 15.13 form
+                SAR     EBP, 12                 ; ax^2+bx in 16.0 form
+
+                Add     EBX, EBP
+
+                Pop     EBP
+                Pop     EDX
+                Pop     ECX
+
+EndM
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+MUltraMix8ISingle Macro Index
+
+MUltraMix8ISingle&Index&:
+        GetUltra8BitWaveForm
+
+MUltraMix8ISingleVolume&Index& EQU     $+3
+        IMul    EAX, EBX, 8000h
+
+        Add     ERROR, DELTAERROR                               ;; 1
+        AdC     DI, DELTAOFFSET                                 ;; 1
+        Sub     [SI+(Index-3)*8], EAX                          ;; 3
+EndM
+
+MUltraMix8ICentral Macro   Index
+
+MUltraMix8ICentral&Index&:
+        GetUltra8BitWaveForm
+
+MUltraMix8ICentralVolume&Index& EQU     $+3
+        IMul    EAX, EBX, 8000h
+
+        Add     ERROR, DELTAERROR                               ;; 1
+        AdC     DI, DELTAOFFSET                                 ;; 1
+        Sub     [SI+(Index-3)*8], EAX                          ;; 4
+        Sub     [SI+(Index-3)*8+4], EAX                        ;; 4
+
+EndM
+
+MUltraMix8ISurround Macro   Index
+
+MUltraMix8ISurround&Index&:
+        GetUltra8BitWaveForm
+
+MUltraMix8ISurroundVolume&Index& EQU $+3
+        IMul    EAX, EBX, 8000h
+
+        Add     ERROR, DELTAERROR                               ;; 1
+        AdC     DI, DELTAOFFSET                                 ;; 1
+        Sub     [SI+(Index-3)*8], EAX                          ;; 4
+        Add     [SI+(Index-3)*8+4], EAX                        ;; 4
+
+EndM
+
+                        ; Panned output
+MUltraMix8IPanned Macro Index
+
+MUltraMix8IPanned&Index&:
+        Get32Bit8WaveForm
+
+MUltraMix8ILeftVolume&Index& EQU     $+3
+        IMul    EAX, EBX, 8000h
+MUltraMix8IRightVolume&Index& EQU     $+3
+        IMul    EBX, EBX, 8000h
+
+        Sub     [SI+(Index-3)*8], EAX                          ;; 4
+        Sub     [SI+(Index-3)*8+4], EBX                        ;; 4
+
+        Add     ERROR, DELTAERROR                               ;; 1
+        AdC     DI, DELTAOFFSET                                 ;; 1
+
+EndM
+
+MUltraMix16ISingle Macro Index
+
+MUltraMix16ISingle&Index&:
+        GetUltra16BitWaveForm
+
+MUltraMix16ISingleVolume&Index& EQU     $+3
+        IMul    EAX, EBX, 8000h
+
+        Add     ERROR, DELTAERROR                               ;; 1
+        AdC     DI, DELTAOFFSET                                 ;; 1
+        Sub     [SI+(Index-3)*8], EAX                          ;; 3
+
+EndM
+
+MUltraMix16ICentral Macro Index
+
+MUltraMix16ICentral&Index&:
+        GetUltra16BitWaveForm
+
+MUltraMix16ICentralVolume&Index& EQU     $+3
+        IMul    EAX, EBX, 8000h
+
+        Add     ERROR, DELTAERROR                               ;; 1
+        AdC     DI, DELTAOFFSET                                 ;; 1
+        Sub     [SI+(Index-3)*8], EAX                          ;; 3
+        Sub     [SI+(Index-3)*8+4], EAX                        ;; 3
+
+EndM
+
+MUltraMix16ISurround Macro Index
+
+MUltraMix16ISurround&Index&:
+        GetUltra16BitWaveForm
+
+MUltraMix16ISurroundVolume&Index& EQU     $+3
+        IMul    EAX, EBX, 8000h
+
+        Add     ERROR, DELTAERROR                               ;; 1
+        AdC     DI, DELTAOFFSET                                 ;; 1
+        Sub     [SI+(Index-3)*8], EAX                          ;; 3
+        Add     [SI+(Index-3)*8+4], EAX                        ;; 3
+
+EndM
+
+                        ; Panned output
+MUltraMix16IPanned Macro Index
+
+MUltraMix16IPanned&Index&:
+        GetUltra16BitWaveForm
+
+MUltraMix16ILeftVolume&Index& EQU     $+3
+        IMul    EAX, EBX, 8000h
+MUltraMix16IRightVolume&Index& EQU     $+3
+        IMul    EBX, EBX, 8000h
+
+        Sub     [SI+(Index-3)*8], EAX
+        Sub     [SI+(Index-3)*8+4], EBX
+
+        Add     ERROR, DELTAERROR
+        AdC     DI, DELTAOFFSET
+
+EndM
+
+;ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
+
+MixUltraSingle8BitIOffsetTable      Label   Word
+
+        IndexCounter    =       3
+
+        MUltraMix8ISingleOffset Macro Index
+                DW      Offset MUltraMix8ISingle&Index&
+        EndM
+
+        REPT 4
+                MUltraMix8ISingleOffset     %IndexCounter
+                IndexCounter = IndexCounter-1
+        EndM
+
+Proc            MixUltraSingle8BitI
+                                                ; AX = count...
+
+                ; Number of times to loop = (Count-1) / 16
+
+                Dec     AX
+                Mov     BX, AX
+                And     AX, 3
+                ShR     BX, 2
+                Add     AX, AX
+                Inc     BX
+                Mov     LoopCounter, BX
+                Mov     BX, AX
+
+                ShL     AX, RESOLUTIONSHIFT-1
+
+                Add     SI, AX
+
+                Jmp     [CS:MixUltraSingle8BitIOffsetTable+BX]
+
+                MUltraMix8ISingle 0
+                MUltraMix8ISingle 1
+                MUltraMix8ISingle 2
+                MUltraMix8ISingle 3
+
+                Add     SI, 4*MIXRESOLUTION/4
+                Dec     LoopCounter
+                JNZ     MUltraMix8ISingle0
+
+                Ret
+
+EndP            MixUltraSingle8BitI
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Proc            PreMixUltraLeft8BitI
+
+                Mov     AX, [SI+0Eh]
+
+PreMixUltraLeft8BitI1:
+        IndexCounter    =       0
+
+        PreMixUltraSingleMacro Macro Index
+                Mov     Word Ptr [CS:MUltraMix8ISingleVolume&Index&], AX
+        EndM
+
+        REPT 4
+                PreMixUltraSingleMacro    %IndexCounter
+                IndexCounter = IndexCounter+1
+        EndM
+                Ret
+
+EndP            PreMixUltraLeft8BitI
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Proc            PreMixUltraRight8BitI
+
+                Add     MixBufferOffset, MixResolution/8
+                Mov     AX, [SI+0Ch]
+                Jmp     PreMixUltraLeft8BitI1
+
+EndP            PreMixUltraRight8BitI
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+MixUltraCentral8BitIOffsetTable      Label   Word
+
+        IndexCounter    =       3
+
+        MUltraMix8ICentralOffset Macro Index
+                DW      Offset MUltraMix8ICentral&Index&
+        EndM
+
+        REPT 4
+                MUltraMix8ICentralOffset    %IndexCounter
+                IndexCounter = IndexCounter-1
+        EndM
+
+Proc            MixUltraCentral8BitI
+
+                Dec     AX
+                Mov     BX, AX
+                And     AX, 3
+                ShR     BX, 2
+                Add     AX, AX
+                Inc     BX
+                Mov     LoopCounter, BX
+                Mov     BX, AX
+
+                ShL     AX, RESOLUTIONSHIFT-1
+
+                Add     SI, AX
+
+                Jmp     [CS:MixUltraCentral8BitIOffsetTable+BX]
+
+                MUltraMix8ICentral 0
+                MUltraMix8ICentral 1
+                MUltraMix8ICentral 2
+                MUltraMix8ICentral 3
+
+                Add     SI, 4*MIXRESOLUTION/4
+                Dec     LoopCounter
+                JNZ     MUltraMix8ICentral0
+
+                Ret
+
+EndP            MixUltraCentral8BitI
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Proc            PreMixUltraCentral8BitI
+
+                Mov     AX, [SI+0Eh]
+
+        IndexCounter    =       0
+
+        PreMixUltraCentralMacro Macro Index
+                Mov     Word Ptr [CS:MUltraMix8ICentralVolume&Index&], AX
+        EndM
+
+        REPT 4
+                PreMixUltraCentralMacro    %IndexCounter
+                IndexCounter = IndexCounter+1
+        EndM
+
+                Ret
+
+EndP            PreMixUltraCentral8BitI
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+MixUltraSurround8BitIOffsetTable      Label   Word
+
+        IndexCounter    =       3
+
+        MUltraMix8ISurroundOffset Macro Index
+                DW      Offset MUltraMix8ISurround&Index&
+        EndM
+
+        REPT 4
+                MUltraMix8ISurroundOffset    %IndexCounter
+                IndexCounter = IndexCounter-1
+        EndM
+
+Proc            MixUltraSurround8BitI
+
+                Dec     AX
+                Mov     BX, AX
+                And     AX, 3
+                ShR     BX, 2
+                Add     AX, AX
+                Inc     BX
+                Mov     LoopCounter, BX
+                Mov     BX, AX
+
+                ShL     AX, RESOLUTIONSHIFT-1
+
+                Add     SI, AX
+
+                Jmp     [CS:MixUltraSurround8BitIOffsetTable+BX]
+
+                MUltraMix8ISurround 0
+                MUltraMix8ISurround 1
+                MUltraMix8ISurround 2
+                MUltraMix8ISurround 3
+
+                Add     SI, 4*MIXRESOLUTION/4
+                Dec     LoopCounter
+                JNZ     MUltraMix8ISurround0
+
+                Ret
+
+EndP            MixUltraSurround8BitI
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Proc            PreMixUltraSurround8BitI
+
+                Mov     AX, [SI+0Eh]
+
+        IndexCounter    =       0
+
+        PreMixUltraSurroundMacro Macro Index
+                Mov     Word Ptr [CS:MUltraMix8ISurroundVolume&Index&], AX
+        EndM
+
+        REPT 4
+                PreMixUltraSurroundMacro    %IndexCounter
+                IndexCounter = IndexCounter+1
+        EndM
+
+                Ret
+
+EndP            PreMixUltraSurround8BitI
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+MixUltraPanned8BitIOffsetTable      Label   Word
+
+        IndexCounter    =       3
+
+        MUltraMix8IPannedOffset Macro Index
+                DW      Offset MUltraMix8IPanned&Index&
+        EndM
+
+        REPT 4
+                MUltraMix8IPannedOffset    %IndexCounter
+                IndexCounter = IndexCounter-1
+        EndM
+
+Proc            MixUltraPanned8BitI
+
+                Dec     AX
+                Mov     BX, AX
+                And     AX, 3
+                ShR     BX, 2
+                Add     AX, AX
+                Inc     BX
+                Mov     LoopCounter, BX
+                Mov     BX, AX
+
+                ShL     AX, RESOLUTIONSHIFT-1
+
+                Add     SI, AX
+
+                Jmp     [CS:MixUltraPanned8BitIOffsetTable+BX]
+
+                MUltraMix8IPanned 0
+                MUltraMix8IPanned 1
+                MUltraMix8IPanned 2
+                MUltraMix8IPanned 3
+
+                Add     SI, 4*MIXRESOLUTION/4
+                Dec     LoopCounter
+                JNZ     MUltraMix8IPanned0
+
+                Ret
+
+EndP            MixUltraPanned8BitI
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Proc            PreMixUltraPanned8BitI
+
+                Mov     AX, [SI+0Eh]    ; Left
+                Mov     BX, [SI+0Ch]    ; Right
+
+        IndexCounter    =       0
+
+        PreMixUltraPannedMacro Macro Index
+                Mov     Word Ptr [CS:MUltraMix8ILeftVolume&Index&], AX
+                Mov     Word Ptr [CS:MUltraMix8IRightVolume&Index&], BX
+        EndM
+
+        REPT 4
+                PreMixUltraPannedMacro    %IndexCounter
+                IndexCounter = IndexCounter+1
+        EndM
+
+                Ret
+
+EndP            PreMixUltraPanned8BitI
+
+;ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
+
+MixUltraSingle16BitIOffsetTable      Label   Word
+
+        IndexCounter    =       3
+
+        MUltraMix16ISingleOffset Macro Index
+                DW      Offset MUltraMix16ISingle&Index&
+        EndM
+
+        REPT 4
+                MUltraMix16ISingleOffset     %IndexCounter
+                IndexCounter = IndexCounter-1
+        EndM
+
+Proc            MixUltraSingle16BitI
+                                                ; AX = count...
+
+                ; Number of times to loop = (Count-1) / 16
+
+                Dec     AX
+                Mov     BX, AX
+                And     AX, 3
+                ShR     BX, 2
+                Add     AX, AX
+                Inc     BX
+                Mov     LoopCounter, BX
+                Mov     BX, AX
+
+                ShL     AX, RESOLUTIONSHIFT-1
+
+                Add     SI, AX
+
+                Jmp     [CS:MixUltraSingle16BitIOffsetTable+BX]
+
+                MUltraMix16ISingle 0
+                MUltraMix16ISingle 1
+                MUltraMix16ISingle 2
+                MUltraMix16ISingle 3
+
+                Add     SI, 4*MIXRESOLUTION/4
+                Dec     LoopCounter
+                JNZ     MUltraMix16ISingle0
+
+                Ret
+
+EndP            MixUltraSingle16BitI
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Proc            PreMixUltraLeft16BitI
+
+                Mov     AX, [SI+0Eh]    ; Left
+
+PreMixUltraLeft16BitI1:
+        IndexCounter    =       0
+
+        PreMixUltraSingleMacro Macro Index
+                Mov     Word Ptr [CS:MUltraMix16ISingleVolume&Index&], AX
+        EndM
+
+        REPT 4
+                PreMixUltraSingleMacro    %IndexCounter
+                IndexCounter = IndexCounter+1
+        EndM
+
+                Ret
+
+EndP            PreMixUltraLeft16BitI
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Proc            PreMixUltraRight16BitI
+
+                Add     MixBufferOffset, MixResolution/8
+                Mov     AX, [SI+0Ch]
+                Jmp     PreMixUltraLeft16BitI1
+
+                Ret
+
+EndP            PreMixUltraRight16BitI
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+MixUltraCentral16BitIOffsetTable      Label   Word
+
+        IndexCounter    =       3
+
+        MUltraMix16ICentralOffset Macro Index
+                DW      Offset MUltraMix16ICentral&Index&
+        EndM
+
+        REPT 4
+                MUltraMix16ICentralOffset    %IndexCounter
+                IndexCounter = IndexCounter-1
+        EndM
+
+Proc            MixUltraCentral16BitI
+
+                Dec     AX
+                Mov     BX, AX
+                And     AX, 3
+                ShR     BX, 2
+                Add     AX, AX
+                Inc     BX
+                Mov     LoopCounter, BX
+                Mov     BX, AX
+
+                ShL     AX, RESOLUTIONSHIFT-1
+
+                Add     SI, AX
+
+                Jmp     [CS:MixUltraCentral16BitIOffsetTable+BX]
+
+                MUltraMix16ICentral 0
+                MUltraMix16ICentral 1
+                MUltraMix16ICentral 2
+                MUltraMix16ICentral 3
+
+                Add     SI, 4*MIXRESOLUTION/4
+                Dec     LoopCounter
+                JNZ     MUltraMix16ICentral0
+
+                Ret
+
+EndP            MixUltraCentral16BitI
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Proc            PreMixUltraCentral16BitI
+
+                Mov     AX, [SI+0Eh]
+
+        IndexCounter    =       0
+
+        PreMixUltraCentralMacro Macro Index
+                Mov     Word Ptr [CS:MUltraMix16ICentralVolume&Index&], AX
+        EndM
+
+        REPT 4
+                PreMixUltraCentralMacro    %IndexCounter
+                IndexCounter = IndexCounter+1
+        EndM
+
+                Ret
+
+EndP            PreMixUltraCentral16BitI
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+MixUltraSurround16BitIOffsetTable      Label   Word
+
+        IndexCounter    =       3
+
+        MUltraMix16ISurroundOffset Macro Index
+                DW      Offset MUltraMix16ISurround&Index&
+        EndM
+
+        REPT 4
+                MUltraMix16ISurroundOffset    %IndexCounter
+                IndexCounter = IndexCounter-1
+        EndM
+
+Proc            MixUltraSurround16BitI
+
+                Dec     AX
+                Mov     BX, AX
+                And     AX, 3
+                ShR     BX, 2
+                Add     AX, AX
+                Inc     BX
+                Mov     LoopCounter, BX
+                Mov     BX, AX
+
+                ShL     AX, RESOLUTIONSHIFT-1
+
+                Add     SI, AX
+
+                Jmp     [CS:MixUltraSurround16BitIOffsetTable+BX]
+
+                MUltraMix16ISurround 0
+                MUltraMix16ISurround 1
+                MUltraMix16ISurround 2
+                MUltraMix16ISurround 3
+
+                Add     SI, 4*MIXRESOLUTION/4
+                Dec     LoopCounter
+                JNZ     MUltraMix16ISurround0
+
+                Ret
+
+EndP            MixUltraSurround16BitI
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Proc            PreMixUltraSurround16BitI
+
+                Mov     AX, [SI+0Eh]
+
+        IndexCounter    =       0
+
+        PreMixUltraSurroundMacro Macro Index
+                Mov     Word Ptr [CS:MUltraMix16ISurroundVolume&Index&], AX
+        EndM
+
+        REPT 4
+                PreMixUltraSurroundMacro    %IndexCounter
+                IndexCounter = IndexCounter+1
+        EndM
+
+                Ret
+
+EndP            PreMixUltraSurround16BitI
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+MixUltraPanned16BitIOffsetTable      Label   Word
+
+        IndexCounter    =       3
+
+        MUltraMix16IPannedOffset Macro Index
+                DW      Offset MUltraMix16IPanned&Index&
+        EndM
+
+        REPT 4
+                MUltraMix16IPannedOffset    %IndexCounter
+                IndexCounter = IndexCounter-1
+        EndM
+
+Proc            MixUltraPanned16BitI
+
+                Dec     AX
+                Mov     BX, AX
+                And     AX, 3
+                ShR     BX, 2
+                Add     AX, AX
+                Inc     BX
+                Mov     LoopCounter, BX
+                Mov     BX, AX
+
+                ShL     AX, RESOLUTIONSHIFT-1
+
+                Add     SI, AX
+
+                Jmp     [CS:MixUltraPanned16BitIOffsetTable+BX]
+
+PanMUltraBit16ILoop:
+                MUltraMix16IPanned 0
+                MUltraMix16IPanned 1
+                MUltraMix16IPanned 2
+                MUltraMix16IPanned 3
+
+                Add     SI, 4*MIXRESOLUTION/4
+                Dec     LoopCounter
+                JNZ     PanMUltraBit16ILoop
+
+                Ret
+
+EndP            MixUltraPanned16BitI
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Proc            PreMixUltraPanned16BitI
+
+                Mov     AX, [SI+0Eh]            ; Left
+                Mov     BX, [SI+0Ch]            ; Right
+
+        IndexCounter    =       0
+
+        PreMixUltraPannedMacro Macro Index
+                Mov     Word Ptr [CS:MUltraMix16ILeftVolume&Index&], AX
+                Mov     Word Ptr [CS:MUltraMix16IRightVolume&Index&], BX
+        EndM
+
+        REPT 4
+                PreMixUltraPannedMacro    %IndexCounter
+                IndexCounter = IndexCounter+1
+        EndM
+
+                Ret
+
+EndP            PreMixUltraPanned16BitI
+
+

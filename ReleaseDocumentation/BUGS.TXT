@@ -1,0 +1,39 @@
+
+OK.. here's a list of the known problems - please don't write to me about them!
+
+1) Apparently, many problems have been encountered with QEMM... I really
+   don't know what's going wrong here at the moment (I haven't had any
+   experience with QEMM myself), but try using the following line in your
+   CONFIG.SYS file. If this still doesnt' work, I would recommend that you
+   steer clear of QEMM if possible for the meantime.
+
+                DEVICE=<path>\QEMM.SYS DMA=64, HANDLES=255
+
+2) With the GUS, 16-bit samples > 256k will *NOT* be played correctly. This is
+   due to a 'quirk' of the GUS - something that I don't know how to easily fix.
+   This does *NOT* occur with 8-bit samples. (This is the same problem that
+   you'll find in FastTracker II also)
+
+3) The "Active Channels" indication is *NOT* always 100% accurate (it's
+   even affected by stuff played in muted channels.....) Also, on a GUS or
+   AWE32, the program requires the hardware to provide the 'end of note
+   indication', whereas the mixing routines are calculated internally...
+   hence, if the hardware provides the indication a little later than expected,
+   another channel is allocated - what this means is that the value as played
+   on wavetable cards *MAY* differ from the value played on software-mixed
+   cards. This difference is minor (ie. 2 channels at most, unless you *TRY*
+   to setup a special situation)
+
+4) There is no 'enforce Amiga limits' option in IT (Which was in ST3) so
+   pitches of notes exceeding the Amiga limit will not be suitably played.
+
+5) If your system behaves unexpectedly in IT, it *MAY* be necessary to
+   specify the complete parameter list on the command line. This should NOT
+   be a problem in most cases, but it has been known to occur.
+
+6) In Windows '95, if you shell to DOS when using SB on a high IRQ, then
+   playback may stop! I've got no idea as to why this happens, but it seems
+   to restore itself after loading another module (on a SB16)
+
+7) If you Shell to DOS with insufficient memory available, WEIRD things may
+   occur...

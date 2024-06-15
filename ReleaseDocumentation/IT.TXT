@@ -1,0 +1,2199 @@
+
+
+.  ..s..s.s.ssss.
+:  ::$::$:$:$$$$$
+`  ``ý``ý`ý`ýýýý'.$$$     .$$$ $$$$$$$$$$ .$$$   .$$ .$$$ .$$$$$$$$$$ .$$$$$$$$
+   .  . . .$$$$ .$$$$    .$$$$ $$$   .$$'.$$$'  .$$'.$$$'.$$$$'  .$$'.$$$' .$$'
+  .  . . .$$$$'.$$$$$   .$$'.$ $$$  .$$'.$$$'  .$$'.$$$'.$$$$'  .$$'.$$$' .$$'
+ .  . . .$$$$'.$$$$'$  .$$'.$$ $$$ .$$'.$$$'  .$$'.$$$'.$$$$'      .$$$'
+.  . . .$$$$'.$$$$'.$ .$$' $$$ $$$$$$'.$$$'  .$$'.$$$' $$$$$$$$$$'.$$$$$'
+  . . .$$$$'.$$$$' $$.$$'  $$$ $$$   .$$$'  .$$'.$$$'        .$$'.$$$'  ..
+ . . .$$$$'.$$$$'  $$$$'   $$$ $$$  .$$$'  .$$'.$$$'   .$   .$$'.$$$' .$$'
+. . .$$$$'.$$$$'   $$$'    $$$ $$$ .$$$'  .$$'.$$$'   .$$  .$$'.$$$' .$$'
+ . .$$$$'.$$$$'    $$'     $$$ $$$ $$$$$$$$$' $$$$$$$$$$$ $$$'.$$$$$$$$' .cC!
+
+        ..                                                           ..
+    .s$$$$$. .sssssssssssssssssssssssssssssssssssssssssssssssssss. .$$$$$s.
+   `$$.  `$$.   .ssss. .ssss. .ssss. .sss. .s  ss .sss. .ssss.    .$$'  .$$'
+    `$$   `$$   ýss.`$ $. ``$ $' .$$ $. `$ $$.sý' $. `$ $. ``$    $$'   $$'
+  ds.`$ ds.`$     $$ ' $$ssý' $ssý$$ $$    $$S    $$ý   $$ssý'    $'.sb $'.sb
+ $$$$.$ $$$.$     $$   $$`ýs. $   $$ $$..$ $$`ýs. $$..$ $$`ýs.    $.$$$ $.$$$$
+ Y$$$$'.$$$$'.cC! ýý   ýý  ýý ý   ýý `ýýý' ýý  ýý `ýýý' ýý  ýý    `$$$$.`$$$$Y
+  `ý'   `ý'  `ýýýýýýýýýýýýýýýýýýýýýýýýýýýýýýýýýýýýýýýýýýýýýýýýýýý'  `ý'   `ý'
+     
+
+                                 User's Manual
+
+
+
+ 1. Introduction
+  1.1  What is Impulse Tracker?
+  1.2  About Impulse Tracker
+  1.3  Running Impulse Tracker
+  1.4  Technical information about Impulse Tracker
+
+ 2. Using Impulse Tracker
+  2.1  Playing songs
+  2.2  Pattern editor
+  2.3  Order list, channel panning & volume
+  2.4  Samples
+  2.4.1 Information about samples
+  2.4.2 Sample functions
+  2.5  Instruments
+  2.6  Song Variables
+  2.7  Hey! This program looks like Scream Tracker 3!!!
+  2.8  Gravis UltraSound / Interwave / AWE32 users.
+
+ 3. Before you write to me (Important notes)
+
+ 4. Closing words
+
+ 5. How to get the latest version of Impulse Tracker
+
+ 6. Legal stuff
+
+
+ ** Please note that this document hasn't been udpated in a long time.
+ ** Some information may be missing, which may be present in supplementary
+ ** files such as DRIVERS.TXT, FILTERS.TXT, MIDI.TXT, UPDATE.TXT, etc.
+
+ 1. Introduction
+        If you are familiar with tracker programs, then you could probably
+        skip through most of this document. (I strongly suggest that ANYONE
+        print out SUMMARY.TXT though, for a list of effects and editing
+        commands.) For those of you who have had experience with Scream
+        Tracker 3, read section 2.7. This should detail most of the major
+        differences between Scream Tracker 3 and Impulse Tracker. For those
+        of you who are unfamiliar with tracker programs it would probably be
+        best to print out this document, and then refer to it as you work
+        with the program.
+
+        Check out the file UPDATE.TXT. If this document contains conflicting
+        information with what's listed in UPDATE.TXT, then follow what
+        UPDATE.TXT contains, as I may have forgotten to update this text.
+
+  1.1  What is Impulse Tracker?
+        Impulse Tracker is a program used to create high quality music
+        without the requirements of specialised, expensive equipment. The
+        hardware requirements should be easily met: Any IBM 386+ compatible
+        computer (although a 486+ is recommended), and a VGA or higher video
+        card. If you want to hear sound, you'll need one of the following:
+
+            þ Sound Blaster series (or most compatibles)
+            þ Pro Audio Spectrum
+            þ Windows Sound System
+            þ ESS ES1868 AudioDrive
+            þ Ensoniq SoundscapeVIVO
+            þ EWS64XL Soundcards
+            þ Gravis UltraSound
+            þ Interwave based board
+            þ Generic MPU401 for MIDI Input/Output
+            þ DAC on LPT1/LPT2
+            þ PC Speaker
+
+        Note that stereo effects (including surround sound) can only be
+        experienced on software mixed stereo cards. Hardware mixed soundcards
+        support panning, but do not support surround sound.
+
+        You'll need about 500k of conventional memory to get the program
+        running - about 600k to have it load almost any song (as long as you
+        have an EMM driver - samples are stored in EMS when possible, otherwise
+        the songs that you are able to load will be limited even further!).
+        If you use EMM386.EXE, add "H=255" at the end of it to prevent
+        "Out of memory" messages when you still have EMS remaining. If
+        you're using some other memory manager, check it's documentation
+        to see how to increase the number of "memory handles".
+
+        Impulse Tracker supports direct control over 64 channels, and can
+        load and play the following formats: S3M, MTM, MOD and of course,
+        IT. At the moment, modules can only be saved in the IT and S3M
+        formats.
+
+        The number of channels playable on hardware mixed soundcards is
+        limited by the hardware. Check DRIVERS.TXT for specific details
+        on your soundcard hardware.
+
+        The Gravis UltraSound can only play 32 channels, although this
+        shouldn't be too much of a limitation. Note that if you put notes
+        in channels 33->64 in sample mode using a Gravis, you WILL NOT hear
+        these notes! (There's an explanation of sample mode much later on,
+        just keep it in mind if you own a Gravis UltraSound - it shouldn't
+        cause any problems.) The same restriction applies for the Sound
+        Blaster AWE 32, but to 30 channels. (ie. notes in channels 31->64
+        will not cause any sound)
+
+
+  1.2  About Impulse Tracker.
+        Impulse Tracker began simply as an extension to Scream Tracker 3
+        (which should be quite obvious to Scream Tracker 3 users, due to
+        the interface.) At first, I only intended a couple of extra
+        features (eg. proper panning and a couple of other interesting
+        functions), but with the release of Fast Tracker 2, it became obvious
+        that there were many areas in which Scream Tracker could be improved.
+        In spite of all the limitations of Scream Tracker 3 (in comparison
+        to Fast Tracker 2, which offered Volume/Panning Envelopes, 16-bit
+        samples, Samples > 64k, an in built sampler, proper stereo panning
+        on SB16, etc. etc), there were still more .S3M releases than there
+        were .XM releases! And the reason must have been within the way
+        you WRITE music with Scream Tracker 3. That's why I've used the same
+        simple and QUICK interface that Scream Tracker 3 offered. And I've
+        also incorporated all the power of Fast Tracker 2 and more!
+
+        The Tracker was written in 100% Assembler. All the routines are of
+        my own coding (That's why some of them suck so much :) ).
+        The program was written on and off during 1995, but most of the
+        work was completed in the summer holidays of '96. The source code
+        is over 100,000 lines long and occupies over 3MB. The Tracker runs
+        entirely in text mode (!) with some neat remapping of characters
+        (that's why I haven't been able to use colours to help in some places
+        ie. making the volume envelope nodes a different colour would have
+        made it easier to use!).
+
+  1.3  Running Impulse Tracker.
+
+        Win95 Users - ignore all this HIMEM and EMM386 stuff.. as long as
+        you don't have "noems" or "noframe" as a parameter to EMM386 in your
+        config.sys file, it'll work fine. If you have no idea what I'm talking
+        about, you can probably assume it's fine :) (unless you get "out of
+        memory messages")
+
+        Impulse Tracker uses EMS. If you want to be able to load large songs,
+        you need the following lines in your CONFIG.SYS file (on your boot
+        drive)
+
+                DEVICE=<path>\HIMEM.SYS
+                DEVICE=<path>\EMM386.EXE RAM H=255
+
+        eg. if the files are in your C:\DOS directory, you need this:
+
+                DEVICE=C:\DOS\HIMEM.SYS
+                DEVICE=C:\DOS\EMM386.EXE RAM H=255
+
+
+        If you use QEMM, use the following line instead:
+
+                DEVICE=<path>\QEMM.SYS DMA=64, HANDLES=255
+
+        If you want to run Impulse Tracker in Windows 95, check out WIN95.TXT
+
+        To find out details about the driver for your soundcard, check through
+        DRIVERS.TXT.
+
+        Most users should not require any command line switches, however
+        the following are available:
+
+          SFilename.Drv - Sets sound driver to use. eg. IT /sITIW.DRV
+                          this may become necessary as new sound drivers
+                          are released.
+
+          S#      Set sound card
+                   S0 = No sound card (silent mode)
+                   S1 = PC Speaker
+                   S2 = Sound Blaster
+                   S3 = Sound Blaster 2
+                   S4 = Sound Blaster Pro
+                   S5 = Sound Blaster 16
+                   S6 = Sound Blaster AWE 32
+                   S7 = Gravis UltraSound
+                   S8 = Interwave
+                   S9 = Pro Audio Spectrum
+                   S10 = Pro Audio Spectrum 16
+                   S11 = Windows Sound System
+                   S20 = .WAV writer device
+
+                  If this parameter is omitted, then a (hardware) detection
+                  routine is used. Check DRIVERS.TXT for specific information
+                  on the various drivers.
+
+          Axxx    Set Base Address of sound card (hex)
+          D#      Set DMA of sound card (decimal)
+          I##     Set IRQ of sound card (decimal)
+
+          M#####  Set Mixspeed. Values are accepted between 0->65535,
+                  however, the soundcards have hardware limits which will
+                  override the command line switch. Again, check DRIVERS.TXT
+                  for specific information on your sound driver.
+
+          L###    Limit number of active channels
+
+                  When you limit the number of channels, you are limiting the
+                  number of notes that you can hear on playback. In a "Sample"
+                  controlled song (explained later), the result is that if you
+                  play a 16 channel piece with the limit at 4 channels, then
+                  you will lose the last 12 channels! Even if the first 4
+                  are not playing anything. In an instrument controlled song,
+                  the result is that you will hear 4 notes at most, which can
+                  be controlled from any of the 64 channels, excess notes will
+                  be lost. (The reason for this is within the channel
+                  allocation routines.)
+
+                  Note that the hardware mixed devices (eg. Gravis UltraSound,
+                  AMD Interwave and Sound Blaster AWE32) cannot play more
+                  than a certain number of channels (drivers.TXT will provide
+                  the exact details).
+
+                  If you are new to tracking and didn't understand what I was
+                  just talking about, hilight this section with a marker
+                  (you've printed this out, right?), and in your dabblings,
+                  if you notice that some notes aren't being played, reread
+                  this section. It should make sense by then, and the reason
+                  hopefully lies in the above paragraphs.
+
+          V1      Override VGA detection routine.. in case you DO have a
+                  VGA and the program doesn't recognise it. If characters
+                  look weird, you may need to use this switch to override
+                  the Matrox mode autodetect.
+
+          V2      Force Matrox mode. Use this switch if you get garbled stuff
+                  appearing on your screen
+
+          R       Reverse stereo channels.
+                  This is only really useful on the SB16. (Swaps left/right
+                  outputs). The Sound Blaster Pro stereo setting routines
+                  aren't accurate, and will sometimes set the left to left
+                  and right to right (how it's supposed to be), and
+                  sometimes set the left to right and right to left (how
+                  it's not supposed to be :) ).
+                  You can also switch left/right channels in IT by pressing
+                  Alt-R on the info page.
+
+          C       Control playback in DOS Shell.
+                  When this option is on, the following keys will operate
+                  within the DOS Shell:
+
+                   Right-Alt:   Stop playback
+                   Right-Ctrl:  Play song (if not already playing)
+                   Grey Plus:   Increase global volume
+                   Grey Minus:  Decrease global volume
+
+                  Warning: There are problems on some computers with this
+                           enabled! If your keboard locks up, it may be
+                           necessary to press the left ctrl/alt to "unfreeze"
+                           it... sometimes (other times.. I don't know!)
+
+         F        Disable file colour distinctions.
+                  When this is on, all file colours will appear the same as
+                  the background colour. This is just to make it easier to
+                  redo the palette to your liking more easily.
+
+  1.4 Technical Information
+
+        Formats supported
+          Modules:
+            MOD (M.K., M!K!, 4CHN, 6CHN, 8CHN, xxCH, FLT4, FLT8)
+            669 (Composer 669, Unis669)
+            MTM (MMEdit files)
+            S3M (Scream Tracker 3 files)
+            XM  (Fast Tracker 2 files, DigiTracker 3 files)
+            IT  (Impulse Tracker 1.xx, 2.xx files)
+
+          Samples:
+            S3I (Scream tracker sample, 8 bit or 16 bit)
+            IFF (Fast tracker 2 sample, 8 bit or 16 bit)
+            WAV (Microsoft WAV, 8 bit or 16 bit)
+            Wxx (TX Wave format samples)
+            ITS (Impulse tracker sample, 8 bit or 16 bit)
+            RAW (Raw sample information, assumed 8 bit)
+            PAT (Gravis UltraSound patches)
+            KRZ (Kurzweil Synth files)
+            MOD (Samples from almost all .MOD formats)
+            PTM (Samples from Poly Tracker modules)
+            669 (Samples from 669 and 669 Enhanced modules)
+            FAR (Samples from Farandole composer modules)
+            MTM (Samples from MMEdit modules)
+            S3M (Samples from Scream Tracker 3 modules)
+            XM  (Samples from Fast Tracker 2 modules)
+            IT  (Samples from Impulse Tracker 1.xx, 2.xx modules)
+
+          Instruments:
+            XI  (Instruments from Fast Tracker 2)
+            ITI (Instruments from Impulse Tracker)
+            XM  (Instruments from Fast Tracker 2 modules)
+            IT  (Instruments from Impulse Tracker 1.xx, 2.xx modules)
+
+        Modules
+          99 Samples maximum
+          99 Instruments maximum
+         200 Patterns maximum (from 32-200 rows per pattern)
+         256 Orders maximum
+          64 Channels under direct control
+         256 Channels maximum for virtual control (64 max default)
+
+        Samples
+          8/16 bit samples
+          Maximum size around 4MB
+          No Loop/Forwards/Ping pong loop
+          Default pan for samples (optional)
+          Vibrato parameters
+
+        Instruments
+          25-point Volume/Panning/Pitch envelopes
+          Default pan for instruments (optional)
+          Pitch pan separation
+          Volume / panning swing
+          Virtual controls (*REALLY* worth understanding)
+          MIDI Output controls
+
+        Sound Devices
+          Generic MPU401
+          Sound Blaster 1.xx, 2.xx (8 bit mono)
+          Sound Blaster Pro (8 bit stereo)
+          Sound Blaster 16 (16 bit stereo, MIDI In supported)
+          Sound Blaster AWE 32 (16 bit stereo, hardware mixing, MIDI In &
+                                MIDI Out supported)
+          Pro Audio Spectrum (8 bit stereo)
+          Pro Audio Spectrum 16 (16 bit stereo)
+          Windows Sound System card (16 bit stereo)
+          ESS ES1688 AudioDrive (16 bit stereo)
+          ESS ES1868 AudioDrive (16 bit stereo, MIDI In supported)
+          ESS ES1869 AudioDrive (16 bit stereo)
+          Gravis UltraSound (16 bit stereo, hardware mixing)
+          Interwave based board (eg. GUS PnP, Dynasonix, 16 bit stereo,
+                                     hardware mixing, MIDI In & MIDI Out
+                                     supported)
+          EWS64XL (Codec driver, 16 bit stereo)
+          Sound Track '97 PCI (16 bit stereo)
+          DAC on LPT1/LPT2 (8 bit mono)
+          PC Speaker (very final option not recommended... )
+
+        MIDI Output
+          Supports 128 MIDI Macros
+          Supports 16 parmaeterised MIDI Macros
+          Internal handling of conflicting notes
+          Fully configurable output messages
+
+
+ 2. Using Impulse Tracker
+        Before any specific details of how to use the tracker, it may be
+        worth knowing these few "editing" keys:
+
+      When using Thumbbars.
+       Pressing Left and Right arrows will shift the values left/right
+       Holding down Ctrl while pressing left/right will move them quicker
+       And Shift-Left/Right will move them even quicker....
+       But just typing in a number will get you directly to the desired value!
+
+      String (text) entry.
+       Nothing special here (and the routines need to be rewritten), but
+       pressing Ctrl-Backspace will clear the entire text..
+
+      Numerical entries (of the 7 digit or 3 digit variety)
+       Pressing '+' or '-' will increase/decrease the value by 1. This is
+       especially useful when modifying loop values.
+
+  2.1  Playing songs
+        If you are like most of us, you would have run the program first,
+        and probably figured out how to do this yourself. Songs are simply
+        loaded by pressing F9 at any time (to invoke the file load menu)
+        and then selecting a song by pressing Enter. You can also type the
+        first few characters of a filename, and a "search" will be made for
+        the first match.
+
+        Note that on all the file menus in Impulse Tracker, you can also
+        delete files by pressing Delete.
+
+        After loading a song, use F5 to play it and F8 to stop. The Info
+        Page should appear, and you can cycle through views using
+        PgUp/PgDn. Separate view windows can be created by pressing Insert
+        (and removed by pressing delete) and these separate windows can
+        each have a different view method.
+
+        Details (ranges follow in brackets):
+         Frequency - the speed (pitch) at which the sample is played in
+                     samples per second
+         Position  - the offset in a sample (in bytes)
+         Smp       - The sample currently being played (1->99)
+         FVl       - The final volume of the sample, taking into account
+                     all the scaling factors (viz global volume, sample vol,
+                     envelope volume, channel volume and fadeout) (0->128)
+         CV        - Channel volume (0->64)
+         SV        - Sample volume (0->64)
+         VE        - Envelope volume (0->64)
+         Fde       - Fadeout component (0->512)
+         Pn        - Panning (0->64, Su = surround)
+         PE        - Panning envelope value (0->32)
+         NNA       - The current NNA (Cut/Con/Off/Fde)
+         Tot       - The total number of active virtual channels 'owned' by
+                     the channel
+
+        If you're looking for some songs to play, check out the following
+        places:
+         ftp.cdrom.com/pub/demos/music [huge collection!]
+         kosmic.wit.com/kosmic/songs
+         ftp.uni-muenster.de/pub/sounds
+         archie.au/pub/aminet/mods
+
+  2.2  Pattern editor (F2)
+        The pattern editor allows you to edit patterns. For those of you
+        who are familiar with music, patterns can be thought of as "bars",
+        and the order in which these "bars" are played is determined by
+        order list. For those of you who are not familiar with music,
+        consider patterns as a small collection of notes. Impulse Tracker
+        supports up to 200 different patterns - it *IS* quite a lot more
+        than it may initially sound!
+
+        Each pattern can range in length between 32 and 200 rows. You can
+        change this value by using the "Pattern Editor Configuration" screen by
+        pressing F2 when alredy in the Pattern Editor. (If you want to change
+        the number of rows of several consecutive patterns, use Ctrl-F2)
+        The other options available are the base octave (explained later),
+        the skip value (also explained later), the row hilight major and
+        minor (which determines the distance between the emphasized rows)
+        and the command/commandvalue link/split option, which determines
+        whether when editing, the cursor should move downwards when entering
+        an effect, or across to the effect value columns.
+
+        The pattern editor appears normally as 5 'channel' columns as such:
+        (You can configure the pattern editor .. press F1 in the pattern
+         editor, then page down to find the Track View options.)
+
+        ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+        ³C-5 01 23 A02³E-5 02 64 D01³ùùù ùù ùù .00³ùùù ùù ùù .00³ùùù ùù ùù .00³
+        ³ùùù ùù ùù .00³ùùù ùù ùù .00³ùùù ùù ùù .00³ùùù ùù ùù .00³ùùù ùù ùù .00³
+        ³ùùù ùù ùù .00³ùùù ùù ùù .00³ùùù ùù ùù .00³ùùù ùù ùù .00³ùùù ùù ùù .00³
+        ³ùùù ùù ùù .00³ùùù ùù ùù .00³ùùù ùù ùù .00³ùùù ùù ùù .00³ùùù ùù ùù .00³
+        ³ùùù ùù ùù .00³ùùù ùù ùù .00³ùùù ùù ùù .00³ùùù ùù ùù .00³ùùù ùù ùù .00³
+        ³ùùù ùù ùù .00³ùùù ùù ùù .00³ùùù ùù ùù .00³ùùù ùù ùù .00³ùùù ùù ùù .00³
+                        ^   ^  ^  ^
+     Component Columns: 1   2  3  4
+
+        What the component columns mean:
+         1) The first column contains the note and octave of the note.
+            Notes are entered by using the keyboard as such:
+
+    (Note)         C# D#    F# G# A#    C# D#    F# G# A#    C# D#
+                ³ ³ ³³ ³ ³ ³ ³³ ³³ ³ ³ ³ ³³ ³ ³ ³ ³³ ³³ ³ ³ ³ ³³ ³ ³
+                ³ ³ ³³ ³ ³ ³ ³³ ³³ ³ ³ ³ ³³ ³ ³ ³ ³³ ³³ ³ ³ ³ ³³ ³ ³
+    (What you   ³ ³S³³D³ ³ ³G³³H³³J³ ³ ³2³³3³ ³ ³5³³6³³7³ ³ ³9³³0³ ³
+     type)      ³ ÀÂÙÀÂÙ ³ ÀÂÙÀÂÙÀÂÙ ³ ÀÂÙÀÂÙ ³ ÀÂÙÀÂÙÀÂÙ ³ ÀÂÙÀÂÙ ³
+                ³ Z³ X³ C³ V³ B³ N³ M³ Q³ W³ E³ R³ T³ Y³ U³ I³ O³ P³
+                ÀÄÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄÄÙ
+    (Note)        C  D  E  F  G  A  B  C  D  E  F  G  A  B  C  D  E
+                 (Octave 0)           (Octave 1)           (Octave 2)
+
+            (For those of you with AZERTY keyboards, you will find that
+             the keys should work as positioned on the keyboard, rather
+             than having to figure out QWERTY equivalents)
+
+            The octave of the note is determined by adding the BaseOctave
+            to the Octave of the note played. The BaseOctave can be
+            adjusted by pressing the Grey keys '/' or '*' or using
+            Ctrl-Up Arrow or Ctrl-Down Arrow.
+
+            The range of notes is from C-0 to B-9. The 'middle' note is
+            considered as C-5
+
+            Pressing '1' on the note column will enter a notecut command.
+            This causes any note in the column to immediately stop.
+
+            Pressing '`' (the note below ESC) on the note colume will enter a
+            noteoff command. This causes all sustain points to be released
+            (Explained in samples and instruments in more detail.)
+
+            At the bottom of the channel is an 'edit mask'. This highlights
+            what will be affected when you type anything in. Note that
+            typing a note in can affect more than just a note - normally
+            it's set to enter an instrument and volume with it! You can easily
+            tell IT to enter an effect with it also by changing the
+            channel mask with ',' (comma) on columns 2, 3 and 4.
+
+                Examples of interpretation:
+
+                ³C-4 01 ùù .ùù³ - will play note C octave 4, instrument 1
+                ³D-4 ùù ùù .ùù³ - will play note D, octave 4, instrument 1
+                ³ùùù 02 ùù .ùù³ - Will play note D, octave 4, instrument 2
+                ³E-4 ùù ùù .ùù³ - will play note E, octave 4, instrument 2
+                ³G-6 12 ùù .ùù³ - will play note G, octave 6, instrument 12
+
+         2) The second column contains the sample/instrument, depending on
+            whether the tracker is operating in sample mode, or instrument
+            mode. Valid ranges are from 01->99 (decimal).
+
+         3) The third column contains the volume or panning of the note.
+            To toggle between entry of volumes and panning, press '`'
+
+            Volumes.
+            0 is the softest (ie. nothing) and 64 (decimal!) is the loudest.
+            If no volume is specified, then the default volume for the sample
+            is used. (Note that effects *CANNOT* raise the volume above 64)
+
+            The volume scale works linearly - ie. one note played at a
+            volume of 64 will be the same 'loudness' as 4 of the same note,
+            one played at a volume of 10, another at a volume of 30,
+            another at a volume of 20 and another at a volume of 4.
+             (10+30+20+4 = 64)
+            But if you have a choice, always go for the single note (it
+            will require less processing (occupy less channels), and also
+            sound better in quality, due to roundings that occur in processing
+            softer volumes).
+
+            Panning.
+            Panning controls appear in a different colour to the volume
+            controls. For panning in this column, 0 represents far left, and
+            64 represents far right. If you have an Xxx effect at the same
+            time, the Xxx will take precedence over this column.
+
+            It is more efficient filesize-wise to use a panning control in
+            this column rather than in the effect column.
+
+            Volume, Panning & Effect??
+            OK. So you want to do something tricky. Well, it's possible to
+            get all 3 of these how you want with a little meddling with
+            the channel volume control - just place one before the row with
+            an appropriate value (remember that the range is 0->40 HEX) such
+            that the channel volume scales the default volume to the desired
+            value.... What I mean is that if you want to play a note at volume
+            32, pan 48, with vibrato H81, then you can do the following:
+
+                ³ùùù ùù ùù M20³ - Set channel volume to HALF.
+                ³C-4 01 48 H81³ - The 48 is a pan command - this assumes that
+                                  the default volume for sample/instrument 1
+                                  is 64.
+
+            Volume Column Effects
+            In IT208 and higher, some extra functions are available in the
+            volume column. These allow you to slide the volume up/down and
+            pitch up/down, just like the final column effects. If you aren't
+            familiar with the rest of the editor, leave this section out for
+            now and come back after you have become acquainted to column
+            (4) of the editor - the effects column.
+
+            Volume column effects are selected by pressing A-H in the first
+            column of the effects.
+
+                Ax = fine volume slide up by x
+                Bx = fine volume slide down by x
+                Cx = volume slide up by x
+                Dx = volume slide down by x
+                Ex = pitch slide down by x
+                Fx = pitch slide up by x
+                Gx = portamento to note with speed x
+                Hx = vibrato with depth x
+
+            In all cases, if x is 0, then the effect memory is used (as
+            explained in (4)
+
+            The memory for Ax/Bx/Cx/Dx are shared, as is the memory for
+            Ex/Fx.
+
+         4) The final column contains effect data. For those of you who are
+            just starting, I would advise you to leave this section until
+            later, when you have already dabbled with entering notes, and
+            want some special features. It's easy to get caught up with all
+            these special features and you can 'overdo' the effects.
+            And it will sound absolutely pathetic.
+
+            Trust me, I know - I've done it :)
+
+            Effects are entered by typing 'a'-'z', then a hex value
+            (see later for an explanation of hex numbers) as the final two
+            entries. The effects allow you to a wide variety of functions
+            that are otherwise impossible to obtain.
+
+            Due to the repetitive nature of some effects, there is a
+            'memory' so that instead of typing:
+
+                ùùù ùù ùù G12     It is easier to   ùùù ùù ùù G12
+                ùùù ùù ùù G12     use:              ùùù ùù ùù G00
+                ùùù ùù ùù G12                       ùùù ùù ùù G00
+                ùùù ùù ùù G12                       ùùù ùù ùù G00
+                ùùù ùù ùù G12                       ùùù ùù ùù G00
+                ùùù ùù ùù G12                       ùùù ùù ùù G00
+                ùùù ùù ùù G12                       ùùù ùù ùù G00
+
+           The following effects 'memorise' their previous values:
+            (D/K/L), (E/F/G), (HU), I, J, N, O, S, T, W
+
+           Note: Bracketed commands share the same 'memory' value. So
+
+                ùùù ùù ùù E12   can be written as:  ùùù ùù ùù E12
+                ùùù ùù ùù F12                       ùùù ùù ùù F00
+                ùùù ùù ùù E12                       ùùù ùù ùù E00
+                ùùù ùù ùù F12                       ùùù ùù ùù F00
+                C-4 01 ùù G12                       C-4 01 ùù G00
+
+                Commands H and U are linked even more closely.
+                If you use H00 or U00, then the previous vibrato, no matter
+                whether it was set with Hxx or Uxx will be used. So:
+
+                ùùù ùù ùù H81    Is the same as:    ùùù ùù ùù H81
+                ùùù ùù ùù U00                       ùùù ùù ùù H81
+                ùùù ùù ùù U83                       ùùù ùù ùù U83
+                ùùù ùù ùù U00                       ùùù ùù ùù U83
+                ùùù ùù ùù H00                       ùùù ùù ùù U83
+
+            Hex Numbers
+                Note: Impulse Tracker works ENTIRELY with decimal numbers
+                      EXCEPT for the effects column.
+
+                Instead of using a decimal system (ie. base 10), it is more
+                natural for the computer to work with hexadecimal (often
+                abbreviated to simply 'Hex') - numbers which operate in base
+                16. The first 9 numbers in hex are denoted by '1' to '9' and
+                the next 6 are denoted by 'A' to 'F'. So if you count in hex,
+                it will be as follows: (0), 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B,
+                C, D, E, F, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 1A, 1B,
+                1C, 1D, 1E, 1F, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 2A etc.
+
+                To convert a hex number to decimal, multiply the 'tens' column
+                by 16 and add the value of the second column. ie. 32 Hex =
+                3*16+2 = 50 decimal. 2A hex = 2*16+10 = 42. (because A = 10)
+                The maximum number that you can represent with two Hex digits
+                is FF = 255 decimal.
+
+                Hope that this makes SOME sense :)
+
+        Effects.
+
+          Axx   Set Speed.
+
+                I prefer to think of this command as "Set Frames per Row".
+                Normally, the tracker operates at around 50 frames a
+                second. If the rows were played at this speed, then a huge
+                amount of space would be required to enter the pattern data.
+                Instead, setting the 'speed' of the song will cause the
+                tracker to wait on the current row for 'xx' frames. Hence,
+                setting the speed at 50 (decimal = 32hex) will cause each
+                row to last about a second - quite a long time! The default
+                is A06. The initial speed can be set in the variables
+                screen on F12.
+
+                If two Axx commands are given in the same row, then the
+                command in the higher channel (by number) will take effect.
+
+          Bxx   Jump to order.
+
+                  Causes the song to jump to order xx (hex). This is often
+                  used to create looping songs.
+
+                  If two Bxx commands are given, then the command in the
+                  higher channel will take effect.
+
+          Cxx   Break to row.
+
+                  The Command Cxx signifies the end of the current pattern,
+                  and also that the next pattern should be played from row
+                  xx (hex)
+
+                  If two Cxx commands are given... you know :)
+
+          D0x   Volume slide down
+
+                  The volume slide down command causes the volume of the
+                  note to be reduced by x for each frame after (for that
+                  row). ie. If you have a note at volume 64, with command
+                  D01 and speed A06, then the final volume will be 64-5=59.
+                  A note at volume 32 with command D02 at speed A05 will
+                  result in a volume of 24.
+
+                  For greater S3M compatibility, D0F will cause the volume
+                  to drop by 15 EVERY frame, instead of just off-note frames.
+
+                  Here's a full frame-by-frame description which should provide
+                  greater understanding:
+
+                        At 'speed' 4:
+                         C-4 01 .. D04
+
+                  What this does is:
+                    Frame 1: Plays C-4 with instrument 1
+                    Frame 2: Lowers the volume by 4
+                    Frame 3: Lowers the volume by 4
+                    Frame 4: Lowers the volume by 4
+
+                  The next frame will be controlled by the next row of
+                  information.
+
+          Dx0   Volume slide up.
+
+                  Operates exactly the same way as D0x, but slides the
+                  volume up by 'x'. Volumes cannot exceed 64 (checked
+                  and limited internally).
+
+                  For greater S3M compatibility, DF0 will cause the volume
+                  to rise by 15 EVERY frame, instead of just off-note frames.
+
+          DFx   Fine volume slide down.
+
+                  Takes the volume down by x at the start of the row.
+
+          DxF   Fine volume slide up.
+
+                  Takes the volume up by x at the start of the row.
+
+          Exx   Pitch slide down
+
+                  The pitch will slide down with speed xx (hex). In linear
+                  frequency mode, a pitch slide down by a particular value
+                  will always cause the same "pitch interval" - this does
+                  not occur in Amiga frequency mode. Valid ranges for xx
+                  are between 0 and 0DFh (as > 0E0h will be interpreted as
+                  fine slides)
+
+          EFx   Fine pitch slide down
+
+                  Slides the pitch down by x at the start of the row.
+
+          EEx   Extra fine pitch slide down
+
+                  Same as EFx, but 4 times finer. (ie. EE4 is equivalent to
+                  EF1)
+
+          Fxx   Pitch Slide up
+          FFx   Fine Pitch slide up
+          FEx   Extra fine pitch slide up
+
+                  Operates in the same manner as the Exx commands, but
+                  slides the pitch up. If the pitch gets 'too high', then
+                  the channel is turned off.
+
+          Gxx   Portamento to note.
+
+                  This command requires 2 parameters: A note to slide to
+                  and a speed. Example:
+
+                        C-4 01 ùù .00
+                        G-4 01 ùù G08
+                        ùùù ùù ùù G00
+                        ùùù ùù ùù G00
+
+                  This will cause the note C-4 to slide to G-4 with speed 8.
+
+                  You *CAN* change the sample that the note is sliding to.
+                  It is a good idea to make sure that the C5Speed of the
+                  samples is similar, if you want to try this! The new sample
+                  will play from it's beginning.
+
+          Hxy   Vibrato with speed x, depth y
+
+                  Causes the frequency to osciallte with depth 'y' at speed
+                  'x' which causes an interesting effect. Don't get carried
+                  away with it though! If you specify EITHER x or y as 0, then
+                  the previous value will be used.
+
+          Ixy   Tremor with ontime x, offtime y.
+
+                  Causes the volume of the instrument to remain normal for
+                  x frames, then sets the volume to 0 for y frames.
+
+          Jxy   Arpeggio with halftones x, y.
+
+                  This causes the note to quickly cycle through three notes -
+                  the note playing, a note x halftones above, and a note y
+                  halftones above. This causes an effect similar to old
+                  C-64 chords.
+
+                  Example: C-4 01 ùù J47 will cause the notes C-4, E-4 and
+                  G-4 to be cycled.
+
+          Kxx   Dual command: Vibrato + Dxx (Volume slide)
+
+                  Note: The vibrato could have been set with either Hxx or
+                        Uxx
+
+          Lxx   Dual Command: G00 + Dxx (Portamento to and Volume slide)
+
+          Mxx   Set channel volume
+
+                  Each channel has a volume range from 0->40h. The lower
+                  the value, the softer the notes in the channel. This
+                  command is convenient for making 'echoes'... you won't have
+                  to modify the echoing channel from the original, except
+                  for placing a M20 at the top of it!
+
+                  Values greater than 40h are ignored at playtime.
+
+          N0x, Nx0, NFx, NxF  Slide channel volume commands
+
+                  These commands work in the same manner as the slide
+                  volume commands, but operate on the channel volume,
+                  rather than directly on the note volume.
+
+          Oxx   Set sample offset.
+
+                  This will cause a sample to be played from offset yxx00h.
+                  This is useful to skip past the first part of a sample
+                  which may have a loud hit, or to start a speech sample
+                  half way through.
+
+                  If you specify a value PAST the end of a sample, then the
+                  command is ignored.
+
+                  The "y" part of yxx00h is set with command "SAy"
+
+                  Example:
+                        ... .. .. SA5
+                        C-4 01 .. O10
+
+                  This will play note C-4, instrument 1 at offset 51000hex
+
+                  Note to programmers: Oxx for 16-bit samples will move
+                  to the xx00h*2 position in the sample - ie. the 'xx00th'
+                  sample.
+
+          P0x, Px0, PFx, PxF  Slide panning commands.
+
+                  These work in the same maner as the slide volume
+                  commands, but operate on the channel panning. P0x slides
+                  the panning right, while Px0 slides the panning left.
+
+          Qxy   Retriggers a note after y frames with volume modifier x.
+
+                  This will cause a sample to be replayed from it's
+                  beginning after every y frames. 'x' can be any of the
+                  following:
+
+                        Value           Effect on volume each retrig.
+                         0                No change
+                         1                  -1
+                         2                  -2
+                         3                  -4
+                         4                  -8
+                         5                  -16
+                         6                  *2/3
+                         7                  *1/2
+                         8                No change
+                         9                  +1
+                         A                  +2
+                         B                  +4
+                         C                  +8
+                         D                  +16
+                         E                  *3/2
+                         F                  *2
+
+          Rxy   Tremelo with speed x, depth y
+
+                  This command acts similarly to the vibrato command, but
+                  affects the note volume, instead of the pitch. If you specify
+                  EITHER x or y as 0, then the previous value will be used.
+
+          S3x   Sets vibrato waveform to x
+          S4x   Sets tremelo waveform to x
+          S5x   Sets panbrello waveform to x
+
+                  Values for x: 0 = sine wave
+                                1 = square wave
+                                2 = Ramp down
+                                3 = Random!
+
+          S70   Past note cut
+          S71   Past note off
+          S72   Past note fade
+
+                  With the loss of 1-1 correspondence of editing channels
+                  to internal playing channels, these commands provide
+                  control over notes that have already been played by a
+                  channel.
+
+                   Example:
+                        Consider the following situation, where instrument
+                        1, notes C-4 & D-4 map to a looped sample, and the
+                        New Note Action is set to continue.
+
+                        C-4 01 64 .ùù
+                        D-4 01 64 .ùù
+                        E-4 01 64 .ùù <--- Use S70 here!
+
+                  Ordinarily, control would be lost over C-4 and D-4, but
+                  using command S70 at the point indicated, the notes C-4
+                  and D-4 would be stopped immediately when the note E-4
+                  plays.
+
+                  Similarly, note off commands and Fadeout commands can
+                  also be issued.
+
+                  Note: You *MUST* be in instrument mode for these
+                        to have any significance.
+
+          S6x   Pattern delay for x ticks.
+
+          S73   Set NNA to note cut
+          S74   Set NNA to continue
+          S75   Set NNA to note off
+          S76   Set NNA to note fade
+
+                  These options allow you to override the default NNA for a
+                  particular NOTE (ie. it does not affect the instrument)
+                  See section 2.5 for an explanation of NNAs.
+
+                  Note: You *MUST* be in instrument mode for these to have
+                        any effect.
+
+          S77   Turn Volume envelope off.
+
+                  Stops the processing of the volume envelope. This is for the
+                  times that you don't want to use the volume envelope that
+                  you've created.
+
+          S78   Turn volume envelope on.
+
+                  Sometimes, you'll decide that it's better not to use the
+                  volume envelope for most cases, but you may just want to
+                  use it a few times - this is the command that lets you
+                  do that!
+
+                  Note: You *MUST* be in instrument mode for this to work.
+
+          S8x   Set panning position
+
+                  Set panning position, S80 is leftmost, S8F is rightmost.
+                  This is an obsolete command, provided only for ST3
+                  compatibility. Use command Xxx instead.
+
+          S91   Set surround sound!
+
+                  For those of you who are lucky enough to have a dolby
+                  surround sound decoder (myself not included - so if ya
+                  wanna send me something.....), this *should* cause the
+                  sound to come from the surround speaker. This is a
+                  pseudo-panning command, and issuing either Xxx or S8x
+                  will cause the surround sound to be reset.
+
+                  If you try and play Surround Sound on a GUS, Interwave
+                  or AWE32, it will be played as a central pan.
+
+          SAy   Set high-offset. Check Oxx for an example.
+
+          SB0   Set loopback point
+          SBx   Loop x times.
+
+                  This pattern space-saving feature will cause the pattern
+                  to be looped x times back to the last SB0. Note that you
+                  can only loop within the pattern! Also, each channel has
+                  it's own loop-back information... so you HAVE to have the
+                  SB0 and SBx in the same channel for it to operate.
+
+          SCx   Note cut after x frames
+
+                  This will cause a note to be immediately stopped after x
+                  frames. It is similar to issuing a "^^^" in the note column,
+                  just that it has a finer control over timing.
+
+          SDx   Note delay for x frames
+
+                  Actually, this command works like "interpretation" delay
+                  for x frames. Any data - note, sample/instrument or volume
+                  in the channel will not be interpreted until x frames into
+                  the row.
+
+          SEx   Pattern delay for x rows
+
+                  This will cause a "pause" on the row for effectively x rows
+                  longer.
+
+                  Note that if TWO pattern delay commands are issued, then
+                  the only the command in the higher channel will be considered.
+
+          Txx   Set tempo to xx
+
+                 Valid ranges are between 20h and 0FFh. The higher the
+                 value, the faster the playback. This essentially
+                 determines the time length of each frame, by the following
+                 formulas:
+                               Frames per minute = 24*Tempo
+                 equivalently:
+                               Frames per second = 0.4*Tempo
+
+          T0x   Tempo slide down
+          T1x   Tempo slide up
+
+                Tempo slides up and down are used to smoothly modify the
+                speed of the song. The tempo is modified by ñx every
+                non-row frame.
+
+          Uxy   Fine vibrato with speed x, depth y
+
+                 Same as vibrato, but 4 times finer in depth.
+
+          Vxx   Set Global volume
+
+                 Valid ranges are between 0 and 80h. All notes playing are
+                 affected by this change.
+                 Values greater than 80h are ignored at playtime.
+
+          W0x, Wx0, WFx, WxF  Slide global volume
+
+                 Similar to the Dxx commands, but operate on the global
+                 volume. Useful when fading out songs.
+
+          Xxx   Set panning position
+
+                 Sets the panning position anywhere from left to right (X00
+                 is left, XFF is right).
+
+          Yxy   Panbrello with speed x, depth y.
+
+                 What the hell is panbrello? Well, it's a word that I coined
+                 late one night after a friend suggested that there should
+                 be a random pan position command. I decided.. why not - I'll
+                 make the vibrato/tremelo equivalent of panning! And so you
+                 have here, 'panbrello.' What this does is instead of
+                 oscillating frequency (pitch) or volume, it oscillates the
+                 panning position about the 'set' panning position for a
+                 channel. This is for you techno freaks out there who want
+                 another function to stuff around with! :)
+
+                 The random pan position can be achieved by setting the
+                 waveform to 3 (ie. a S53 command). In this case *ONLY*, the
+                 speed actually is interpreted as a delay in frames before
+                 another random value is found. so S14 will be a very QUICK
+                 panbrello, and S44 will be a slower panbrello. With any
+                 other waveform, the higher the value for x, the faster the
+                 panbrello, like vibrato and tremelo. If you don't know what
+                 I'm talking about, check out the stereo-indicators on the
+                 info page (don't forget that you have to be in stereo mode!)
+
+                 If you specify EITHER x or y as 0, then the previous value
+                 will be used.
+
+         5) Editing Functions
+
+             For a complete list of available functions, check the help screen
+             for the pattern editor (on F1)
+
+           Ctrl-Backspace       IMPORTANT! This one will save you a lot of
+                                frustration - it's a 10-stage listed Undo
+                                function!
+
+           Grey Plus    Advance to next pattern
+           Grey Minus   Goto previous pattern
+           Shift-GPlus  Advance 4 patterns
+           Shift-GMinus Go back 4 patterns
+           Ctrl-GPlus   Go to the next order's pattern
+           Ctrl-GMinus  Go to the previous order's pattern
+
+           Alt-Delete   Remove an entire row from the pattern
+           Alt-Insert   Insert an entire row into the pattern
+
+           '.'          erase data.
+           Space        will enter the previous data for that column.
+           '4'          play the note under the cursor.
+           '8'          play entire row.
+           Ctrl-F6      play pattern from the current row.
+           Ctrl-F7      Set playback mark - this will be the position that
+                        subsequent playback will occur when you press F7.
+                        Remove the mark by pressing Ctrl-F7 on the row
+                        that is already 'marked.'
+
+           Alt-0 -> 9   Quick select "skip value"
+                        The skip value is the number of rows that the
+                        editor advances by when a note is entered - this
+                        makes it easy to enter notes on alternate rows
+                        (press alt-2 first!)
+
+                        If the skip value is 0, then the editor will
+                        advance to the next channel (making it easier to
+                        enter chords)
+
+                        If the skip value is 0, AND template mode is on,
+                        then entering a note will cause the editor to
+                        advance by the length of the template block.
+
+           Alt-Enter     Store current pattern in memory
+           Alt-Backspace Restore current pattern
+
+         6) Block Functions
+           Alt-B        Mark top left of block
+           Alt-E        Mark bottom right of block
+           Alt-L        Mark entire column (channel)
+           Alt-L*2      Mark entire pattern
+           Alt-D        Mark the minor row hilight number of rows. Pressing
+                        this repeatedly doubles the length of the block.
+                        eg. Pressing Alt-D once may mark out 16 rows,
+                        pressing it twice will mark 16 rows.
+
+           Alt-A        Transpose all the notes in the block a semitone
+                        down If no block is marked, then the current note
+                        will be transposed a semitone down.
+           Alt-C        Copy marked block into the clipboard
+           Alt-F        Double the length of the selected block
+           Alt-G        Halve the length of the selected block
+           Alt-I        Toggle Template mode... read part 8
+           Alt-J        Volume Amplifier... modify the volume controls
+                        between 0 and 200%
+           Alt-K        Slide volume... if you want to manually control a
+                        fadeout, or fadein, then set the volumes at the
+                        extreme ends of the blocks, then press Alt-K ONCE!
+           Alt-K*2      Remove all volume controls in the selected block
+           Alt-M        Mix clipboard with pattern data.. try it out, and
+                        you'll understand (it's like an advanced paste
+                        command - it'll only copy the data IF there is nothing
+                        on the row it is copying to.)
+                        Pressing this two times will copy the data if there's
+                        nothing in the same FIELD (not just same row).
+           Alt-N        Toggle Multichannel mode.. Multichannel mode allows
+                        you to select for each channel whether it should be
+                        part of the multichannel list. If you enter a note
+                        while on a channel which is in the multichannel
+                        list, then the editor will advance to the next
+                        channel.
+           Alt-N*2      Multichannel menu.
+           Alt-O        Overwrite pattern data with clipboard. Like paste,
+                        but without the "insert" part :)
+           Alt-P        Paste clipboard into pattern at current position
+           Alt-Q        Transpose all the notes in the block a semitone up
+                        If no block is marked, then the current note will
+                        be transposed a semitone up.
+           Alt-S        Set all the instrument (sample) values to the
+                        current instrument (sample) within a block
+           Alt-U        Unmark block / release clipboard from memory.
+           Alt-V        Set all the volume controls to the current
+           Alt-W        Remove all volumes not associated with a note/inst
+           Alt-X        Slide command value. Similar to Alt-K (slide
+                        volume). This command can be convenient to slide
+                        the panning from one position to another, or to
+                        slide global volume effects, channel volume, sample
+                        offsets... whatever...
+
+           Alt-X*2      Erase all effect data in the selected block!
+           Alt-Y        Swap selected block with a samesized/shaped block
+                        starting at the current position. Swap blocks
+                        CANNOT overlap.
+           Alt-Z        Cut current block.
+                        Warning: If you don't have enough memory, the
+                        current block WILL be erased, although there is no
+                        record of it in the clipboard....
+
+         7) Track View functions
+
+            Sometimes you just want to know what you've put in those tracks
+            that are currently off the screen... these functions allow you
+            to do just that!
+
+            Alt-T       Cycle Track view mode.
+            Alt-R       Remove all track views
+            Alt-H       Remove track view divisions (allows you to view 36
+                        channels!)
+            Ctrl-0      Remove current track from track view
+            Ctrl-1->5   Quick select a track view for current channel.
+
+         8) Templates
+
+            Templates are an invention to make entering repeated
+            'sequences' easier. Often, you may want to enter a note with
+            the same effects following each note. eg.
+
+                C-4 01 00 D10   }
+                ùùù ùù ùù D00   }
+                ùùù ùù ùù D00   } Enter this....
+                ùùù ùù ùù D00   }
+                ùùù ùù ùù D02   }
+                ùùù ùù ùù D00   }
+                D-4 01 00 D10     }
+                ùùù ùù ùù D00     }
+                ùùù ùù ùù D00     }
+                ùùù ùù ùù D00     }
+                ùùù ùù ùù D02     }
+                ùùù ùù ùù D00     } Use the templates to enter this!
+                E-4 01 00 D10     }
+                ùùù ùù ùù D00     }
+                ùùù ùù ùù D00     }
+                ùùù ùù ùù D00     }
+                ùùù ùù ùù D02     }
+                ùùù ùù ùù D00     }
+                etc..
+
+            With templates, this can be done by entering the first 'block',
+            then marking it and copying it into the clipboard (using
+            Alt-C). Toggle the template mode by pressing Alt-I to Template:
+            Overwrite, then go to the start of the second block, and press
+            the key for D-4 (normally X). The whole block will be filled
+            in! This is easiest to understand if you print this section out
+            and try it in the editor.
+
+            The templates can also include other notes, which will be
+            translated accordingly, and can span several channels.
+
+            A VERY neat use of templates is to enter multiple notes:
+            (eg. octaves, different samples, left/right stereo sample
+             pairs...)
+
+                C-4 01 32 .00    C-5 02 32 .00  } Enter this...
+                G-4 01 32 .00    G-5 02 32 .00      }
+                D#4 01 32 .00    D#5 02 32 .00      }
+                C-4 01 32 .00    C-5 02 32 .00      } And use Templates here!
+                G-4 01 32 .00    G-5 02 32 .00      }
+                D#4 01 32 .00    D#5 02 32 .00      }
+
+            Templates can span more than one row and one channel - you
+            can template blocks of any size.
+
+  2.3  Order List, Channel panning & volume. (F11)
+          After creating patterns, the tracker has to know what order to
+          play them back in. The order list is the means by which this is
+          done. Another wording of the Order List which may make it simper
+          to understand is the "Pattern sequence list." ie. the sequence in
+          which the patterns are played back.
+          Simply enter the patterns into the list in the order they
+          should be played, and voila! - you have a new piece of music.
+          (as long as you have something in the patterns, of course!). The
+          "---" marks the end of a song, and "+++" is simply a marker which
+          is skipped (for ST3 support). Pressing N on a row will enter the
+          previous order's pattern+1. eg. Entering 000, then pressing 'n' 5
+          times will enter 000 (which you typed), then 1, 2, 3, 4 and 5.
+
+          Initial channel panning and volume is the panning and volume that
+          each channel is set to whenever the song is reset. It will not
+          affect anything currently playing. On the panning list, you can
+          also mute channels by pressing spacebar. Pressing S will select
+          the initial 'panning' as surround sound. The initial channel
+          volumes can be accessed by pressing F11 once you are already on
+          the Order list and channel panning screen.
+
+  2.4  Samples
+
+  2.4.1 Information about Samples
+         Samples are the raw sound information. They can be of *anything*
+         you like - normally a musical instrument of some sort, but you
+         could have voice samples or sound effects too!
+
+         Impulse Tracker accepts 8-bit or 16-bit samples. It can import
+         several different formats, which are detailed in section 1.4
+
+         If you import a 16-bit file which isn't recognised, you have to
+         use the following steps:
+
+                1) Press Alt-A (to convert signed/unsigned) and convert the
+                   data.
+                2) Press Alt-Q (to toggle to 16-bit) and DON'T convert
+                   the data
+                3) If the sample is unsigned, you will then need to convert
+                   it AGAIN by pressing Alt-A (and selecting yes to convert
+                   data)
+
+         Samples have the following information: A name, a default volume,
+         a global volume, vibrato information, loop information and a
+         frequency
+
+         The default volume of a sample is the volume at which a sample is
+         played, IF no volume is specifier.
+
+         The global volume is the modifier by which ALL occurrences of the
+         current sample are scaled by.
+
+         Vibrato information - the vibrato speed is the speed at which the
+         vibrato oscillates. Although it is possible to enter values 0->64,
+         the best effects are obtained by entering values around 24-48. The
+         vibrato depth determines the maximum deviation from the mean
+         frequency. The vibrato rate determines how quickly the vibrato is
+         applied. Higher values cause the vibrato to be applied more
+         quickly, a low value like 1 can take many seconds before the
+         vibrato is noticed.
+
+         Loop information. Samples can be looped to provide a continuous
+         sound. The loop beginning and the loop end must be specified, and
+         the loop method (either forwards or ping pong) must be set.
+         (Toggle by pressing spacebar). The loop boundaries can also be
+         modified using '+' or '-' (even while the sample is playing!)
+
+         Sustain loops are the loops used as long as no note off command is
+         encountered. In the sample tester, releasing a key provides a note
+         off command to the player. Once a note off command is issued, the
+         normal loops apply. The idea behind sustain loops originated after
+         listening to some synthesizers which provided 'after note' sounds
+         - like fingers lifting off guitar strings. With sustain loops, you
+         can have a guitar sound in the sustain loop, with the end of the
+         sample containing the 'finger off' sound. This way, you should be
+         able to achieve a new degree of realism. The best way to do this
+         is to have a reasonably small sustain loop, and a section after it
+         containing the note-off sound, possibly looped. (The sustain loop
+         should ideally be less than 1/20th of a second, so that you have
+         reasonably good control over the timing of the note-off, but this
+         is not always possible)
+
+           Example: If you have a sample with no sample loop, but a sustain
+                    loop around bytes 19000-20000, then while no noteoff
+                    command is issued, then the sample will loop between
+                    19000 and 20000. Once a noteoff command is received,
+                    then the sample will be played until it's end and then
+                    will stop.
+
+                    If you have a sample of length 64000 with a ping pong
+                    loop around the whole sample (0->64000) and a sustain
+                    ping pong loop around bytes 20000-30000, then the
+                    sample will loop backwards and forwards between 20000
+                    and 30000 until a noteoff command is received, after
+                    which it will loop between 0 and 64000 (backwards and
+                    forwards).
+
+           It is recommended that you do NOT have a ping pong sustain loop
+           going to a forwards loop or no loop and that if you DO have a
+           sustain loop AND a normal loop, that the sustain loop lies
+           within the normal loop (for ping pong), or that the normal loop
+           end is after the sustain loop end (for forward's loop) (think
+           about what you're asking it to do in these cases carefully...
+           it should make sense - the tracker can still handle the cases
+           when this is not adhered to, but the resulting note-off effect
+           can vary greatly depending on timing and pitch!)
+
+         The frequency of a sample determines its pitch. The higher the
+         frequency, the higher the pitch. The frequency can be doubled or
+         halved by pressing Alt-Grey Plus/Minus to cause an octave
+         rise/decrease. For the technically inclined out there, the
+         frequency is the number of bytes per second that have to be played
+         for a C-5. You can increase the frequency by one semitone by
+         pressing Ctrl-Grey Plus or decrease it by a semitone with
+         Ctrl-Grey Minus.
+
+         To load in a sample, go to the entry in which you want to load it
+         then press enter. The sample library should appear. You can test
+         out any sample just by "playing" notes on the keyboard while you
+         are on top of the sample. Load a sample into the sample list by
+         pressing enter. Of course, if you don't have any samples, no
+         samples will appear :)
+
+         Where can I get samples from??
+
+         You can steal ('rip') samples from modules by going to the sample
+         in the sample list, then pressing Alt-O. Scream Tracker 3 samples
+         can be saved by pressing Alt-T (vibrato, global volume + susloop
+         information lost) or raw samples can be saved by pressing Alt-W
+         (all variables lost!)
+
+         Warning: Be careful where you rip samples from!! Some people don't
+         welcome it at all! And in some cases, sample ripping may be a breach
+         of copyright - this mainly a concern when you use commercial samples)
+
+         There are also many great sample 'packs' available... try a local
+         music BBS, or the bigger FTP sites.
+
+         Some synthesizers have patch files (eg. Kurzweil 2000 as .KRZ) which
+         are available through the internet. You can download these, and
+         convert them with an appropriate utility (I recommend Convert 1.4 -
+         convrt14.zip on ftp.cdrom.com/pub/demos/programs/convert and use
+         it to convert the files to .S3I format - even for 16 bit samples).
+         I don't know what sort of copyright these samples have. *YOU* have
+         to read any text accompanying the files to find this out.
+
+         Finally, you can make your OWN samples! With a sampler (eg.
+         Digiplay 3.0) or with some other tracker (eg. Fast Tracker 2), you
+         are able to record information through the microphone socket of
+         the computer!
+
+         Note: The length of a sample is *NOT* necessarily the number of bytes
+         it occupies! The length quoted is the quantity of SAMPLE INFORMATION.
+         If you have an 8 bit sample, then the size in bytes IS the same as
+         the length. If you have a 16-bit sample, then the size in bytes
+         is DOUBLE the length.
+
+  2.4.2 Sample Functions
+
+         Alt-A and Alt-Q provide basic sample-conversion functions. Alt-A
+         will convert a sample to or from unsigned to signed format. Alt-Q
+         will allow you to change a sample between 8 and 16 bits.
+
+         If you want to remove the part of a sample before a loop or after the
+         end of a loop, you can use Pre-loop cut sample (Alt-B) or Post-Loop
+         cut sample (Alt-L)
+
+         To reverse a sample, use Alt-G. This can produce interesting effects.
+
+         If you are working to a size limit, check out the functions Alt-E
+         and Alt-F. These functions allow you to resize the sample to whatever
+         size you would like! (Note that there is a reduction in quality
+         associated with a reduction in size). Alt-E will resize the samples
+         WITH interpolation, Alt-F will resize the samples WITHOUT
+         interpolation.
+
+         To decrease the volume of a sample, the best way for 8 bit samples
+         is to reduce the Sample's GLOBAL volume. For 16-bit samples, it's
+         better to just attenuate the sample (ie. use Alt-M to 75%). The
+         sample will retain greater quality if you follow these guidelines.
+
+         Alt-M is used to amplify a sample to between 0 and 400%. The default
+         value for Alt-M which appears is the maximum the sample can be
+         modified without creating clipping distortions.
+
+         To exchange two samples *in the sample list only*, use Alt-X. To
+         swap two samples *even in the pattern data*, use Alt-S.
+
+  2.5  Instruments
+
+         For those who have never used a tracker before, I strongly suggest
+         that you skip this section for now - learn how to 'use' samples
+         first. After that, you'll should be able to understand and hopefully
+         fully appreciate the power that instruments can provide.
+
+         To enable instruments, go to the song variables (F12), and press
+         on the "Instruments" button after then "Control" prompt. This *MUST*
+         be done in order to use ANY instrument function (including special
+         note effects, viz S7x).
+
+         The instrument parameters are split into four screens - one for
+         each of general options, volume options, panning options and pitch
+         options. To select the appropriate screen, just whack enter on any
+         of the four buttons at the top of the instrument list.
+
+         Instruments are collections of samples (or just a single sample).
+         The translation of samples is controlled by the column in the
+         centre of the screen on the general options page which shows what
+         note/sample pair a single instrument note will be translated to.
+         Example: If you're on instrument 1, and the note translation table
+         appears as such:
+
+                C-5³C-5 01
+                C#5³C-5 02
+                D-5³D-4 03
+                D#5³D#4 03
+
+         Then entering "C-5 01" into a pattern will cause sample 1 to be
+         played at pitch C-5, "C#5 01", wil cause sample 2, to be played a
+         pitch C-5, "D-5 01" will cause Sample 3 to play at D-4, "D#5 01"
+         will cause Sample 3 pitch D#4 to play... get the idea?
+
+         Why would you want to combine several samples into one instrument?
+         Well, one very good reason is that it makes it easier to enter
+         drum parts - you no longer have to change the 'instrument' if you
+         want another sample. And also, combining them into one instrument
+         makes them easier to manage - you can specify a volume envelope,
+         NNA or FadeOut which will apply for ALL of the samples in the
+         list.
+
+         Another reason is if you want a very high quality sounding
+         'instrument.' If you wanted to go overboard, you could sample
+         every single note on a piano separately, and set up the note
+         translation table to point to each sample accordingly - you'd
+         get a very, very nice sound - if you don't run out of memory
+         first. Or patience :)
+
+         When you save an instrument to disk, all the related samples are
+         stored with it. This means that you can setup a 'drum kit' instrument,
+         and to load it into another song, you only need to select that
+         instrument and all the samples will be loaded for you.
+
+         The Fadeout value for each instrument determines how quickly the
+         volume of the instrument decays under any of the following
+         conditions:
+           1) NNA "FadeOut" is selected, and another note is played. (see
+              later in this section for info about NNAs)
+           2) The end of a volume envelope is reached.
+           3) A note off command is encountered, without a volume envelope.
+           4) A note off command is encountered, and the 'normal' volume
+              envelope loop is on.
+
+         The larger the fadeout value, the quicker the volume decays.
+
+         Each instrument also has an associated volume/pan/pitch envelope!
+         The volume envelope is editing by selecting the node (left/right
+         arrows) then picking it up (with enter), moving it around (using
+         arrows, or Alt-Arrows for quicker control), then pressing enter
+         again to "put down the node". Nodes can be inserted or deleted
+         (with the keys insert and delete!). Note that the envelope will
+         only be used if the envelope flag is set to "on" (just below the
+         envelope graph)..
+
+         Remember that you have to be in instrument mode for this all to work!
+
+         There are 3 pieces of information for each Envelope graph -
+         the node number (hopefully obvious), the time of the node (the
+         number of 'ticks' or 'frames' that elapse before the node point)
+         and the value of a node (also hopefully obvious). So the x-axis
+         is time, and the y-axis is volume/pan/pitch - simple, really!
+
+         You can also specify envelope loops and sustain loops. These
+         operate in the same manner as the sample loops, but the numbers
+         refer to node numbers.
+
+         The powerful feature of this tracker, though, is not the
+         envelopes by themselves - it's the New Note Actions! What these
+         options do is allow you to select what should happen to an
+         instrument when another note is played in the same column. If NNA
+         "Cut" is selected, then the previous note will immediately be
+         stopped (like in all other trackers). If NNA "Continue" is
+         selected, then the note will continue playing! This is especially
+         useful for Drum Parts, where there may be a long-ish snare sample
+         - you can go on ahead and put a bass drum in the very next row
+         after it - the snare drum will still complete playing! NNA "Note
+         Off" issues a note off command to a note when a new note is played
+         in the channel. This is particularly useful in combination with
+         volume envelopes and volume envelope sustain loops. NNA "Note
+         Fade" causes the current note to fade out with the fadeout value
+         when a new note is played.
+
+        WARNING!!
+         New Note Actions are EXTREMELY powerful, but they CAN cause
+         problems if you are not careful. Selecting NNA Fade with a fade
+         value of 0, or note continue with a looped sample (no volume
+         envelope) or anything which can cause a quick build up of
+         allocated channels can easily hang a slow computer (or even a
+         quick one, for that matter!) I tried to put checks against this,
+         but they always triggered too late - "past the point of no return"
+         where the CPU becomes so bogged down with processing the
+         information, that it can't do or try to do anything else. (The
+         tracker has *MANY* calculations to do - the most time consuming
+         are the mixing routines, which require the processor to process as
+         many bytes as the mixing speed per second for EACH note ie. a
+         mixing speed of 44kHz means that for each note playing, 44000
+         calculations have to be made EVERY second... so with 64 channels
+         'active' at the maximum mixing rate for a SB16, almost 3 MILLION
+         calculations have to be done EVERY second to produce the sound (in
+         mono)!!! (My 486 can cope with this, but my 386 just dies!)
+
+        Duplicate Check Type (DCT) / Duplicate Check Action (DCA)
+           DCT = Off/Note/Sample/Instrument, DCA = Cut/Off/Fade
+
+         When the duplicate check type is enabled, then repetitions of the same
+         instrument&note/sample (or just repititions of the same instrument)
+         pair in a particular channel will cause the previous occurence of
+         the instrument&note/sample pair to be cut or faded (depending on
+         the DCA)
+
+          Example: If the DCT is set to note, and DCA is set to Cut, then the
+                    asterixed notes will cut out the tilda notes
+        ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+        ³  C-4 01 ~     ³     C-4 02 ~      ³   C-4 03 }                    ³
+        ³  D-4 01       ³     C-4 02 *   ~  ³   D-4 03 } Nothing get's cut. ³
+        ³  C-4 01 *     ³     C-4 02     *  ³   C-4 02 }                    ³
+        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+        This option was included to help limit the number of active channels,
+        and is especially useful for drum tracks.
+
+        Another nifty application of Duplicity checks is the following
+        example: You can have a separate sample for each string of a guitar
+        and setup and instrument to accomodate this. Setting the NNA to
+        continue, the DCT to sample and the DCA to fade (with a relatively
+        quick fadeout) means that whenever you play a new note, the previous
+        note will continue to play on. BUT! If a previous note of the same
+        instrument has the same sample as the new note being played, then
+        it will be faded out - this closely relates to what you hear when
+        someone plays a guitar - when they play the same string, they have
+        to put their fingers down on the string, which causes the last note
+        *on that string* to fade out.
+
+        I sincerely hope that these options do not cause the death of brilliant
+        4 channel music - that would be a great shame! There is truly an art in
+        making a decent sound in as few channels as possible! (If you're new to
+        this sorta thing, then it'll grow upon you...)
+
+        For interest's sake...
+         Channels are turned off internally under any of the following
+         conditions:
+          1) The end of a sample is reached (quite obvious)
+          2) When the end of a volume envelope is reached, and the final
+             envelope volume is 0
+          3) When the fadeout value for a channel causes it to become silent.
+          4) When a duplicate note is played when DNT is set to Note and DCA is
+             set to cut for the instrument.
+          5) When a notecut is issued (obvious)
+          6) When a channel is moved to the background (using NNAs)
+             AND the volume is 0.
+
+         Out of all the functions provided for the Samples and Instruments,
+         perhaps the only one that requires explanation is the "Update
+         Pattern Data" function. This function was written for people who
+         have already written music in MOD/S3M/MTM formats, and want to
+         combine their percussion parts into a single instrument. The way
+         to do this is to set up the instrument->note/sample table, and
+         then use the "Update Pattern Data" function. What this does is
+         search through all the patterns for all occurrences of the
+         note/sample pairs that appear in the instrument->note/sample
+         table, and replace it with the appropriate note/INSTRUMENT pair.
+         Sounds quite complicated... sorry :)
+
+                Example:
+                  If you originally have the following setup
+
+                Sample 1 = Bass Drum
+                Sample 2 = Snare Drum
+                Sample 3 = Closed Hihat
+                Sample 4 = Open Hihat
+
+                  And the following column within any pattern:
+
+                        C-5 01 ùù .ùù
+                        C-5 03 ùù .ùù
+                        C-5 03 ùù .ùù
+                        C-5 03 ùù .ùù
+                        C-5 02 ùù .ùù
+                        C-5 04 ùù .ùù
+                        C-5 01 ùù .ùù
+                        C-5 04 ùù .ùù
+                        C-5 01 ùù .ùù
+
+                  You can combine these four samples into one instrument by
+                  creating the instrument->note/sample table with the
+                  following entries: (say for instrument 10)
+
+                        C-5³C-5 01
+                        C#5³C-5 ùù        <--- just an empty slot...
+                        D-5³C-5 02
+                        D#5³C-5 ùù
+                        E-5³C-5 03
+                        F-5³C-5 04
+
+                  And using the update pattern data command will produce the
+                  following
+
+                        C-5 10 ùù .ùù
+                        E-5 10 ùù .ùù
+                        E-5 10 ùù .ùù
+                        E-5 10 ùù .ùù
+                        D-5 10 ùù .ùù
+                        F-5 10 ùù .ùù
+                        C-5 10 ùù .ùù
+                        F-5 10 ùù .ùù
+                        C-5 10 ùù .ùù
+
+  2.6  Song Variables
+
+        Most of the options on this screen should be quite obvious, but they
+        are explained here for clarity.
+
+        Song Name - should be obvious. Shove whatever you like in here :)
+
+        Inital tempo - The tempo that the piece starts with. The tempo
+                       calculation is explained under the set tempo
+                       command (Txx)
+
+        Inital speed - The speed that the song starts with. The speed
+                       calculation is explained under the set speed
+                       command (Axx)
+
+        Global volume - This scales all the volumes in the song. It may be
+                        necessary to change this value if there is overload
+                        occuring (in the form of crackles in the music) -
+                        especially on the Gravis UltraSound, as it is a
+                        non-mixing device, and not scaled by the mixing
+                        volume.
+
+        Mixing volume - This value affects mixing sound devices (ie.
+                        all Sound Blaster cards + PC Speaker).
+
+        Separation - The separation determines how far apart the left/right
+                     panning sounds. It is suggested that for a stereo
+                     system (where the speakers are relatively close together)
+                     that the separation be around its maximum (ie. 128).
+                     For a stereo system where the speakers are placed a
+                     large distance apart, a value of 80 may suit better.
+                     A suggested separation for headphones is around 40.
+                     This value has no significance unless stereo playback
+                     is selected.
+
+        Old Effects - When Impulse Tracker was first written, some effects
+                      were interpreted differently from other formats, most
+                      notably vibrato. When you turn this ON, then it effects
+                      will be interpreted how the used to be in ST3/MMEdit/...
+                      but when it's off, it'll operate how it use to in
+                      previous versions.
+
+                      Differences:
+                       The Vibrato (and Tremelo) used in IT is smoother than
+                       how it was implemented in MOD/S3M/etc. It is updated
+                       EVERY frame and hence is independant of song speed,
+                       whereas the standard vibrato WAS dependant upon song
+                       speed. Vibrato is two times 'deeper' with Old Effects
+                       on.
+
+                       Sample offset commands past the end of a sample in IT
+                       were ignored, whereas with Old Effects on, the sample
+                       is played from it's end point.
+
+        Control - This is the option that lets you use Instruments!
+                  When Control Sample is selected, then all the instrument
+                  information is ignored. The query to initialise
+                  instruments, if accepted, will copy all the sample
+                  names to the instruments (if the samples exist) and set
+                  up the Note Translation Table for each instrument to point
+                  to a sample.
+
+        Playback - Mono: When you select mono playback, all stereo commands
+                         are essentially ignored. If you are using a SBPro,
+                         selecting Mono provides a higher quality output
+                         than selecting Stereo and using a central pan.
+
+                   Stereo: This is the option to go for!
+                           Note that stereo mode requires more processing
+                           power than mono (unless you are using a hardware
+                           driver)
+
+        Pitch Slides - Amiga: This is the mode to choose for compatibility
+                              with S3Ms, MODs, MTMs, XMs... when you select
+                              amiga pitch slides, you'll often have to
+                              experiment to find the adequate slide value.
+
+                     - Linear: With the linear slides, a certain slide value
+                               will always cause the same music "interval"
+                               change. An example of what this means is if
+                               you slide up a note with speed 8 (ie. F08) at
+                               speed 5, then the result will be that the
+                               note is raised a tone. Everytime. So a C-4
+                               will rise to a D-4, C-5 will rise to a D-5.
+                               (It's not like this with amiga slides! A
+                               C-4 *MAY* rise to a D-4, but if it does then
+                               the C-5 will rise to a note around E-5!!)
+
+                               The benefit of linear slides is that if you
+                               slide a pair of notes at the same speed, they
+                               will maintain the same interval (pitch
+                               difference) throughout. Also, if you modulate
+                               (transpose) a pattern, you will not have to
+                               modify any slide values.
+
+        Directories - this shows the current song/sample/instrument
+                      directories. If you want to save the current directories
+                      as the default to have on bootup, then press enter
+                      on the Save button. Note that this save function also
+                      saves the palette, keyboard type, info page layout
+                      and pattern editing preferences to IT.CFG
+
+  2.7  Scream Tracker 3 Users
+     This section is just for users of Scream Tracker 3 who would like to know
+     the differences between ST3 and IT without working through the whole
+     document. In a nutshell:
+
+     1) Differences in use.
+        a) The Order List, Panning and Variables used to be on F1. In IT,
+           F1 has been reserved for the Help Screen, F11 for the order list
+           and panning, F12 for the variables.
+           If you REALLY do find this too inconvenient, use the command line
+           switch -k to swap the interpretation of the keys F1 and F11...
+           no text will be updated tho (and it does seem sorta weird!)
+        b) Samples now have associated Vibrato information and a global
+           volume. The global volume affects all instances of the sample
+           throughout the song. This is useful when you replace a sample,
+           which is at a different volume from the original - you can just
+           adjust the global volumes of the samples to suit.
+        d) Block functions are no longer restricted to one column. This also
+           means that when you copy entire patterns, you will have to go to
+           the top left of the pattern. Also, you will have to set the number
+           of rows in the destination pattern to the appropriate number if
+           it is different from the source.
+           This difference may take some getting used to - you may often
+           find yourself doing several block functions in a single columns
+           when you could actually have done it across the whole block!
+         * To mark blocks, you can use Alt-B and Alt-E, or Shift+Movement *
+        e) In the pattern editor, the following commands have changed:
+            1) Alt-T : Track View has been upgraded. Alt-T will cycle
+                       through all of the possible 5 viewmethods. You can
+                       use Ctrl-1 to Ctrl-5 to quick select a view, or
+                       Ctrl-0 to remove a view. Press Left-Ctrl+Shift 1->4
+                       to select a 'different way to edit' :)
+            2) Alt-X : Pressing Alt-X once will slide the effect data value
+                       in a block (useful for controlling global volume,
+                       panning or sample offsets in some cases). Pressing
+                       Alt-X twice will cause all of the effect data to be
+                       deleted as in Scream Tracker 3
+            3) Alt-K : Pressing Alt-K once will slide the volumes. Pressing
+                       Alt-K TWICE will remove all volume controls in the
+                       block. (Works like Alt-X, but on the volume column)
+            4) Alt-I : Cycle Template control.
+            5) Alt-J : Volume amplifier. Select an amplification between
+                       0 and 200%.
+            6) Alt-H : Now toggles view divisions on/off. Makes it possible
+                       to view/edit up to 36 channels in the pattern editor!!!
+            7) Alt-Z : Originally the Zap command (if pressed twice)... now
+                       it is effectively a "Block Cut" command. It will
+                       copy the block into the clipboard, and then wipe the
+                       block clean.
+            8) Alt-V : Will set all the volumes in the block to the default.
+            9) Alt-W : Will remove ALL volumes not attached to a
+                       note/instrument Therefore, the old Alt-V command can
+                       be simulated using Alt-V then Alt-W. The reason for
+                       doing this was so that the Alt-K, Alt-W combination
+                       would slide all the volumes with notes/instruments
+                       associated.
+        f) There is no chord edit feature in IT. I considered the chord
+           edit feature of ST3 useless and a bad influence on new trackers :)
+        g) Patterns can be from 32 to 200 rows! (Under Pattern edit config
+           on F2, or Ctrl-F2)
+        h) Pressing spacebar in the pattern editor will cause the previously
+           entered note/instrument/volume/efffect/effectvalue to be entered.
+           Quite convenient. Hopefully.
+        i) Alt-F10 now solos a channel instead of toggling all of the
+           channels on/off. On the InfoPage, you can use 's' to solo
+           channels, and 'q' to toggle channels. I felt that this was more
+           usable than the original.
+        j) The infopage itself has become upgraded... press PgUp/PgDn to
+           cycle through view methods, "Insert" to add a window, "Delete"
+           to remove the currently highlighted window, Tab to move between
+           windows, Alt-Up/Down to move the base of the window up/down.
+        k) To increase the sample frequency by an octave in the sample
+           list, press Alt-Grey '+' or Alt-Grey '-' to decrease the
+           frequency by an octave. To change it by semi-tones, use Ctrl-Grey
+           '+' and Ctrl-Grey '-'
+        l) The Sample library is accesible from all screens in the program
+           by pressing Ctrl-F3. The Instrument library is accesible on
+           Ctrl-F4.
+        m) Each channel has an associated volume. Echoes can be created by
+           just copying one channel onto another, then setting the "channel
+           volume" (Command Mxx)
+        n) When channels are muted, all commands are still interpreted, but
+           the notes aren't played. What this means is that commands such
+           as Axx, Bxx, Cxx, SBx, Vxx, Txx, Mxx, Nxx will be processed even
+           if they are in a muted channel.
+        o) Pressing Ctrl-Grey Plus and Ctrl-Grey Minus in the pattern
+           editor will go to the next/previous pattern according to the
+           order list!
+        p) Samples have sustain loops + Ping Pong loops supported
+        q) Note off command & Note cut command implemented... Note cut is
+           exactly like ST3's ^^^ (and appears like it too!) Note off
+           appears as "ÍÍÍ" and releases sustain points.
+        r) You can enter panning values (between 0 and 64) in the volume
+           column. Do this by pressing '`' to toggle between entry of
+           panning/volume values.
+        s) You can use samples >64k and 16 bit samples!!!
+        t) When you use a skip value of 0, the cursor will move across to
+           the next channel. This is a very convenient way to enter chords,
+           especially when combined with the multi-channel selection (whack
+           Alt-N twice)
+
+     2) Differences in interpretation of notedata.
+        a) Global volume changes will affect ALL of the notes playing. In
+           ST3, global volume changes only affected new notes. The range
+           for the global volume command is from 0 to 80h
+        b) If you specify an instrument without a note, then in ST3, the
+           volume is set to the default volume. In IT, the volume will be
+           set to the default volume *IF* the instrument specified is the
+           SAME as the currently playing instrument. Otherwise, the new
+           sample will be played from it's beginning.
+        c) Command X (Set panning, not REALLY implemented in ST3) now has
+           range from 0 to 0FFh.
+        d) Command C (Break to row) now works in HEX. This is so that you
+           can jump to any row in the (next) pattern.
+        e) New commands:
+               M:   Set channel volume
+               N:   Slide channel volume
+               P:   Slide panning
+               S5x: Set panbrello waveform and reset panbrello position
+               S6x: Pattern delay for x frames.
+               S7x: Instrument related controls (8 different controls here)
+               S91: Surround sound on!
+               SAy: Set high offset
+               T0x: Tempo slide down
+               T1x: Tempo slide up.
+               W:   Global volume slide.
+               X:   Set pan position.
+               Yxy: Panbrello
+        f) If you use the portamento to command (Gxx) to a different sample
+           in ST3, the sample offset is undetermined. In Impulse Tracker,
+           the sample will be played from it's start.
+        g) The commands Hxx and Uxx will cause a vibrato half the depth
+           of ST3 if "Old Effects" option is OFF and the vibrato in IT is
+           also smoother than the vibrato in ST3.
+
+     3) The greatest difference is the implementation of instruments. Read
+        section 2.5 for more information.
+
+     4) Saving S3M modules.
+
+        The following guidelines have to be followed to compose 100%
+        compatible S3M modules.
+
+          General Stuff
+            1) *Pitch slide mode MUST be amiga.
+            2) *All initial channel volumes MUST be 64
+            3) *No instruments functions can be used. If you ARE in
+                instrument mode, however, Impulse Tracker will translate
+                the pattern data according to the Note Translation Tables.
+            4) The song message is *NOT* saved in S3M format.
+
+          Pattern stuff
+            1) *The total number of patterns MUST NOT exceed 100.
+            2) *The number of rows in each pattern MUST be 64
+            3) *Data is only translated within the first 16 channels.
+            4) *All notes must lie within the range of C-1 to B-8
+            5)  Several commands will not be interpreted by a standard
+                S3M player (viz. Mxx, Nxx, Pxx, S5x, S6x, S7x, S91, SAy, Wxx,
+                Yxx).
+                Also, you should have Old Effects (on the variable list)
+                put to *ON* if you want to write S3M files.
+            6) *Panning controls in the volume column are NOT stored.
+
+          Sample stuff
+            1) *No sustain or ping pong loops can be used
+            2) *No sample vibrato can be used
+            3) *The sample global volume must be 64.
+
+            4) The Scream Tracker 3 module format supports 16 bit samples
+                and samples >64k although the actual program did NOT.
+                Note that *MOST* players probably ignore these fields
+                and it is likely that the module will NOT be played correctly
+                by a standard S3M player if it contains samples >64k and/or
+                16 bit samples.
+
+        All conditions with an asterix preceding them are checked at save
+        time.
+
+        Note that both note off (ÍÍÍ) and note cut (^^^) will get translated
+        to a note cut (^^^) in S3M format.
+
+ 2.8  Gravis UltraSound / Interwave / AWE32 users.
+
+        For hardware mixed devices (eg. Gravis UltraSound, Interwave and
+        AWE32), there are some limitations that are outlined here.
+
+        I've already mentioned a few things throughout the DOC about hardware
+        mixing, but I'll reiterate them here with a few more points.
+
+        1) The maximum number of notes that you CAN play with a GUS and
+           Interwave is 32. The maximum number of the AWE32 is *30*.
+
+           This was incorporated by effectively limiting the number of active
+           channels to 32/30. So if you play a 64 channel song which is using
+           control:Samples, then you will LOSE the last 32/34 channels. If you
+           are playing a 64 channel song with control:Instruments, you
+           shouldn't miss out on too much. This shouldn't really be a
+           problem in 99.9% of the cases.
+
+        2) The GUS playback quality is dependent on the maximum limit of active
+           channels. The GUS can be initialised to play anywhere between
+           14 and 32 channels. Values above 32 are reduced to 32, and values
+           below 14 are increased to 14. The lower the number of channels, the
+           higher the playback quality. (14 channels will give 44100 Hz, with
+           16-bit interpolation - very, very nice quality!). The default
+           GUS driver dynamically chooses a particular number of channels.
+           This doesn't ALWAYS work with all cards, so if you don't like the
+           transition of sample quality as the channels increase, or your
+           GUS seems to stop notes unexpectedly, use the other driver(s).
+
+        3) The GUS/Interwave/AWE32 routines occupy less memory than the mixing
+           routines. You will have about 30k-100k more of memory to play
+           around with.
+
+        4) The memory allocation routines are very simple and not very
+           versatile. When you are working through the sample library, samples
+           are NOT always deallocated when you move on to the next sample! If
+           you get the message "Out of soundcard RAM", then it may be necessary
+           to press Ctrl-G (or select Reload Samples from the samples menu) to
+           reorganise the samples in memory. Sorry about the inconvenience.
+
+        5) Changing the mixing volume does NOT affect these cards.
+           It may be necessary to reduce the global volume to remove crackle
+           if the output is overloading.
+
+        6) The surround sound option will cause the sample to be played with
+           a central panning. This is because I don't know how to get hardware
+           surround without wasting a lot of memory and channels.
+
+        7) The panning positions are reduced to a scale of 0->15 in the GUS,
+           so fine alterations in the panning may go unnoticed. The Interwave
+           and AWE32 permit 256 pan positions
+
+
+ 3. Before you write to me. (Important notes)
+
+    I would very much like to get feedback on this program, but I am already
+    aware of several problems (?).
+
+    1) If you're going to write because the program looks 'too' much like
+       Scream Tracker 3, then don't :) I've used Scream Tracker. I loved
+       using it - it was the best, easiest, most convenient program ever,
+       so why not adopt it's design?????
+
+    2) The program could easily crash if you try to load a corrupted
+       module. If you've got some modules that you know are corrupted, try
+       to resist the temptation of testing the stability of the program....
+       in many cases it'll die :)
+
+    3) A couple of people have asked about ASCII characters > 128. I'm
+       sorry - I can't let you have 'em on anywhere else except the message
+       editor. The reason is because I've used a lot of the characters for
+       'graphics' - real time character generation. (the ASCII characters >
+       128 don't really exist anymore)
+
+    4) If you 'overload' your CPU... the subsequent playback can also
+       become distorted! To fix this, reinitialise your sound driver with
+       Ctrl-I.
+
+    5) The help screens have only been defined for the following screens:
+        a) Pattern Editor
+        b) Sample List
+        c) Instrument List
+        d) Info Page
+        e) Order list and panning
+        f) Order list and channel volumes
+        g) Message editor
+
+       I didn't think it necessary to include help screens for the other
+       screens, but if you feel strongly about including help on certain
+       points/screens, then I suppose I could make the effort...
+
+    6) If you have a bug to report, please check through BUGS.TXT first to
+       see if it's listed, and also check through this document - the problem
+       may be in the understanding of how the program works! Otherwise,
+       contact me, AND LET ME KNOW WHAT VERSION YOU ARE USING!
+
+    7) Any further GUS click removal is very difficult to achieve. ST3's
+       GUS click removal requires double the number of channels on the GUS
+       to be used and I can't allocate any more! Try out the alternative
+       GUS drivers first
+
+    8) Got suggestions for IT? At the moment, I'm really sorry - I barely
+       have enough spare time myself. I can't promise to add any suggestions
+       you make, but please send them along anyway.
+
+You can contact me by writing to:
+        Jeffrey Lim
+        9 Wilgena Avenue
+        Myrtle Bank
+        South Australia  5064
+
+EMail account:
+  pulse@cyburbia.net.au
+ WARNING!!!
+  If you ask me anything which is obviously contained within this document or
+  the FAQ, I will reply with RTFM (Read the #$%@#$% Manual). Sorry, but I hate
+  idiots who can't be bothered to take their time to have a quick look through
+  this document and write to me with stupid messages which have recently become
+  a chore to answer (You'd understand if you received 4000+ EMails...)
+ BUT!
+  If there *is* something that you HAVE made an effort to understand/look for,
+  then don't hesistate to write to me. The worst that can happen is that I
+  reply with RTFM :)
+********ALSO********
+  If you have an incorrect reply-address, don't expect to receive anything.
+  If you are reporting a bug, let me know what version you are using.
+
+  If you find any major problem with the tracker, please try to find the
+  circumstances which cause it to trigger - if you can't, don't worry - write
+  to me anyway. It's just that it's much easier if I know a likely cause of
+  the error. (Don't worry if it seems that the cause is very, very remote -
+  I had a problem in my GUS playback routines which originally caused my
+  palette configuration screen to hang - now that's obscure!)
+
+  Send money! I don't demand that you send me anything, (and I don't like
+  spoiling a program by shoving in reminder messages), but if you *DO* use
+  the program and think that it's worth contributing a small amount towards,
+  then please do so... it would be GREATLY appreciated. Remember.... even a
+  few dollars will be appreciated! It's very unlikely that I'll make a huge
+  profit (I doubt I could get close to sufficient money from this program to
+  make it even worth $1 for every hour I put in!). I won't be sending out any
+  nice thankyou notes, or bound manuals... but I will include your names in
+  the future versions of the tracker and I will EMail you each new version the
+  minute the are released if you wish.
+
+  I believe that software *SHOULD* be cheap - you've spent perhaps a few
+  thousand getting your computer, so you wouldn't want to spend TOO much
+  more on programs! If you think this program is worth $5, then send $5.
+  If you think it's worth $10, then send $10. If you think it's worth
+  $1,000,000,000... don't let me stop you :)
+
+  So... get together with a couple of friends and send me $10... If you send
+  me a significant amount, I'll put together a "special contributor's" list..
+  (Oeeerrrrr :) )
+
+  Methods of payment:
+    International Money Orders - (NOT postal orders though!)
+    Cash (Make sure it's securely wrapped!) - it doesn't have to be Australian
+          currency, although it'd be nice if it could be!
+    Bank Transfer - EMail me for my details
+
+
+ 4. Closing Words
+
+    I would like to thank the following people:
+
+        Psi: For introducing me to tracking with the brilliant Scream Tracker 3
+        Purple Motion: For being my music hero.... I still think
+                       "When the Heaven's Fall" is *THE* best S3M ever written.
+        Red Haze: For constantly bugging me to get the tracker done, and for
+                  his effort in testing out the program and making suggestions.
+                  (He's directly responsible for the inclusion of Ping Pong
+                  loops - I originally couldn't be bothered :) )
+                  Also extensive testing of later versions of IT...
+        The WALKER: For his flow of ideas & beta testing and getting the PoP
+                    DiskMag finished.... tomorrow. Or is that next week?
+                    OK... so he has done it. Finally.... 6 months late. :)
+        Perception: For his constant support over the many years he ran his BBS
+        Psibelius: For being the nice friendly Epinicion founder that he is.
+        Dominic: For his thoroughness in beta testing the program, and providing
+                 suggestions. (He came up with more than double the number of
+                 suggestions than almost anyone else... even though many of
+                 them were not finally implemented :) )
+        Chris Jarvis: For his effort in beta testing the tracker and producing
+                      Firestorm (released with v1.00 of the tracker)
+                      Pale Dreams! (released with v1.01 of the tracker)
+                      Firepower (released with v1.03 of the tracker)
+                      Sidewalk (released with v1.05 of the tracker) and
+                      Fallen World (released with v2.01 of the tracker)
+                      These are ALL amazing pieces of work! (Yes, I'm jealous!)
+        Zilym Limms: For his technical help with the tracker and his love of
+                     Fast Tracker 2. Hahaha. :)
+                     Also for his information and source code for the PAS 16.
+        Benjamin Bruheim: For his super list of contributions to v1.01
+        ZaStaR: For his effort in putting together ITF - the font customiser!
+                and ITTXT - the text file importer for IT's messages!
+                Also for being the willing target of a barrage of beta
+                versions, a great contributor of ideas, a musician with whom
+                I could exchange work and for being a great dude all round!
+        Emmanuel Giasson: For creating the utilities MMCMP/MMUNCMP/MMTSR -
+                          the music module compressor!
+        Diablo: For creating the Impulse Tracker directories on ftp.cdrom.com!
+        Siren: For providing me a contact to obtain an Interwave card!
+        AMD: For providing me with an Interwave card to program for!
+
+        To the other beta testers:
+            Eric Bonython               Phorte
+            Alistair Watts              Julian Ellis
+            Alex Bates                  David Rohrsheim
+            Delta X                     GD (Grave Digger)
+            Andy Chen                   ShawnM
+            Clef                        Emmanuel Giasson
+            KXMode
+
+        And anybody there who uses this program!!!
+
+        Big thanks and thumbs up to Advanced Gravis for releasing their
+        Software Developer's Kit (SDK) free of charge!
+
+        Congratulations to Creative Labs for finally releasing their SDKs
+        free of charge!
+
+        Especially *BIG* thanks to AMD for providing me with an Interwave
+        card to use and the SDK!
+
+        Finally... I have a request.....
+         If *YOU* write something with this program... share it with the
+         rest of the world!!!
+
+         If you have an iNet account, you can upload your songs to:
+           ftp.cdrom.com/pub/demos/incoming/music/songs/it
+           - remember to ZIP up your song, to use a *lower* case filename
+             and to also upload a short description of your song in a .txt
+             file, otherwise your file will just be deleted.
+
+         If you know of any other places where modules can be uploaded to,
+         let me know and I'll include them in the above list.
+
+ 5. How to get the latest version of Impulse Tracker
+
+    There are several places around the internet where you can find the
+    latest version of Impulse Tracker:
+
+        1) ftp.cdrom.com/pub/demos/incoming/music/programs } Check (1) first!
+        2) ftp.cdrom.com/pub/demos/music/programs/trackers }
+
+        3) http://www.noisemusic.org/it
+                - American Site
+        4) http://www.maz-sound.com
+                - Music and Tracking Site
+        5) http://www.unidev.com/~logic/music/it
+                - IT Resource Central
+        6) http://www.musica.org/impulse
+                - Spanish Site
+        7) http://www.mixbbs.demon.co.uk
+                - UK Site
+
+    If you want to have the latest version sent to you via EMail, or at least
+    be notified of new releases, then you'll have to send $omething to me :)
+    Check section 3 on how to contact me.
+
+
+ 6. Legal stuff
+
+    No matter what happens, no matter how bad, I'm not going to be held
+    responsible.
+
+    That's basically the same as any other license agreement, except you
+    should be able to understand this one without an interpreter :)
+
+    YOU MAY NOT CHARGE ANYTHING FOR THIS PROGRAM - DISTRIBUTORS WHO
+    ARE INTERESTED IN THIS PROGRAM MUST WRITE TO ME FIRST AND HAVE MY
+    APPROVAL! (yeah, even by snail mail if you don't have EMail access).
+
+    USE OF THIS PROGRAM COMMERCIALLY IS EXPRESSLY FORBIDDEN WITHOUT WRITTEN
+    AND SIGNED APPROVAL FROM ME. COMMERCIAL USE INVOLVES ANY USE OF IMPULSE
+    TRACKER IN WHICH MONEY IS INVOLVED (SPECIFICALLY THE CREATION OF ANY
+    MUSIC WHERE PAYMENT IS INVOLVED). THIS PROGRAM IS ONLY FREEWARE FOR
+    NON-COMMERCIAL USE.

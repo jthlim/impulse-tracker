@@ -1,0 +1,572 @@
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Hints for Composers
+ -- Pulse
+
+Well, I'm not the best person to ask for hints, but here are a few anyway.
+
+1) Never release your first song. There are very few people who are gifted
+   enough to really make a quality song the first time - it's all practice
+   and experience! Once you *HAVE* finished a song, listen to it a couple
+   of days after... see whether you can view it from another point of view.
+
+2) For channel echoes, use the Mxx command in a second column - this will
+   save you from adjusting volume related effects (ie. you can leave all the
+   Dxx commands alone, and it'll sound right)
+
+3) Don't be afraid to create multiple instruments from the same sample! The
+   reason for why I created instruments the way I did was so that you could
+   have different *articulations* of the same sample. You can achieve this
+   by playing around with the envelopes, fadeout, NNA - whatever.
+
+4) Listen to other tracked music. Try and learn how other composers have
+   achieved the sound they did. Experiment yourself.
+
+5) Start by writing music that *YOU* really like listening to - don't try and
+   write am orchestral piece if you don't listen to it - it'll show.
+
+6) Take the time to tune all your samples as accurately as possible! To do
+   this, play a long, clear, looped sample, then move to another channel
+   (using '.') and tune ALL your other samples to this one sample (so they
+   all have the same reference). Many potentially excellent modules have
+   been spoilt because they were poorly tuned. Of course, this doesn't
+   count the cases where samples are intentionally slightly sharp or flat
+   for effect (which should be the rarity instead of a rule).
+
+7) Try to avoid having too many samples at central panning - if you modify
+   the initial panning - you should be able to 'fill' out the sound with
+   very little extra effort. Or perhaps if you use instruments, you may
+   want to play around with instrument's default panning...
+   Pitch pan separation also provides a very convenient way to achieve a
+   nice pan.
+
+8) To find the 'perfect' loop:
+
+     a) If you have a GUS/IW, first turn the loop off, then reload all GUS
+        samples (so that their entire waveform is loaded).
+     b) Now, select either a forwards or ping pong loop. Only select forwards
+        if you have a sample which has the same amplitude at both ends. If
+        you have a sample which has vibrato incorporated into the sample, then
+        you'll probably find ping pong loops inappropriate. If the sample has
+        an obvious reoccuring shape to it's waveform, try to account for that
+        when you select your initial guess at a loop.
+     c) Play a note at a MUCH higher pitch than you'd normally play it at.
+        Then, hold down '+' (or '-') on on of the loop boundaries to find a
+        region of lowest clicking. Then adjust it carefully (one byte at a
+        time) until you find the best loop location. You will normally need
+        to change both beginning and end points of a ping pong loop to find
+        a nice loop, whereas forwards loops usually only require either loop
+        end or beginning to be modified.
+     d) Now that you have a decent loop at this pitch, decrease the pitch
+        (typically by an octave)
+     e) Repeat steps (c) and (d) until you have a nice loop at the pitch that
+        that sample is played at.
+     f) Once you've finished and if you're using a GUS, press Ctrl-G (to
+        reload the Gravis' samples) and do a final check that you have an
+        appropriate loop.
+
+   This method works very well MOST of the time - don't forget that the '+'
+   and '-' keys can be used to easily modify the loop - and the changed loop
+   is taken into account when you change it (ie. you don't need to replay the
+   sample).
+
+9) If you want to make a song realistic, try to imagine how the instrument
+   would be played. Pretend you are a musician when you write a part..
+   Also, if you use an instrument such as a piano, try to use more than a
+   single piano note - a real piano will ALWAYS have more than one note
+   playing at a time - use some chords, etc.
+
+10) For a nice fill to the sound, try to balance the usage of low and high
+    frequencies. Songs with too much bass and too little treble sound rough,
+    songs with too much treble and too little bass sound insubstantial.
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Hints for New Composers
+-- John Hawksley (a.k.a. Greebo)
+
+1)  Listen!
+
+2)  Spend a day figuring out every feature of the tracker.
+    Yes, I'm talking about all the effects and all the keys.
+    ST3 is widely acknowledged to be a bitch to learn, but is (sorry,
+    *was*) the most  powerful tracker out.  Once you have all the
+    keys and functions sorted, you'll be ripping around IT's in
+    no time.  You can leave the advanced instrument stuff for now.
+
+3)  Listen to other tracks, find out how the nice-sounding bits are
+    done. (ie look at the effects and volume/pan column).
+
+4)  Be different. A lot of .MODs are in the same style. Sure, if you
+    like this and feel comfortable with it, then go for it! But if you
+    want to create a new feel -- do that too.  People are always ready
+    to try new styles.  I personaly enjoy arranging (that covers
+    a lot of styles) but you might like composing rock tracks, for
+    instance.  So do it!
+
+5)  Samples.  Be selective.  Sort all your samples into directories.
+    If you have an editor, the trim thein sample; try to remove the
+    noise or click at the start.  Remember -- samples are the building
+    blocks from which we craft music.  If the samples are bad,
+    the music will be too.  
+
+6)  Tune the samples!  When you rip a sample or create one yourself
+    try to do it at the same pitch, or tune it (using the speed value)
+    so that everything is uniform. This will save much hair-pulling
+    later as you try to figure out why half the piece seems to be
+    in G# major and half is in Dflat minor.
+
+6)  Chords.  Originaly, people used to sample whole chords to save
+    sample space.  Now we've got this wonderful IT with it's gazillions
+    of channels.  From ST3 onwards, I have been contructing chords
+    from notes because I had the space to do so.  The sound is better
+    and is more of a professional approach.  
+    However (there's always a 'but'): be very careful! If you decide
+    to construct a chord rather than use a single sample, some
+    musicianship is required. Simple major chords are easy, but 
+    inversions really add to a piece.  If you are able to do it this
+    way (look at some piano parts to any of my stuff, for instance),
+    you'll get s professional, crafted sound.  But it does take 
+    a long time before you'll get a smooth flowing part.
+
+7)  Saving.  Okay, so IT hasn't crashed on me yet, but when (if) it
+    does, I'm not going to loose an hours work.  Save regularly.
+    Never use IT or ST3 under the GUI in 95 and under Windows 3.1;
+    I found that occaisionaly, windows would do some swapping while
+    ST3 was saving and the module would be corrupt; but ST3 said
+    it was saved ok. Lesson learnt.
+
+8)  Releasing.  FTP sites are hard to come by these days.  Probably
+    the best method of release is to uuencode your work and
+    post it to alt.binaries.sounds.mods newsgroup. 
+
+
+Hope these are of some help. Remember to visit the Mod Resource Web
+at http://www.armory.com/~greebo/mod.html
+
+I can be contacted at greebo@armory.com.
+
+Good luck!
+
+John H.
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Hints for Composers
+-- ToalNkor / Realtech
+
+  TIP FOR LOADING EITHER LEFT OR RIGHT CHANNEL OF A STEREO SAMPLE :
+
+  Load the sample as usual and then follow these steps :
+
+  If you want the LEFT channel : Just divide the length by 2
+  by using Ctrl-F. This will delete one byte out of two, and therefore
+  only the "first" sample (the left one) will remain !
+
+  If you want the RIGHT channel : Cut the first and last byte of the
+  sample (By looping it and using Ctrl-B and Ctrl-L). If the original
+  sample sise was X, then the actual size should be X-2. From now on,
+  just follow the same indications as for the left channel and tadaa...
+  your Right channel sample is ready for use !
+
+  After all these operations, dont't forget to multiply the mixfrequency
+  by two to get the original samplingfrequency back !
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+ Hints for New Composers
+ -- StereoMan
+
+ 1) The easiest way to produce flanging like effect is to play same sample in
+    two channels (they must have exactly the same pan-position) and lower or
+    higher the playing frequency of one of the samples - ie:
+
+           1            2                             2          (1 is same)
+    ³... .. .. Xpp³... .. .. Xpp³              ³... .. .. Xpp³
+    ³xxx ii xx ...³xxx ii xx EE1³      or      ³xxx ii xx u11³
+    ³... .. .. ...³... .. .. ...³              ³... .. .. u00³
+                                                          u00 and so on.
+    <pp>  has the same value in the two channels.
+    <ii>  is your instrument number.
+    <xxx> is the note you play the sample in.
+
+ 2) You can use the above mentioned effect, but instead of having the channels
+    with the same pan position you can put them as Left and Right (full) ie:
+
+    ³... .. .. X00³... .. .. XFF|
+                . . .
+
+    this will give you a smooth three dimensional sound.
+
+    Note: This effect has not been tested on SurrounD equipment - the results
+          are li'l unpredictable.
+
+
+  3) Quite a good way to make reverb-like-echos is shown below:
+
+     Let's say You have some sequence playing in one channel. Put the same into
+     another channel and insert one or two (or more) rows before the beginning.
+     Now set all volumes to zero (alt-v) and clear volumes which are not
+     associated with notes (alt-w). Then apply a Dx0 effect (x=1..4 or more)
+     for example:
+
+     ³n1. i. .. ...³... .. .. ...³          The results are very good.
+     ³n2. i. .. ...³n1. i. 00 D20³          Once you get used to this you can
+     ³... .. .. ...³n2. i. 00 D..³          achieve !very! smooth sound.
+     ³n3. i. .. ...³... .. .. D..³
+     ³... .. .. ...³n3. i. 00 D..³          The samples must not be too short
+     ³n4  i. .. ...³... .. .. D..³          so Dx0 can take effect.
+     ³... .. .. ...³n4. i. 00 D..³
+
+
+  4) If you make the above channels with different pan positions (x22 and xDD)
+     or (x80, s91) - the results are stunning :)
+
+
+  5) Take your time to read the whole help (yes, the whole of it) - you'll
+     be surprised to find what hides under your keyboard :)
+
+
+  6) Make your tunes as small as possible. People are not quite happy to find
+     they have a 3 or 4 Megs of crap on their already full HD drives.
+     Remember: the smaller = the easiest to spread.
+
+
+  7) NEVER start tracking if you're not into the right mood to track. You'll
+     only loose time and perhaps make another crappy tune.
+
+
+  8) Funny, but I've found that making your own color scheme truly inspires!
+
+
+  9) Experiment! Play around with the effects, envelopes and NNAs. They all
+     make music sound more realistic!
+
+
+
+                            George Marinov a.k.a. StereoMan - <georgehm@bse.bg>
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Hints for composers
+-- Ilpo Karkkainen
+
+- If you listen only one kind of music, it will shut your mind from others. Be
+  versatile. When you listen lots of different kinds of music styles, it also
+  makes your composing a lot more wider and colorful.
+
+- When listening to music generally, try to sometimes consentrate to something
+  specific, for example backing vocals or drums. It helps you realize the whole.
+  It's also good to try listen what different notes there are in a chord that
+  you hear. At least to me, it has been very helful in chord progression.
+
+- Details make the whole. Use them wisely, though. Too much details make the
+  song sound bad. I've noticed that in some of my songs.
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+                            Onix4MAN's hints
+
+
+        1) CLEANING A WAV FILE UNDER IT.
+        2) CREATING NEW SAMPLES WITH IT.
+        3) 3 (4?) METHODS TO MAKE YOUR MODS SOUND MORE SPACIAL..
+        
+
+
+1) CLEANING A BAD SAMPLE UNDER IT:
+-----------------------------------
+
+To clean up samples that click at their start (or end) because the waveform
+has an error at its start (still or end), without going under a wav-editor:
+
+        -turn on Loop
+        -start the loop at 100 bytes for samples > 10000 kb
+                            50 bytes for samples < 10000 kb
+        -then do 'ALT-B': Pre-Loop Cut Sample
+        -then turn off the loop
+        -do the same at the end of the sample with 'ALT-L' if the wav clicks
+         at its end
+
+        The numbers of bytes given is OK for often met clicks, if your
+        sample is really bad, just increase it... ;)
+
+
+
+2) CREATING NEW SAMPLES WITH IT:
+--------------------------------
+
+    -You simply have to edit one pattern composed of several samples.
+     (eg. Compose a Break-Beat on that pattern)
+    -Put this pattern at order 000.
+    -Save this module.
+    -Restart IT in Disk-Writer mode.
+    -Load your module.
+    -Play it: it is now being written as a wav file on your disk.
+    -Restart IT normally.
+    -Load that new sample and use hint 1) if it has a blank at its end to
+     shorten it.
+
+
+3) 3 (4?) METHODS TO MAKE YOUR MODS SOUND MORE SPACIAL..:
+---------------------------------------------------------
+
+  -Let's start with the 4th method: it's the Surround.. :) 
+   But if your card can't afford surround.. Use one of the 3 following
+   methods:
+
+ These methods are in fact three times the same but with 3 different way.
+ I'm sure you knew at least the first (and probably the 2nd too) ;)
+ These 3 methods require 2 channels.
+
+For the 2 firsts, you have to set the panning of the Sample/Instrument
+somewhere (in 'Order list and panning' or on the Sample List [F3], but
+you'll have to load twice the sample, or on the Instrument List [F4],
+or on the Pattern Editor itself [F2], but you busy the volume column or
+the command column..)
+In the following examples, I've set the Panning in the Volume column
+(press the key below Escape to do this)
+             
+     a)   row        CHANNEL 1         CHANNEL 2
+          000      C-5 01 00 .00     ... .. .. .00
+          001      ... .. .. .00     C-5 01 64 .00
+          002      ... .. .. .00     ... .. .. .00
+
+
+     b)   row        CHANNEL 1         CHANNEL 2
+          000      C-5 01 00 .00     C-5 01 64 SDx
+          001      ... .. .. .00     ... .. .. .00
+
+        With 'x < Speed Value' This second method is more precise!
+        You can even write SD0 (ie. 0 as x)
+
+
+     c) The last method is the more interesting if you knew the others,
+        because it does waste your volume column neither the command
+        column! So they remain free for other effects! :)
+
+     * This time, you have to be controlled by Instruments (F12 to select
+       this).
+     * Then you will need exactly the too same instruments:
+         - On F4 Screen, select a blank lign and type 'Alt-P'
+         - Type the lign where your instrument is... Validate!..
+     * Then push the panning button:
+         -set the pan to 00 for your first instrument
+         -set the pan to 64 for your second instrument
+     * Then FOR ONLY ONE of those 2 instruments:
+       Press the Pitch Button and go to edit the envelop:
+
+           -First node: tick  00 ;)
+                        value 00
+
+           -Second node: tick  01
+                         value 'Whatever_you_want', (-)1 or (-)2 suggested
+
+           -Last (3rd) node: tick  02
+                             value 00
+
+      Doing this, you've created a delay between your 2 instruments.
+      To end, place them on the same row on the pattern editor (F2):
+
+          row        CHANNEL 1         CHANNEL 2
+          000      C-5 01 .. .00     C-5 02 .. .00
+          001      ... .. .. .00     ... .. .. .00
+
+        Notes:
+        ======
+        *) You don't have to set the pan to its maximum (00 and 64/FF).
+        You had better do it for one of your smp/inst. And then, for another
+        choose 16 and 48 (decimal), or...
+
+        *) The third method works because we do not hear the pitch change
+        in most cases since it is quite quick, but I suggest you do not
+        use this method for a piano because it's an example where you'll
+        hear the pitch change and it will sound very ugly: BAAaah! ;)
+        But it work with Violin and many others.
+        It may also depend on the speed of your song (time between ticks)..
+
+
+                                - Nicolas ARROUET (Onix4MAN) o4m@mail.cpod.fr
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Hints for new composers.
+- Nacho Segura
+
+About quality of sound, cognitive science, a more convenient composing, sound
+experiments and degrees of freedom.
+
+1) Some composers (trackers) recommend to work with 128 rows and half the
+speed (the less the faster). It's supposed that this gives you more control over
+the tracks, but that's not totally true.
+
+     - The track doubles its length, so you see the half. You have to move
+     more times and jump more lines every time. Is it important? Register in a
+     sheet (or two) how many times do you jump through the pattern.
+
+     - I've examined several songs that use this technique, and this is my
+     conclusion: THEY DON'T NEED IT!!! Even lines are empty or have
+     effects.
+
+The small amount of control gained doesn't compensate the ergonomical
+problems. The easiest the best, less interferences between you and the music.
+Rookies could think that it only makes you be slower. This is a problem, but
+it's not THE PROBLEM. When you forget twelve times what the hell did you write
+in top of the pattern and in which track you'll understand...
+
+
+2) Work. Lots of trackers are proud to say that they are very fast. That's not a
+virtue, it means less work, less variety, a shorter melody, much less chords, no
+harmony, sounds not perfectly adjusted, and the most important thing:
+Repetitions until the Eternity. You haved lasted two months writing this four
+minutes long song? Show me what you did, I'm really interested!
+
+
+3) Discover Scroll-Lock. Load a song, press play, see what happens with the
+cursor... and press some notes.
+Cool!!! Isn't it?
+
+
+4) Never use 8-bits or low-quality samples if you can avoid it. The quality of a
+song depends on the quality of sounds. "More memory than expected" is better
+than "crappier than expected".
+
+
+5) Analogic synthetised instruments can produce strange interactions. An
+example: WARMPAD.PAT (a Gravis Patch) sounds really nice, but this chord
+produces a strange noise that doesn't exists when we play the same notes
+separately: C-3, D#-3 and F-3. Upper octaves don t provocate this phenomenon.
+NOTE: There are several versions of Gravis patches.
+
+
+6) Use a global volume as high as possible. It not only gives you a better
+signal-to-noise relation. It also gives to IT more degrees of freedom for
+volume fades.
+Make an experiment: Plug the headphones directly to your soundcard, set the
+global volume to 5-8 and make a fade out from 64 to 0 (don't use envelopes,
+make it in the volume comlumn of the pattern). You should listen the volume
+JUMPING (not sliding, jumping!). In Scream Tracker is even worse.
+
+
+7) Don't be messy allocating tracks (channels, columns... you know). All the
+percussion grouped in adjacent tracks, the chord grouped, an empty column (or
+more) separating every group of instruments, so you can write fastly this new
+idea appeared two seconds ago, without having to go to "Track 21". It also
+allows you to write and remix fastly. Everything has its own place and you can
+disorder and reallocate patterns without knowing if that loop has been cut, or
+where do I have to put a NoteCut command (^^^) to shutdown the analogic
+looped bass. It seems more complex when you begin (pattern is wider), but it's
+much better, easier to use.
+
+
+8) Print the manual and bind it. And when you have done this, RTFM (you
+know, READ THE #%&@$# MANUAL!!). You'll be surprised.
+
+
+9) Make an economic contribution. I think he has worked hardly and Impulse
+Tracker is the only tracker that gives tracker songs a proffesional sound and
+accoustic. Don't be apologized for sending eight dollars. Is better than zero.
+Even if you don't want the ITWAV.DRV you should contribute, at least with a
+simbolic quantity. He has won it.
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Hints for composers
+-- Joakim "Acoustic" Back
+
+1)  Dont use the same bassline, piano chords or whatever the whole song.
+    Remember that a real drummer wont just sit there like a drummachine,
+    nature will make him tap sometimes and he realy wants to make
+    some fills sometimes.
+
+2)  Feel the music. You dont use hammering industrial drums in a soft,
+    smooth gentle song. And dont place a soft panflute in a blasting
+    hardcore song.
+
+3)  Use the right volume. Keeping the volume low on an instrument and then
+    suddenly higher creates a feel of power and rush. Use it.
+
+4)  There are different ways to make a solo stand out.
+    a) high volume. Having a high volume will instantly keep it in the
+       focus. Be aware that to high volume will make it stand out to much
+       and maybe not fit in the picture anymore.
+
+    b) high or low pitch. If you have a lot low and middle note instruments
+       the solo will be clear and bright as high pitched. As said in other
+       hints, keeping the others too low or too high will sound terrible.
+
+5)  If you play the piano and have a midi keyboard - use the midi support!
+    This will make you see that you play the piano with a lot more feeling
+    than when you track a song with the computer-keyboard.
+
+6)  Accept failure. Dont get all angry just because your song went totaly
+    nuts. This happends all the time. Your songs will be better and better
+    the more you use IT.
+
+7)  Use IT alot! Play around with IT, make crazy songs. This will make you
+    learn ITs features and ways to make nice effects. You wont understand IT
+    by reading the effects from Axx to Zxx, or reading hints like these, but
+    mostly by using the effects and using IT, only training will get you to
+    the top. IT is like a sport, people that dont use it, dont get a thing
+    about it, but when you get the hang of it, its going to flow.
+
+8)  Learn IT in steps. Begin with some simple samples and a few patterns,
+    then learn a few simple effects like Exx and Fxx. When you have learned
+    them, go to a new step. Wait with the instruments (F4).
+
+9)  Make a keychart. Write down some of the keys on a piece of paper, after 
+    a few days you will probably know most of them. When you know almost
+    all you will understand that using only the keyboard is MUCH faster than
+    the mouse.
+
+Thanks for reading, I hope it will help you somehow. 
+/ Acoustic
+n98joab@tycho.helsingborg.se
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Hints for Composers
+- Maarten Van Stien
+- Crystal Score / The Black Lotus
+
+He! ye like simple solutions? Here's one!
+
+You might have used the diskwriter for simple drumloops! You also might have
+loaded the wav in programs like Soundforge (the king!) to add nice nice stuff
+like reverb, eq, dynamics etc...
+
+As you might guess when you write one period containing a drumloop and you
+add reverb, then the start of the sample doesn't have reverb at all, while the
+end of the drumloop as tons of reverb. Apart from the fact that it sounds lame
+in most cases, LOOPING the sample sounds like hell! So what you do is
+diskwriting the same loop twice or more. Then add reverb in your sample editor
+and you'll notice that the second period contains the 'reverb' of the first
+period. This second period can be looped perfectly. As long as you know where
+to find the looping-points!
+
+Now, for simple drumloops with a little bit of reverb it's dead simple.
+But for  complex loops with TONS of reverb/delay/crap&more it might be quit
+difficult!
+
+Solution:
+* make an extra .IT with the same BPM/frames as your drumloop .IT
+* add a simple, short and immediatly-starting sample at the beginning of each
+  period (in most cases: on pos 000, 016, 032, 048 etc.). These are some sorta
+  metronome instruments I guess..
+* diskwrite
+* find the first sample of the 'metronome-instruments' in a sample editor.
+* add markers at that place.
+* Mute/Silence the samples so that your metronome-wav ONLY contains markers
+* copy your complex drumloops or whatever-loops in mem. like ctrl-c 
+* MIX to the metronome wav.
+
+Now you have markers in your complex drumloops! And if you did the above stuff
+right, you have perfect loops!
+
+Make sure the metronome-samples start immediatly! Otherwise use the offset
+command (C-4 10 63 O10) or something..
+
+ok.. have a nice diskwrite!
+
+Crystal Score/The Black Lotus
+Maarten.Vanstrien@student-kmt.hku.nl

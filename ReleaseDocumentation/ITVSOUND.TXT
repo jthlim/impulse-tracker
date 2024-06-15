@@ -1,0 +1,70 @@
+
+What is VSound?
+---------------
+VSound is a virtual sound driver for Impulse Tracker. It actually uses
+Microsoft's DirectSound to provide output on ANY soundcard supported by
+Windows '95 or Windows '98. It does NOT support Windows NT.
+
+It does take a little effort to setup and doesn't perform quite as well
+as the native drivers, so if you have a SB16, ESS or some other card
+directly supported by IT, don't bother messing around VSound. If you have
+a SBPro compatible card, some PCI card or anything else that isn't being
+used to its maximum capabilities, then give these files a try.
+
+How to use these files
+----------------------
+You MUST have DirectX installed. It was written with the DirectX6 SDK,
+although I'm pretty sure DirectSound 5 is sufficient.
+
+1. Copy ITVSOUND.VXD into your Windows\System directory
+   (normally C:\WINDOWS\SYSTEM)
+
+   Note that the file may NOT show up in Window's Explorer since they have
+   a system extension (.VXD). Use DOS, or enable (unhide) system files in
+   your Explorer configuration.
+
+2. In your Windows directory (normally C:\WINDOWS), edit your SYSTEM.INI file
+   and include the line:
+     device=itvsound.vxd
+   anywhere in the [386Enh] section
+
+3. Reboot your computer
+
+4. Run Server.EXE
+
+5. Run "IT"
+
+Configuring the driver
+----------------------
+The driver can be configured by modifying Window's Registry by running
+"regedit" (which comes with Windows). The variables can be found at:
+ "KHEY_LOCAL_MACHINE\Software\Jeffrey Lim\Impulse Tracker VSound Server"
+
+The 4 variables are:
+ BufferSize       - The size of the DirectSound buffer in kb.
+                    Permitted ranges from 4 to 64, default 24
+ BufferThreshold  - The size of the buffer that IT tries to maintain in kb.
+                    Permitted ranges from 2 to 32, default 21
+ BufferType  - 0 = DualBuffer (BufferSize is logically split into 2 sections)
+               1 = QuadBuffer (BufferSize is logically split into 4 sections)
+               2 = OctBuffer  (BufferSize is logically split into 8 sections)
+                   (recommended, default)
+ MixSpeed         - Mixing rate to be used in Hz.
+                    Permitted ranges from 11025 to 64000, default 44100
+
+You will need to restart the server before these changes take effect.
+
+Known Problems
+--------------
+1. This driver only works with Win95 and Win98, NOT WinNT (I'll try a WinNT
+   driver sometime).
+
+2. There is an obvious latency due to the size of the buffers and the delay
+   that is inherent to DirectSound. Reducing the BufferSize and BufferThreshold
+   values can reduce this latency, however, smaller values can also cause the
+   sound to break up.
+
+    Try using the values:
+     1. BufferSize=16, BufferThreshold=14, BufferType=2, MixSpeed=44100
+
+

@@ -1,0 +1,798 @@
+
+;컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+
+MONITORPERFORMANCE      =       0
+RAMPSPEED               =       7
+RAMPCOMPENSATE          =       63
+
+IF MONITORPERFORMANCE
+ALIGN 16
+M32BitMICounter8BitTicksLow     DD      0
+M32BitMICounter8BitTicksHigh    DD      0
+M32BitMICounter16BitTicksLow    DD      0
+M32BitMICounter16BitTicksHigh   DD      0
+M32BitMICounter8BitLow          DW      0
+M32BitMICounter8BitHigh         DW      0
+M32BitMICounter16BitLow         DW      0
+M32BitMICounter16BitHigh        DW      0
+ENDIF
+
+
+;컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+
+Proc    M32Bit16MVPanned
+
+; AX = number to mix
+; CX = error
+; DX = deltaoffset
+; BP = deltaerror
+; DS:SI = 32-bit output buffer
+; ES:EDI+EDI = sample location
+; MM6 = L/R volumes
+; MM7 = PXor mask
+
+IF MONITORPERFORMANCE
+        Push    EAX
+        Push    EDX
+
+        Add     CS:M32BitMICounter16BitLow, AX
+        AdC     CS:M32BitMICounter16BitHigh, 0
+
+        RdTSC
+        Sub     CS:M32BitMICounter16BitTicksLow, EAX
+        SBB     CS:M32BitMICounter16BitTicksHigh, EDX
+
+        Pop     EDX
+        Pop     EAX
+ENDIF
+
+; 16 bit code here
+
+        Mov     BX, DI
+
+        Assume DS:Driver
+        SegCS   MovQ MM1, M32BitMIPNotMask      ; = FFFF0000FFFF0000h
+        Assume DS:Nothing
+
+        Add     BX, BX
+
+        Test    AL, 1
+        JZ      M32Bit16MVPanned2
+
+        Push    AX
+        Mov     [DS:8h], CX            ; AGIs everywhere!
+        Mov     AX, [ES:BX]
+        Mov     [DS:0Ah], CX
+        Add     CX, BP
+        AdC     DI, DX
+        Mov     [DS:10h], AX
+        Mov     AX, [ES:BX+2]
+        Mov     BX, DI
+        Mov     [DS:12h], AX
+        Add     BX, BX
+
+        MovQ    MM0, [DS:8h]
+        MovQ    MM2, MM6
+        PXor    MM0, MM1
+        PSRLWI  MM0, 1
+        PMAddWD MM0, [DS:10h]
+        PSRADI  MM0, 15
+        PUnpckLWD MM0, MM0
+        PMulLW  MM2, MM0
+        MovQ    MM4, [DS:0]             ; VR
+        PMulHW  MM0, MM6
+        PSubW   MM4, MM6                ; VR
+        PUnpckLWD MM2, MM0
+        PAddD   MM2, [SI]
+        PSRAWI  MM4, RAMPSPEED          ; VR
+        MovQM   [SI], MM2
+        PAddW   MM6, MM4                ; VR
+
+        Add     SI, 8
+        Pop     AX
+
+M32Bit16MVPanned2:
+        Test    AX, 2
+        JZ      M32Bit16MVPanned3
+
+        Push    AX
+        Mov     [DS:8h], CX            ; AGIs everywhere!
+        Mov     AX, [ES:BX]
+        Mov     [DS:0Ah], CX
+        Add     CX, BP
+        AdC     DI, DX
+        Mov     [DS:10h], AX
+        Mov     AX, [ES:BX+2]
+        Mov     BX, DI
+        Mov     [DS:12h], AX
+        Add     BX, BX
+
+        Mov     [DS:0Ch], CX
+        Mov     AX, [ES:BX]
+        Mov     [DS:0Eh], CX
+        Add     CX, BP
+        AdC     DI, DX
+        Mov     [DS:14h], AX
+        Mov     AX, [ES:BX+2]
+        Mov     BX, DI
+        Mov     [DS:16h], AX
+        Add     BX, BX
+
+        MovQ    MM2, [DS:8]
+        PXor    MM2, MM1
+        PSRLWI  MM2, 1
+        PMAddWD MM2, [DS:10h]
+        PSRADI  MM2, 15
+        PackSSDW MM2, MM2
+        PUnpckLWD MM2, MM2
+        MovQ    MM0, MM6
+        PMulHW  MM0, MM2
+        PMulLW  MM2, MM6
+        MovQ    MM4, MM2
+        PUnpckLWD MM2, MM0
+        MovQ    MM5, [DS:0]             ; VR
+        PUnpckHWD MM4, MM0
+        PAddD   MM2, [SI]
+        PSubW   MM5, MM6                ; VR
+        PAddD   MM4, [SI+8]
+        MovQM   [SI], MM2
+        PSRAWI  MM5, RAMPSPEED-1        ; VR
+        MovQM   [SI+8], MM4
+        PAddW   MM6, MM5                ; VR
+
+        Pop     AX
+        Add     SI, 10h
+
+M32Bit16MVPanned3:
+        ShR     AX, 2
+        JZ      M32Bit16MVPannedEnd
+
+        Mov     Word Ptr [DS:20h], AX
+
+        Mov     [DS:8h], CX            ; AGIs everywhere!
+        Mov     AX, [ES:BX]
+        Mov     [DS:0Ah], CX
+        Add     CX, BP
+        AdC     DI, DX
+        Mov     [DS:10h], AX
+        Mov     AX, [ES:BX+2]
+        Mov     BX, DI
+        Mov     [DS:12h], AX
+        Add     BX, BX
+
+        Mov     [DS:0Ch], CX
+        Mov     AX, [ES:BX]
+        Mov     [DS:0Eh], CX
+        Add     CX, BP
+        AdC     DI, DX
+        Mov     [DS:14h], AX
+        Mov     AX, [ES:BX+2]
+        Mov     BX, DI
+        Mov     [DS:16h], AX
+        Add     BX, BX
+
+        Mov     [DS:28h], BP
+        Mov     [DS:2Ch], BP
+        Add     CX, BP
+        Mov     AX, [ES:BX]
+        AdC     DI, DX
+        Mov     [DS:18h], AX
+        Mov     AX, [ES:BX+2]
+        Mov     BX, DI
+        Mov     [DS:1Ah], AX
+        Add     BX, BX
+
+        Mov     [DS:2Ah], BP
+        Mov     [DS:2Eh], BP
+        Add     CX, BP
+        Mov     AX, [ES:BX]
+        AdC     DI, DX
+        Mov     [DS:1Ch], AX
+        Mov     AX, [ES:BX+2]
+        Mov     BX, DI
+        Mov     [DS:1Eh], AX
+        Add     BX, BX
+
+        MovQ    MM7, [DS:28h]
+
+        MovQ    MM5, [DS:8]
+        PAddW   MM7, MM7
+
+        PXor    MM7, MM1
+        PXor    MM5, MM1
+
+        PSubW   MM7, MM1
+
+        Dec     Word Ptr [DS:20h]
+        JZ      M32Bit16MVPanned5
+
+M32Bit16MVPanned4:
+; DS:0 = destination volume
+; DS:10h = samples
+; DS:18h = samples
+; MM5 = offsets
+; MM6 = current volume
+; MM7 = delta offsets
+        MovQ    MM2, MM5
+        PAddW   MM5, MM7
+
+        PSRLWI  MM2, 1
+        MovQ    MM3, MM5
+
+        PMAddWD MM2, [DS:10h]
+        PSRLWI  MM3, 1
+
+        Add     CX, BP
+        Mov     AX, [ES:BX]
+        AdC     DI, DX
+        Mov     [DS:10h], AX
+        Mov     AX, [ES:BX+2]
+        Mov     BX, DI
+        Mov     [DS:12h], AX
+        Add     BX, BX
+
+        PSRADI  MM2, 15
+        PAddW   MM5, MM7
+
+        PMAddWD MM3, [DS:18h]
+        PackSSDW MM2, MM2
+
+        Add     CX, BP
+        Mov     AX, [ES:BX]
+        AdC     DI, DX
+        Mov     [DS:14h], AX
+        Mov     AX, [ES:BX+2]
+        Mov     BX, DI
+        Mov     [DS:16h], AX
+        Add     BX, BX
+
+        PUnpckLWD MM2, MM2
+        MovQ    MM0, MM6
+
+        PMulHW  MM0, MM2
+        PSRADI  MM3, 15
+
+        PMulLW  MM2, MM6
+        PackSSDW MM3, MM3
+
+        Add     CX, BP
+        Mov     AX, [ES:BX]
+        AdC     DI, DX
+        Mov     [DS:18h], AX
+        Mov     AX, [ES:BX+2]
+        Mov     BX, DI
+        Mov     [DS:1Ah], AX
+        Add     BX, BX
+
+        MovQ    MM1, [DS:0]     ; Destination volume
+        PUnpckLWD MM3, MM3
+
+        MovQ    MM4, MM2
+        PUnpckLWD MM2, MM0
+
+        PSubW   MM1, MM6
+        PUnpckHWD MM4, MM0
+
+        PAddD   MM2, [SI]
+        PSRAWI  MM1, RAMPSPEED-1
+
+        PAddD   MM4, [SI+8]
+        PAddW   MM6, MM1        ; MM6 = new volume (ramped)
+
+        MovQM   [SI], MM2
+        MovQ    MM1, MM6
+
+        MovQ    MM2, [DS:0]
+        PMulHW  MM1, MM3
+
+        MovQM   [SI+8], MM4
+        PMulLW  MM3, MM6
+
+        Add     CX, BP
+        Mov     AX, [ES:BX]
+        AdC     DI, DX
+        Mov     [DS:1Ch], AX
+        Mov     AX, [ES:BX+2]
+        Mov     BX, DI
+        Mov     [DS:1Eh], AX
+        Add     BX, BX
+
+        MovQ    MM0, MM3
+        PUnpckLWD MM3, MM1
+
+        PAddD   MM3, [SI+10h]
+        PUnpckHWD MM0, MM1
+
+        MovQM   [SI+10h], MM3
+        PSubW   MM2, MM6
+
+        PAddD   MM0, [SI+18h]
+        PSRAWI  MM2, RAMPSPEED-1
+
+        MovQM   [SI+18h], MM0
+        PAddW   MM6, MM2
+
+        Add     SI, 20h
+
+        Dec     Word Ptr [DS:20h]
+        JNZ     M32Bit16MVPanned4
+
+M32Bit16MVPanned5:
+        MovQ    MM2, MM5
+        PAddW   MM5, MM7
+
+        PSRLWI  MM2, 1
+        MovQ    MM3, MM5
+
+        PMAddWD MM2, [DS:10h]
+        PSRLWI  MM3, 1
+
+        PSRADI  MM2, 15
+        PAddW   MM5, MM7
+
+        PMAddWD MM3, [DS:18h]
+        PackSSDW MM2, MM2
+
+        PUnpckLWD MM2, MM2
+        MovQ    MM0, MM6
+
+        PMulHW  MM0, MM2
+        PSRADI  MM3, 15
+
+        PMulLW  MM2, MM6
+        PackSSDW MM3, MM3
+
+        MovQ    MM1, [DS:0]     ; Destination volume
+        PUnpckLWD MM3, MM3
+
+        MovQ    MM4, MM2
+        PUnpckLWD MM2, MM0
+
+        PSubW   MM1, MM6
+        PUnpckHWD MM4, MM0
+
+        PAddD   MM2, [SI]
+        PSRAWI  MM1, RAMPSPEED-1
+
+        PAddD   MM4, [SI+8]
+        PAddW   MM6, MM1        ; MM6 = new volume (ramped)
+
+        MovQM   [SI], MM2
+        MovQ    MM1, MM6
+
+        MovQ    MM2, [DS:0]
+        PMulHW  MM1, MM3
+
+        MovQM   [SI+8], MM4
+        PMulLW  MM3, MM6
+
+        MovQ    MM0, MM3
+        PUnpckLWD MM3, MM1
+
+        PAddD   MM3, [SI+10h]
+        PUnpckHWD MM0, MM1
+
+        MovQM   [SI+10h], MM3
+        PSubW   MM2, MM6
+
+        PAddD   MM0, [SI+18h]
+        PSRAWI  MM2, RAMPSPEED-1
+
+        MovQM   [SI+18h], MM0
+        PAddW   MM6, MM2
+
+M32Bit16MVPannedEnd:
+
+IF MONITORPERFORMANCE
+        RdTSC
+        Add     CS:M32BitMICounter16BitTicksLow, EAX
+        AdC     CS:M32BitMICounter16BitTicksHigh, EDX
+ENDIF
+        Ret
+
+EndP    M32Bit16MVPanned
+
+;컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+
+Proc    M32Bit8MVPanned
+
+; Layout of data in data segment
+; DS:0 = destination volume
+; DS:10h->1Fh = samples
+
+; AX = number to mix
+; CX = error
+; DX = deltaoffset
+; BP = deltaerror
+; DS:SI = 32-bit output buffer
+; ES:DI = sample location
+; MM6 = L/R volumes
+; MM7 = PXor mask
+
+IF MONITORPERFORMANCE
+        Push    EAX
+        Push    EDX
+
+        Add     CS:M32BitMICounter8BitLow, AX
+        AdC     CS:M32BitMICounter8BitHigh, 0
+
+        RdTSC
+        Sub     CS:M32BitMICounter8BitTicksLow, EAX
+        SBB     CS:M32BitMICounter8BitTicksHigh, EDX
+
+        Pop     EDX
+        Pop     EAX
+ENDIF
+
+; AX = number of samples to mix.
+; DS:0 = destination volume
+; DS:8 = SS
+; DS:0Ch = SP
+; DS:10h = sample setup
+; MM6 = current volume.
+
+        Mov     BX, AX
+
+        Assume DS:Driver
+        SegCS   MovQ MM1, M32BitMIPNotMask      ; = FFFF0000FFFF0000h
+        Assume DS:Nothing
+
+        And     AX, 3
+        JZ      M32Bit8MVPanned3
+
+M32Bit8MVPanned1:
+        Test    AL, 1
+        JZ      M32Bit8MVPanned2
+
+        Mov     AX, [ES:DI]
+        Mov     [DS:8h], CX
+        Mov     [DS:0Ah], CX
+        Add     CX, BP
+        AdC     DI, DX
+
+        MovQ    MM4, [DS:8h]
+        MovQ    MM2, MM6
+        MovD    MM0, AX
+        PXor    MM4, MM1
+        PSRLWI  MM4, 1
+        PUnpckLBW MM0, MM0
+        PMAddWD MM0, MM4
+        PSRADI  MM0, 15
+        PUnpckLWD MM0, MM0
+        PMulLW  MM2, MM0
+        MovQ    MM4, [DS:0]             ; VR
+        PMulHW  MM0, MM6
+        PSubW   MM4, MM6                ; VR
+        PUnpckLWD MM2, MM0
+        PAddD   MM2, [SI]
+        PSRAWI  MM4, RAMPSPEED          ; VR
+        MovQM   [SI], MM2
+        PAddW   MM6, MM4                ; VR
+
+        Add     SI, 8
+
+M32Bit8MVPanned2:
+        Test    BL, 2
+        JZ      M32Bit8MVPanned3
+
+        Mov     AX, [ES:DI]
+        Mov     [DS:8h], CX
+        Mov     [DS:0Ah], CX
+        Add     CX, BP
+        AdC     DI, DX
+        Mov     [DS:10h], AX
+
+        Mov     AX, [ES:DI]
+        Mov     [DS:0Ch], CX
+        Mov     [DS:0Eh], CX
+        Add     CX, BP
+        AdC     DI, DX
+        Mov     [DS:12h], AX
+
+        MovQ    MM0, [DS:10h]
+        MovQ    MM2, [DS:8]
+        PXor    MM2, MM1
+        PUnpckLBW MM0, MM0
+        PSRLWI  MM2, 1
+        PMAddWD MM2, MM0
+        PSRADI  MM2, 15
+        PackSSDW MM2, MM2
+        PUnpckLWD MM2, MM2
+        MovQ    MM0, MM6
+        PMulHW  MM0, MM2
+        PMulLW  MM2, MM6
+        MovQ    MM4, MM2
+        PUnpckLWD MM2, MM0
+        MovQ    MM5, [DS:0]             ; VR
+        PUnpckHWD MM4, MM0
+        PAddD   MM2, [SI]
+        PSubW   MM5, MM6                ; VR
+        PAddD   MM4, [SI+8]
+        MovQM   [SI], MM2
+        PSRAWI  MM5, RAMPSPEED-1        ; VR
+        MovQM   [SI+8], MM4
+        PAddW   MM6, MM5                ; VR
+
+        Add     SI, 10h
+
+M32Bit8MVPanned3:
+        ShR     BX, 2
+        JZ      M32Bit8MVPannedEnd
+
+        Mov     AX, [ES:DI]
+        Mov     [DS:8h], ERROR
+        Mov     [DS:0Ah], ERROR
+        Add     ERROR, BP
+        AdC     DI, DELTAOFFSET
+        Mov     [DS:10h], AX
+
+        Mov     AX, [ES:DI]
+        Mov     [DS:0Ch], ERROR
+        Mov     [DS:0Eh], ERROR
+        Add     ERROR, BP
+        AdC     DI, DELTAOFFSET
+        Mov     [DS:12h], AX
+
+        Mov     AX, [ES:DI]
+        Add     ERROR, BP
+        AdC     DI, DELTAOFFSET
+        Mov     [DS:28h], BP
+        Mov     [DS:18h], AX
+        Mov     [DS:2Ah], BP
+
+        Mov     AX, [ES:DI]
+        Add     ERROR, BP
+        AdC     DI, DELTAOFFSET
+        Mov     [DS:2Ch], BP
+        Mov     [DS:1Ah], AX
+        Mov     [DS:2Eh], BP
+
+        MovQ    MM7, [DS:28h]
+
+        MovQ    MM5, [DS:8]
+        PAddW   MM7, MM7
+
+        PXor    MM7, MM1
+        PXor    MM5, MM1
+
+        PSubW   MM7, MM1
+
+        Dec     BX
+        JZ      M32Bit8MVPanned5
+
+M32Bit8MVPanned4:
+; DS:0 = destination volume
+; DS:10h = samples
+; DS:18h = samples
+; MM5 = offsets
+; MM6 = current volume
+; MM7 = delta offsets
+        MovQ    MM0, [DS:10h]
+        MovQ    MM2, MM5
+
+        MovQ    MM1, [DS:18h]
+        PUnpckLBW MM0, MM0
+
+        PSRLWI  MM2, 1
+        PAddW   MM5, MM7
+
+        PMAddWD MM2, MM0
+        PUnpckLBW MM1, MM1
+
+        Mov     AX, [ES:DI]
+        Add     ERROR, DELTAERROR
+        AdC     DI, DELTAOFFSET
+        Mov     [DS:10h], AX
+
+        PSRADI  MM2, 15
+        MovQ    MM3, MM5
+
+        PAddW   MM5, MM7
+        PSRLWI  MM3, 1
+
+        PMAddWD MM3, MM1
+        PackSSDW MM2, MM2
+
+        Mov     AX, [ES:DI]
+        Add     ERROR, DELTAERROR
+        AdC     DI, DELTAOFFSET
+        Mov     [DS:12h], AX
+
+        PUnpckLWD MM2, MM2
+        MovQ    MM0, MM6
+
+        PMulHW  MM0, MM2
+        PSRADI  MM3, 15
+
+        PMulLW  MM2, MM6
+        PackSSDW MM3, MM3
+
+        Mov     AX, [ES:DI]
+        Add     ERROR, DELTAERROR
+        AdC     DI, DELTAOFFSET
+        Mov     [DS:18h], AX
+
+        MovQ    MM1, [DS:0]     ; Destination volume
+        PUnpckLWD MM3, MM3
+
+        MovQ    MM4, MM2
+        PUnpckLWD MM2, MM0
+
+        PSubW   MM1, MM6
+        PUnpckHWD MM4, MM0
+
+        PAddD   MM2, [SI]
+        PSRAWI  MM1, RAMPSPEED-1
+
+        PAddD   MM4, [SI+8]
+        PAddW   MM6, MM1        ; MM6 = new volume (ramped)
+
+        MovQM   [SI], MM2
+        MovQ    MM1, MM6
+
+        MovQ    MM2, [DS:0]
+        PMulHW  MM1, MM3
+
+        MovQM   [SI+8], MM4
+        PMulLW  MM3, MM6
+
+        Mov     AX, [ES:DI]
+        Add     ERROR, DELTAERROR
+        AdC     DI, DELTAOFFSET
+        Mov     [DS:1Ah], AX
+
+        MovQ    MM0, MM3
+        PUnpckLWD MM3, MM1
+
+        PAddD   MM3, [SI+10h]
+        PUnpckHWD MM0, MM1
+
+        MovQM   [SI+10h], MM3
+        PSubW   MM2, MM6
+
+        PAddD   MM0, [SI+18h]
+        PSRAWI  MM2, RAMPSPEED-1
+
+        MovQM   [SI+18h], MM0
+        PAddW   MM6, MM2
+
+        Add     SI, 20h
+
+        Dec     BX
+        JNZ     M32Bit8MVPanned4
+
+M32Bit8MVPanned5:
+        MovQ    MM0, [DS:10h]
+        MovQ    MM2, MM5
+
+        MovQ    MM1, [DS:18h]
+        PUnpckLBW MM0, MM0
+
+        PSRLWI  MM2, 1
+        PAddW   MM5, MM7
+
+        PMAddWD MM2, MM0
+        PUnpckLBW MM1, MM1
+
+        PSRADI  MM2, 15
+        MovQ    MM3, MM5
+
+        PAddW   MM5, MM7
+        PSRLWI  MM3, 1
+
+        PMAddWD MM3, MM1
+        PackSSDW MM2, MM2
+
+        PUnpckLWD MM2, MM2
+        MovQ    MM0, MM6
+
+        PMulHW  MM0, MM2
+        PSRADI  MM3, 15
+
+        PMulLW  MM2, MM6
+        PackSSDW MM3, MM3
+
+        MovQ    MM1, [DS:0]     ; Destination volume
+        PUnpckLWD MM3, MM3
+
+        MovQ    MM4, MM2
+        PUnpckLWD MM2, MM0
+
+        PSubW   MM1, MM6
+        PUnpckHWD MM4, MM0
+
+        PAddD   MM2, [SI]
+        PSRAWI  MM1, RAMPSPEED-1
+
+        PAddD   MM4, [SI+8]
+        PAddW   MM6, MM1        ; MM6 = new volume (ramped)
+
+        MovQM   [SI], MM2
+        MovQ    MM1, MM6
+
+        MovQ    MM2, [DS:0]
+        PMulHW  MM1, MM3
+
+        MovQM   [SI+8], MM4
+        PMulLW  MM3, MM6
+
+        MovQ    MM0, MM3
+        PUnpckLWD MM3, MM1
+
+        PAddD   MM3, [SI+10h]
+        PUnpckHWD MM0, MM1
+
+        MovQM   [SI+10h], MM3
+        PSubW   MM2, MM6
+
+        PAddD   MM0, [SI+18h]
+        PSRAWI  MM2, RAMPSPEED-1
+
+        MovQM   [SI+18h], MM0
+        PAddW   MM6, MM2
+
+M32Bit8MVPannedEnd:
+IF MONITORPERFORMANCE
+        RdTSC
+        Add     CS:M32BitMICounter8BitTicksLow, EAX
+        AdC     CS:M32BitMICounter8BitTicksHigh, EDX
+ENDIF
+        Ret
+
+EndP    M32Bit8MVPanned
+
+;컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+
+Proc    PreM32BitMVPanned
+        Assume DS:Driver
+
+        Mov     ES, CS:MixSegment
+
+        Mov     AX, [SI+0Ch]    ; AX = destination left
+        Mov     BX, [SI+1Ch]    ; BX = current left
+        Mov     CX, [SI+0Eh]    ; CX = destination right
+        Mov     DX, [SI+1Eh]    ; DX = current right.
+
+        Cmp     AX, BX
+        JL      PreM32BitMVPannedV1
+
+        Add     AX, RAMPCOMPENSATE
+
+PreM32BitMVPannedV1:
+        Cmp     CX, DX
+        JL      PreM32BitMVPannedV2
+
+        Add     CX, RAMPCOMPENSATE
+
+PreM32BitMVPannedV2:
+        Sub     Word Ptr [SI+8], 60
+
+        Mov     [Word Ptr ES:0], AX
+        Mov     [Word Ptr ES:4], AX
+        Mov     [Word Ptr ES:2], CX
+        Mov     [Word Ptr ES:6], CX
+
+        Mov     [CS:M32BitMIVolumeData], BX
+        Mov     [CS:M32BitMIVolumeData+2], DX
+
+        Sub     AX, BX
+        Sub     CX, DX
+
+        SAR     AX, RAMPSPEED
+        SAR     CX, RAMPSPEED
+
+        Add     BX, AX
+        Add     DX, CX
+
+        Mov     [CS:M32BitMIVolumeData+4], BX
+        Mov     [CS:M32BitMIVolumeData+6], DX
+
+        SegCS   MovQ MM6, M32BitMIVolumeData
+
+        Ret
+
+EndP    PreM32BitMVPanned
+        Assume DS:Nothing
+
+;컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+

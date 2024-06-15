@@ -1,0 +1,577 @@
+
+                         Notes about the sound drivers
+
+        Be sure to check the driver screen (Shift-F5) of your soundcard!
+
+  I often get asked what soundcard I believe is the best.
+
+  My favourite soundcard is the SBLive! produced by Creative Labs.
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+                                 Driver Summary
+
+Driver                  Def/Max   Quick- Stereo  Bits  Mixing Rate/Resolution
+                        Channels  select               MIDI In/Out available?
+
+VSound Driver           64/256     Auto    Yes    16    8kHz to 64kHz
+VSound Driver MMX       128/256    Auto    Yes    16    8kHz to 64kHz
+ For more details on the VSound drivers, check ITVSOUND.TXT
+
+PC Speaker              64/256     /S1     No    5-7    12->44kHz
+DAC on LPT              64/256             No     8     12->44kHz
+GUS, Hardware *         32/32      /S7     Yes    16    19->44kHz (A)
+GUSMAX, Software *      64/256             Yes    16    8->64kHz
+Interwave, Hardware *   32/32      /S8     Yes    16    44kHz, MIDI In + Out
+Sound Blaster 1.0 *     64/256     /S2     No     8     12kHz->22kHz
+Sound Blaster 2.0 *     64/256     /S3     No     8     12kHz->44kHz
+Sound Blaster Pro *     64/256     /S4     Yes    8     6kHz->22kHz (B)
+                                           No     8     12kHz->44kHz (B)
+Sound Blaster 16 *      64/256     /S5     Yes    16    12kHz->44kHz, MIDI In
+Sound Blaster AWE 32*   30/30              Yes    16    44kHz, MIDI In + Out
+Pro Audio Spectrum      64/256     /S9     Yes    8     12->44kHz
+Pro Audio Spectrum 16   64/256     /S10    Yes    16    12->44kHz
+Windows Sound System *  64/256     /S11    Yes    16    8->64kHz
+ESS 1868 AudioDrive *   64/256     /S12    Yes    16    22->56.8kHz, MIDI In
+ESS 1688 AudioDrive     64/256             Yes    16    8->48kHz
+EWS64 Codec *           64/256     /S13    Yes    16    8->48kHz
+Ensoniq SoundscapeVIVO* 64/256     /S14    Yes    16    8->48kHz
+SoundTrack PCI *        64/256             Yes    16    8->48kHz
+
+MPU401 MIDI Driver      -          /S19     -     -     MIDI In + Out
+
+Disk Writer *           256/256    /S20    Yes    16    8->64kHz
+
+* = Driver will play in the background of Windows '95
+
+Notes
+A) Depends on number of channels used. The hiquality GUS driver reinitialises
+   the GUS continually to use as few channels as necessary. Some GUS cards
+   cannot cope with this and you will need to use the alternative ITGUSLO.DRV
+   instead.
+B) The mixing rate of the SBPro depends on whether playback is stereo or mono
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+PC Speaker (ITPCSPKR.DRV)
+
+        Nothing much else to say here, except... GET A SOUND CARD! :)
+
+        Note: On the info page, using the 'variables' display WILL distort
+              PC Speaker output. Also, it has been found that the Info Page
+              screens and the Pattern Editor cause a noticeably higher amount
+              of hiss through the speaker.
+
+        Note: This driver *MAY NOT* work on laptop's piezo-electric speakers.
+
+        Note: No driver screen available.
+
+        Note: Not for use with Win95
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+DAC on LPT 1/2 Drivers
+
+        These drivers are almost exactly the same as the PC speaker drivers,
+        with only minor modifications.
+
+        To use these, run IT /sITLPT1.DRV or IT /sITLPT2.DRV - depending on
+        which LPT you have your DAC plugged into.
+
+        Note: If you're interested in building your own parallel port DAC,
+              check out: http://www.dnc.net/users/collver/dac.htm
+                     or: ftp://ftp.informatik.hu-berlin.de/pub/os/linux/hu-sound/
+
+        Note: No driver screen available.
+
+        Note: On the info page, using the 'variables' display WILL distort
+              PC Speaker output. Also, it has been found that the Info Page
+              screens and the Pattern Editor cause a noticeably higher amount
+              of hiss through the speaker.
+
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Gravis UltraSound, Hardware mixing (ITGUS.DRV)
+
+        This file actually contains two drivers in one file. The first is
+        accessed just by using IT (with no command line parameters, or with
+        /s7 for Gravis UltraSound). This is equivalent to the original
+        internal driver that came with previous versions of Impulse Tracker.
+
+        The second driver is selected by providing the correct IRQ for the
+        GF1 chip. (The second-to-last number of your ULTRASND environment
+        variable). This is an IRQ driven routine, which means that it'll
+        work in the background of Windows '95. But note that the timing for
+        this is NOT as accurate as the timing in the first driver. There is
+        also a possibility that multitasking OSs can sometimes (although
+        rarely) cause some settings to the GUS to be missed (which will cause
+        a note to play unexpectedly). This can be fixed just by restarting
+        playback. There is NO check for the correctness of the IRQ provided.
+        Note that the IRQ driven routine doesn't seem to work on all
+        computers either.. :(
+
+        The Gravis UltraSound *CANNOT* cope with 16-bit samples greater than
+        256k-bytes. This is equivalent to 128k-length samples. Also, 16-bit
+        samples cannot cross 256k boundaries on the GUS, meaning that the
+        amount of memory you have on the card may decrease by more than you
+        expect when you load a 16-bit sample.
+
+        You cannot choose the mixing rate for the GUS - the mixing rate is
+        dependent on the number of channels playing. This driver continuously
+        reinitialises the GUS to use as few channels as possible. You can
+        further restrict the number of channels used with /Lxx on the command
+        line of Impulse Tracker.
+
+Gravis UltraSound 2, Hardware mixing (ITGUS2.DRV)
+
+        If the first Gravis UltraSound driver clicks continuously when nothing
+        is supposed to be playing, use this driver ("IT /sITGUS2.DRV").
+
+        This driver file also contains two drivers - check above on how to
+        access the second driver.
+
+Gravis UltraSound Lo-freq, Hardware mixing (ITGUSLO.DRV)
+
+        Only use this driver if notes do *NOT* finish playing off correctly
+        on your GUS. ("IT /sITGUSLO.DRV" or copy ITGUSLO.DRV over ITGUS.DRV)
+        This driver does not try to continuously reinitialise the card to use
+        a minimum number of channels like the above two drivers do.
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Gravis Ultrasound MAX - Software mixing (ITGUSMAX.DRV)
+
+        This device has ONLY been included because it works for SOME people.
+        It has NEVER worked under Win95 with GUS drivers installed as far as
+        I know. If it doesn't work for you - I'm sorry, you'll have to use
+        the hardware drivers. Don't write to me and complain if they don't
+        work for you - you probably won't get a reply.
+
+        To use this driver, you MUST specify your GUSMAX's Codec IRQ *AND*
+        DMA on the command line as:
+
+               IT /sITGUSMAX.DRV /i<irq> /d<dma>
+
+        If you want to specify a port (which should be auto-detected OK),
+        the port is of the Codec, NOT the GUS's Base Address.
+        (ie. 32Ch NOT 220h)
+
+        Note: After some testing, it *seems* that you'll need an ULTRINIT
+        of version 2.28a or above to use this driver...
+
+Here's part of an EMail that I received from Jarkko Seppanen on how he got
+ITGUSMAX.DRV working:
+
+I just found a weird way to make the GUS MAX software mixer to work (for me,
+at least). I normally use DMA 6 for playback and DMA 7 for recording. I was
+playing around with IT and trying to get the driver to work and changed
+both DMAs to 1. And for my surprise it started to work. Next I tried it
+with both DMAs 6, with the same result. But the funny thing is, when I
+first play a song with both DMAs the same and then change them back to the
+original (6 and 7), it still works. I'm using IT v2.11 with ultrinit v2.31.
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+InterWave Driver - Hardware mixing (ITIW.DRV)
+ (This includes GUS PnP, GUS PnP Pro, WavExtreme 32 Pro + more)
+
+        You *NEED* to have RAM onboard your soundcard to use this driver,
+        otherwise your Interwave card will NOT be detected.
+
+        This file actually contains two drivers in one file. The first is
+        accessed just by using IT (with no command line parameters, or with
+        /s8 for AMD Interwave IC). This is similar to the original internal
+        GUS driver that came with previous versions of Impulse Tracker.
+
+        The second driver is selected by providing the correct IRQ for the
+        Interwave chip. (This is the value given in Windows'95/settings/
+        control panel/system/Interwave SYNTH/IRQ). This is an IRQ driven
+        routine, which means that it'll work in the background of Windows '95.
+        But note that the timing for this is NOT as accurate as the timing in
+        the first driver. There is also a possibility that multitasking OSs
+        can sometimes (although rarely) cause some settings to the GUS to be
+        missed (which will cause a note to play unexpectedly). This can be
+        fixed just by restarting playback (or reinitialising in severe cases).
+
+        There is NO check for the correctness of the IRQ provided.
+
+        The Interwave driver contains handlers for two different memory modes
+        on the Interwave - the more memory efficient mode is where the amount
+        of ram is directly compatible with the interwave, the second is where
+        the DRAM configuration is NOT directly compatible with the interwave
+        and the driver has to handle the RAM slightly more explicitly, which
+        causes the loss of memory-usage efficiency.
+
+        Here are the modes directly compatible with the interwave:
+
+     Bank 0         Bank 1          Bank 2          Bank 3          Total
+      256Kb          0               0               0              256Kb
+      256Kb          256Kb           0               0              512Kb
+      256Kb          256Kb           256Kb           256Kb           1MB
+      256Kb          1MB             0               0             1.25MB
+      256Kb          1MB             1MB             1MB           3.25MB
+      256Kb          256Kb           1MB             0              1.5MB
+      256Kb          256Kb           1MB             1MB            2.5MB
+      1MB            0               0               0               1MB
+      1MB            1MB             0               0               2MB
+      1MB            1MB             1MB             1MB             4MB
+      4MB            0               0               0               4MB
+    * 4MB            4MB             0               0               8MB
+    * 4MB            4MB             4MB             4MB            16MB
+
+    * These modes cannot be handled by the first driver, so are actually
+      handled in the second mode.
+
+        The mixing rate for the Interwave driver is fixed at 44100Hz
+        (CD quality)
+
+      Bug warning: If the sound does NOT play properly, you may need to
+                   run IWINIT before running Impulse Tracker
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Sound Blaster 1.0 driver (ITSB.DRV)
+
+        The Sound Blaster has a mixing range of 12000->21739 Hz. You CANNOT
+        hear any stereo (or surround) effects with this driver, because the
+        Sound Blaster does NOT support stereo.
+
+        Hardware detection routines are used for Address (eg. 220h),
+        environment is checked for IRQ and DMA.
+
+        Command line arguments for IRQ and DMA are NOT checked but assumed
+        correct IF this driver is explicitly selected
+        (IT /s2 or IT /sITSB.DRV).
+
+Sound Blaster 2.0 driver (ITSB2.DRV)
+
+        The Sound Blaster 2 driver is basically the same as the Pro driver
+        with stereo options removed... (ie SB2 cannot do stereo). The
+        mixing range is from 12000 to 43478 Hz.
+
+        Hardware detection routines are used for Address (eg. 220h),
+        environment is checked for IRQ and DMA.
+
+        Command line arguments for IRQ and DMA are NOT checked but assumed
+        correct IF this driver is explicitly selected (IT /s3 or
+        IT /sITSB2.DRV).
+
+Sound Blaster Pro driver (ITSBPRO.DRV)
+
+        The Sound Blaster Pro has a mixing range of 12000->43478 in mono mode,
+        or 6000->21739 in stereo mode.
+
+        Hardware detection routines are used for Address (eg. 220h),
+        environment is checked for IRQ and DMA.
+
+        Command line arguments for IRQ and DMA are NOT checked but assumed
+        correct IF this driver is explicitly selected
+        (IT /s4 or IT /sITSBPRO.DRV).
+
+Sound Blaster 16 driver (ITSB16.DRV, ITSB16B.DRV, ITSB16C.DRV)
+
+        The Sound Blaster 16 has a mixing range of 12000->45454 in either mono
+        or stereo modes.
+
+        If you specify this driver ( IT /s5 or IT /sITSB16.DRV ) AND an IRQ
+        or DMA, IT will try to *FORCE* the SB16 to use the IRQ/DMA.
+
+        eg. On my system, I have my SB16 configured to IRQ 2, DMA 5, but I
+        can force it to use IRQ 7, DMA 0 with IT /s5 /i7 /d0
+
+        Hardware detection routines are used for all Address, IRQ and DMA.
+
+        Note: If you select either of the 32-bit mixing modes, then volumes
+        between 0->32768 are used internally instead of 0->128.
+
+        The second driver, ITSB16B.DRV is a cut down version of the main
+        driver which does NOT have the advanced mixing options - the only
+        benefit of this is that it requires less memory. To use this, type:
+        "IT /sITSB16B.DRV". If you want to have this file automatically used
+        just copy it over ITSB16.DRV.
+
+        To get MIDI input, I had to do this in Win95:
+
+        Goto "My Computer", right click -> properties -> device manager ->
+        sound, video and multimedia -> SB16/AWE32 DSP
+
+        Now go to the "resources" tab, and unclick "Use automatic settings"
+
+        Either:
+          1) Change your MIDI port from 300h to 330h or
+          2) Select a 'basic configuration' which doesn't include the MIDI port
+
+        ( 3) Get an updated driver from Creative Labs, if they've fixed it )
+
+        Click OK, then click OK on the warning message.
+
+        There is a good chance that it should work now. I believe this is a
+        bug in the older Win95 SB16 drivers. (I *know* that the SB16 driver
+        I have prevents MIDI in DOS boxes and is the cause of these problems
+        because if I remove it, MIDI works flawlessly in DOS boxes in in Win95)
+
+;---------- ITSB16C.DRV --------
+
+        I finally managed to encounter a computer which wouldn't accept IT's
+        old SB16 drivers - and hence I created ITSB16C.DRV.
+        If you run ITSB16.DRV and the playback cursor does NOT move, then
+        you MUST close your Win95 box (or restart your computer), *then* run:
+
+          IT /sITSB16C.DRV
+
+        This driver is similar to ITSB16B.DRV in that it is a cut down
+        version of the full SB16 driver, but this one also has the MIDI
+        input disabled (which seems to be causing all the problems on the
+        cards which just won't 'play')
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Sound Blaster AWE 32 drivers (ITAWE32.DRV, ITAWE32B.DRV)
+
+        The Sound Blaster AWE 32 driver directly uses the EMU8000 synth chip.
+        This synth chip has several limitations which you should be aware of:
+
+         ù It can only use 16-bit samples.
+           8 bit samples are automatically converted by IT (so that's not a
+           problem), but your free memory may decrease by double of what you
+           expect. (eg. you will need at least 1MB of memory to load 512k
+           of 8 bit samples)
+
+         ù It doesn't support ping pong loops or no loops.
+           IT will automatically expand ping pong loops and will pad non-looped
+           samples with silence, but this makes sample sustain loops impossible
+           to implement fully. It also means that ping pong looped samples
+           could take up to double the memory of forwards looped samples.
+
+           Sustain loops will NOT operate on the AWE32 driver. Instead, they
+           will be treated as NORMAL loops.
+
+           If you change the loop type from none->forwards or
+           forwards->ping pong or ping pong->none, you WILL need to reload
+           the samples each time (Ctrl-G). If you change the loop points on
+           a sample, you *will* have to reload the samples (Ctrl-G)
+
+         ù Has a limited frequency range - from the programming information,
+           it seems that it is impossible to play a note at above 176kHz.
+           This equates to any notes 2 octaves above middle C (or higher) for
+           a sample at 44kHz. If a note is not played because of this
+           frequency limitation, a message will show at the top of the screen
+           indicating that the frequency range has been exceeded.
+
+        Note: The Address used for the SB AWE 32 is the address of the EMU8000,
+              NOT the address of your SB. (for command line params, eg A660)
+
+        Note: This driver is NOT used as a default, as many users would benefit
+              more from the SB16 driver. (I recommend having at least 2MB
+              of memory if you want to use this driver). Run "IT /s6" if you
+              do want to use this driver.
+
+        Note: This driver can operate in Win95. In this mode, it uses a
+              different mechanism which allows the playing of music in the
+              background, but timing is *NOT* as accurate here (accurate to
+              around 100 milli seconds as opposed to 800 nano seconds per
+              frame)
+
+        Note: The second driver, ITAWE32B.DRV, is for people who do *NOT* have
+              a floating point unit (ie. 386, 486SX computers). ITAWE32.DRV
+              is preferred as it requires less memory.
+
+              To access ITAWE32B.DRV, run "IT /sITAWE32B.DRV"
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Pro Audio Spectrum (ITPAS.DRV)
+Pro Audio Spectrum 16 (ITPAS16.DRV)
+
+        BIG thanks to Pelusa for VITAL programming information for this!!
+        BIG thanks to MZ/PoP for lending me a PAS16 to stuff around with!!
+
+        Note: These drivers will *NOT* work in the background of Win95,
+              although they will work fine in the foreground.
+
+        Note: You NEED to have the MVSOUND.SYS driver installed for these
+              to operate or a Window's system driver.
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Windows Sound System (ITWSS.DRV, ITWSS2.DRV)
+
+     Again, BIG thanks to Pelusa for VITAL programming information for this!
+
+     ITWSS is a 16-bit driver, with output frequencies ranging from 8kHz to
+     64kHz (!). Mixing speeds above 48kHz *MAY* not work on all Windows
+     Sound System Cards.
+
+     ITWSS.DRV is a completely IRQ driven routine. Although this may not be
+     compatible with *ALL* soundcards, it permits background playback in
+     Windows'95 and is FAR MORE EFFICIENT than ITWSS2.DRV. ITWSS2.DRV should
+     be used if ITWSS doesn't operate properly.
+
+     Note: There is *NO* autodetection on IRQ/DMA. You *will* need to set
+     these on the command line if they are not IRQ7/DMA1.
+
+     If you *DO* specify IRQ and/or DMA, then it must be DMA 0, 1 or 3,
+     and IRQ 7, 9 10 or 11. Impulse Tracker will attempt to SET the DMA/IRQ
+     of your WSS card to these values, in a similar manner to how the SB16
+     driver operates.
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+ESS ES1868 AudioDrive (ITES1868.DRV)
+
+    The drivers for the ESS ES1868 AudioDrive use the PnP registers to
+    detect/configure this soundcard. If you have disabled the PnP on the
+    card the driver may not work...
+
+    The default mixing rate is 44kHz, although the card can handle up to 56kHz
+
+    Thanks go out to Diablo for pointing me in the right direction to find
+    the programming information and Andrew Lee for lending me a card to
+    program with!
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+ESS ES1688 AudioDrive (ITES1688.DRV)
+
+    This driver was written for Synergy ViperMAX / GUS Extreme soundcards,
+    so that the codec may be used to write songs > 1MB large.
+
+    Thanks go to James Hsu / Synergy for providing me with a card to work on.
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+EWS64 XL Codec (ITEWSCOD.DRV)
+
+    Like the ESS ES1868 Audiodrive, this card uses the PnP registers to
+    detect/configure the soundcard. The default mixing rate is set at 48kHz
+
+    Big thanks go out to the entire TerraTec team for providing me with a
+    card to use - especially Kay "Mod4Win" Bruns.
+
+    Notes:
+    ş The settings within the EWS64 Codec driver are saved upon exiting.
+
+    ş The "Reverb Types" are:
+        0: Room1
+        1: Room2
+        2: Room3
+        3: Hall1
+        4: Hall2
+        5: Plate
+        6: Delay
+        7: Pan Delay
+
+      The parameter "Reverb Feedback" only has meaning for Reverb Types Delay
+      and Pan Delay (6 and 7)
+
+    ş The "Chorus Types" are:
+        0: Chorus1
+        1: Chorus2
+        2: Chorus3
+        4: Feedback Chorus
+        5: Flanger
+        6: Short Delay
+        7: Feedback Delay
+
+      Note: Chorus will only work with EWS64 XL rev 1.1 or greater
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Ensoniq SoundscapeVIVO (ITVIVO.DRV)
+
+    The drivers for the Ensoniq SoundscapeVIVO use the PnP registers to
+    detect/configure this soundcard. If you have disabled the PnP on the
+    card the driver may not work...
+
+    The default mixing rate is 48kHz.
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Sound Track PCI Codec (ITSTCODE.DRV)
+
+    This driver uses the PCI registers to autodetect the card. Unfortunately
+    this does not always seem to be the correct value, hence you may have to
+    override the parameters on the command line. (The computer *MAY* hang if
+    the correct values are not available!)
+
+    Sound Track 97 PCI and Sound Track 42 PCI cards are handled by this driver.
+
+    The 'extra' settings of reverb, chorus, echo, equalizer and surround are
+    not available on the ST42 cards. SRS settings are available.
+
+    Notes:
+    ş The settings within the ST97 PCI Codec driver are saved upon exiting.
+
+    ş The "Reverb Types" are:
+        0: Room1
+        1: Room2
+        2: Room3
+        3: Hall1
+        4: Hall2
+        5: Plate
+        6: Delay
+        7: Pan Delay
+
+      The parameter "Reverb Feedback" only has meaning for Reverb Types Delay
+      and Pan Delay (6 and 7)
+
+    ş The "Chorus Types" are:
+        0: Chorus1
+        1: Chorus2
+        2: Chorus3
+        4: Feedback Chorus
+        5: Flanger
+        6: Short Delay
+        7: Feedback Delay
+
+    Huge thanks go to Hanmesoft Corporation for providing me with this awesome
+    card to work on! (check out http://www.hoontech.com)
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+MPU401 MIDI Driver
+
+    The MPU401 MIDI driver provides a MIDI Driver to support MIDI Input and
+    MIDI Output on general soundcards. It does NOT support sample playback
+    at all. Trying to play a sample will result in the note being 'terminated'
+    immediately.
+
+    To use this driver, you may need to provide the MIDI port on the command
+    line;
+
+    eg. "IT /s19 /a360"
+
+    Addresses 330h and 300h are checked if a port is NOT specified.
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Disk Writer
+
+        The ITWAV.DRV included with distribution IT is a mono-only
+        example device. To use it, run IT /sITWAV.DRV or IT /s20
+
+        The full ITWAV.DRV file which *IS* capable of stereo output
+        is NOT available for public distribution. Contact me if you
+        wish to obtain this - it will NOT be made available without
+        some sort of (monetary) agreement (US$30 for non-profit use)
+
+        Details
+         ş 16 bit Stereo/Mono output
+         ş 22kHz to 64kHz output frequency
+         ş 16 bit quadratic spline interpolation (65536x 'oversampling')
+         ş 32 bit mixing
+         ş Logarithmic volume ramping with 32768 internal volumes levels.
+         ş Sample cut click removal techniques
+         ş Resonant filtering
+
+        To use the disk writer, run: "IT /sITWAV.DRV" or "IT /s20".
+        The files will be created in the same directory as IT.EXE,
+        and will be of .WAV format. You can change the destination
+        directory on the diskwriter's driver screen (Shift-F5.)
+
+        It is greatly suggested to use a disk cache to improve the
+        writing speed.
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+

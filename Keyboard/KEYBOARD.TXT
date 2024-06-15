@@ -1,0 +1,12 @@
+
+This ZIP contains several different keyboard configurations for Impulse
+Tracker. To use a particular configuration file, copy the appropriate file
+to KEYBOARD.CFG
+
+eg. to use a German keyboard configuration (DE.KBD), do
+ COPY DE.KBD KEYBOARD.CFG
+
+Make sure that KEYBOARD.CFG is in the same directory as IT.EXE
+
+An example of how to create your own keyboard file is included in the form
+of US.ASM

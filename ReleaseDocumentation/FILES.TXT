@@ -1,0 +1,33 @@
+
+                          Impulse Tracker Version 2.14
+
+In the Impulse Tracker ZIP, you should find the following files:
+
+ IT.EXE         - The whole program!
+ IT.TXT         - User's manual to Impulse Tracker
+ IT.DOC         - User's manual in Microsoft Word format
+ CONTRIB.TXT    - List of contributions - where's your name??
+ DRIVERS.TXT    - List of sound drivers for Impulse Tracker + various notes.
+                  If you have a question related to sound quality, sound cards
+                  or sound card specific questions, check this DOC first.
+ UPDATE.TXT     - History of Impulse Tracker.
+ HINTS.TXT      - Just a little compilation of hints for new composers.
+ FILE_ID.DIZ    - Compulsory description file :)
+ FILES.TXT      - You should know what this is by now!
+ BUGS.TXT       - A list of a few known things that are wrong.
+ SUMMARY.TXT    - A convenient, small reference that I recommend ANYONE to
+                  print out.
+ MIDI.TXT       - MIDI Out information written by Andre Pang
+                  (Ozone/Vault)
+ IMPULSE.FAQ    - Frequently Asked Questions file.
+ ITMIDI.CFG     - Basic configuration file for MIDI Output
+ KEYBOARD.ZIP   - Alternative keyboard definition files + source to create
+                  your own
+
+ *.DRV          - Sound driver files for Impulse Tracker
+
+If you do distribute this program (and please do!), then I would be most
+grateful if you keep ALL of the files intact.
+
+                                                        - Jeffrey Lim
+                                                           (Pulse)

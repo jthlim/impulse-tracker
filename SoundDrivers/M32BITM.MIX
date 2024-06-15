@@ -1,0 +1,502 @@
+
+;컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+
+MONITORPERFORMANCE      =       0
+
+ALIGN 16
+
+M32BitMVolumeData               DW      0, 0, 0, 0
+
+IF MONITORPERFORMANCE
+M32BitMCounter8BitTicksLow      DD      0
+M32BitMCounter8BitTicksHigh     DD      0
+M32BitMCounter16BitTicksLow     DD      0
+M32BitMCounter16BitTicksHigh    DD      0
+M32BitMCounter8BitLow           DW      0
+M32BitMCounter8BitHigh          DW      0
+M32BitMCounter16BitLow          DW      0
+M32BitMCounter16BitHigh         DW      0
+ENDIF
+
+
+;컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+
+Proc    M32Bit16MPanned
+
+; AX = number to mix
+; CX = error
+; DX = deltaoffset
+; BP = deltaerror
+; DS:SI = 32-bit output buffer
+; ES:EDI+EDI = sample location
+; MM6 = L/R volumes
+; MM7 = PXor mask
+
+IF MONITORPERFORMANCE
+        Push    EAX
+        Push    EDX
+
+        Add     CS:M32BitMCounter16BitLow, AX
+        AdC     CS:M32BitMCounter16BitHigh, 0
+
+        RdTSC
+        Sub     CS:M32BitMCounter16BitTicksLow, EAX
+        SBB     CS:M32BitMCounter16BitTicksHigh, EDX
+
+        Pop     EDX
+        Pop     EAX
+ENDIF
+
+        Mov     BX, DI
+        Add     BX, BX
+
+M32Bit16MPanned1:       ; Mix 1 sample
+        Test    AL, 1
+        JZ      M32Bit16MPanned2
+
+        Push    AX
+        Add     CX, BP
+        Mov     AX, [ES:BX]
+        AdC     DI, DX
+        Mov     [DS:0], AX
+        Mov     BX, DI
+
+        MovQ    MM0, [DS:0]
+        Add     BX, BX
+
+        PUnpckLWD MM0, MM0
+        MovQ    MM2, MM6
+        PMulLW  MM2, MM0
+        PMulHW  MM0, MM6
+        PUnpckLWD MM2, MM0
+        PAddD   MM2, [SI]
+        MovQM   [SI], MM2
+
+        Add     SI, 8
+        Pop     AX
+
+M32Bit16MPanned2:       ; Mix 2 samples
+        Test    AL, 2
+        JZ      M32Bit16MPanned3
+
+        Push    AX
+        Add     CX, BP
+        Mov     AX, [ES:BX]
+        AdC     DI, DX
+        Mov     [DS:0], AX
+        Mov     BX, DI
+        Add     BX, BX
+        Add     CX, BP
+        AdC     DI, DX
+        Mov     AX, [ES:BX]
+        Mov     BX, DI
+        Mov     [DS:2], AX
+        Add     BX, BX
+
+        MovQ    MM0, [DS:0]
+        PUnpckLWD MM0, MM0
+        MovQ    MM2, MM6
+        PMulLW  MM2, MM0
+        PMulHW  MM0, MM6
+        MovQ    MM4, MM2
+        PUnpckLWD MM2, MM0
+        PUnpckHWD MM4, MM0
+        PAddD   MM2, [SI]
+        PAddD   MM4, [SI+8]
+        MovQM   [SI], MM2
+        MovQM   [SI+8], MM4
+
+        Add     SI, 10h
+        Pop     AX
+
+M32Bit16MPanned3:
+        ShR     AX, 2
+        JZ      M32Bit16MPannedEnd
+
+        Mov     Word Ptr [DS:20h], AX
+
+        Mov     AX, [ES:BX]
+        Add     CX, BP
+        AdC     DI, DX
+        Mov     [DS:0], AX
+        Mov     BX, DI
+        Add     BX, BX
+
+        Mov     AX, [ES:BX]
+        Add     CX, BP
+        AdC     DI, DX
+        Mov     [DS:2], AX
+        Mov     BX, DI
+        Add     BX, BX
+
+        Mov     AX, [ES:BX]
+        Add     CX, BP
+        AdC     DI, DX
+        Mov     [DS:0Ch], AX
+        Mov     BX, DI
+        Add     BX, BX
+
+        Mov     AX, [ES:BX]
+        Add     CX, BP
+        AdC     DI, DX
+        Mov     [DS:0Eh], AX
+        Mov     BX, DI
+        Add     BX, BX
+
+        Dec     Word Ptr [DS:20h]
+        JZ      M32Bit16MPanned5
+
+M32Bit16MPanned4:
+        MovQ    MM0, [DS:0]
+        MovQ    MM2, MM6
+        MovQ    MM1, [DS:8]
+        PUnpckLWD MM0, MM0
+
+        PMulLW  MM2, MM0
+        PUnpckHWD MM1, MM1
+
+        PMulHW  MM0, MM6
+        MovQ    MM3, MM6
+
+        Mov     AX, [ES:BX]
+        Add     CX, BP
+        AdC     DI, DX
+        Mov     [DS:0], AX
+        Mov     BX, DI
+        Add     BX, BX
+
+        MovQ    MM4, MM2
+        PUnpckLWD MM2, MM0
+
+        PAddD   MM2, [SI]
+        PUnpckHWD MM4, MM0
+
+        PAddD   MM4, [SI+8]
+        PMulLW  MM3, MM1
+
+        MovQM   [SI], MM2
+        PMulHW  MM1, MM6
+
+        Mov     AX, [ES:BX]
+        Add     CX, BP
+        AdC     DI, DX
+        Mov     [DS:2], AX
+        Mov     BX, DI
+        Add     BX, BX
+
+        MovQM   [SI+8], MM4
+        MovQ    MM5, MM3
+
+        MovQ    MM0, [SI+18h]
+        PUnpckLWD MM3, MM1
+        PAddD   MM3, [SI+10h]
+        PUnpckHWD MM5, MM1
+        MovQM   [SI+10h], MM3
+        PAddD   MM5, MM0
+
+        Mov     AX, [ES:BX]
+        Add     CX, BP
+        AdC     DI, DX
+        Mov     [DS:0Ch], AX
+        Mov     BX, DI
+        Add     BX, BX
+
+        MovQM   [SI+18h], MM5
+
+        Mov     AX, [ES:BX]
+        Add     CX, BP
+        AdC     DI, DX
+        Mov     [DS:0Eh], AX
+        Mov     BX, DI
+        Add     BX, BX
+
+        Add     SI, 20h
+
+        Dec     Word Ptr [DS:20h]
+        JNZ     M32Bit16MPanned4
+
+M32Bit16MPanned5:
+        MovQ    MM0, [DS:0]
+        MovQ    MM2, MM6
+
+        MovQ    MM1, [DS:8]
+        PUnpckLWD MM0, MM0
+
+        PMulLW  MM2, MM0
+        MovQ    MM3, MM6
+
+        PMulHW  MM0, MM6
+        PUnpckHWD MM1, MM1
+
+        MovQ    MM4, MM2
+        PMulLW  MM3, MM1
+
+        PUnpckLWD MM2, MM0
+        PMulHW  MM1, MM6
+
+        PAddD   MM2, [SI]
+        PUnpckHWD MM4, MM0
+
+        PAddD   MM4, [SI+8]
+        MovQ    MM5, MM3
+
+        MovQM   [SI], MM2
+        PUnpckLWD MM3, MM1
+
+        MovQM   [SI+8], MM4
+        PUnpckHWD MM5, MM1
+
+        PAddD   MM3, [SI+10h]
+        PAddD   MM5, [SI+18h]
+
+        MovQM   [SI+10h], MM3
+        MovQM   [SI+18h], MM5
+
+M32Bit16MPannedEnd:
+IF MONITORPERFORMANCE
+        RdTSC
+        Add     CS:M32BitMCounter16BitTicksLow, EAX
+        AdC     CS:M32BitMCounter16BitTicksHigh, EDX
+ENDIF
+        Ret
+
+EndP    M32Bit16MPanned
+
+;컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+
+Proc    M32Bit8MPanned
+
+; AX = number to mix
+; CX = error
+; DX = deltaoffset
+; BP = deltaerror
+; DS:SI = 32-bit output buffer
+; ES:DI = sample location
+; MM6 = L/R volumes
+; MM7 = PXor mask
+
+IF MONITORPERFORMANCE
+        Push    EAX
+        Push    EDX
+
+        Add     CS:M32BitMCounter8BitLow, AX
+        AdC     CS:M32BitMCounter8BitHigh, 0
+
+        RdTSC
+        Sub     CS:M32BitMCounter8BitTicksLow, EAX
+        SBB     CS:M32BitMCounter8BitTicksHigh, EDX
+
+        Pop     EDX
+        Pop     EAX
+ENDIF
+
+        Mov     BX, AX
+        And     AX, 3
+        JZ      M32Bit8MPanned3
+
+M32Bit8MPanned1:       ; Mix 1 sample
+        Test    AL, 1
+        JZ      M32Bit8MPanned2
+
+        Xor     AX, AX
+        Add     ERROR, DELTAERROR
+        Mov     AH, [ES:DI]
+        AdC     DI, DELTAOFFSET
+        Mov     [DS:0], AX
+
+        MovQ    MM0, [DS:0]
+        PUnpckLWD MM0, MM0
+        MovQ    MM2, MM6
+        PMulLW  MM2, MM0
+        PMulHW  MM0, MM6
+        PUnpckLWD MM2, MM0
+        PAddD   MM2, [SI]
+        MovQM   [SI], MM2
+
+        Add     SI, 8
+
+M32Bit8MPanned2:       ; Mix 2 samples
+        Test    BL, 2
+        JZ      M32Bit8MPanned3
+
+        Xor     AX, AX
+
+        Mov     AH, [ES:DI]
+        Add     ERROR, DELTAERROR
+        AdC     DI, DELTAOFFSET
+        Mov     [DS:0], AX
+
+        Mov     AH, [ES:DI]
+        Add     ERROR, DELTAERROR
+        AdC     DI, DELTAOFFSET
+        Mov     [DS:2], AX
+
+        MovQ    MM0, [DS:0]
+        PUnpckLWD MM0, MM0
+        MovQ    MM2, MM6
+        PMulLW  MM2, MM0
+        PMulHW  MM0, MM6
+        MovQ    MM4, MM2
+        PUnpckLWD MM2, MM0
+        PUnpckHWD MM4, MM0
+        PAddD   MM2, [SI]
+        PAddD   MM4, [SI+8]
+        MovQM   [SI], MM2
+        MovQM   [SI+8], MM4
+
+        Add     SI, 10h
+
+M32Bit8MPanned3:
+        Xor     AX, AX
+        ShR     BX, 2
+        JZ      M32Bit8MPannedEnd
+
+        Mov     AH, [ES:DI]
+        Add     ERROR, DELTAERROR
+        AdC     DI, DELTAOFFSET
+        Mov     [DS:0], AX
+
+        Mov     AH, [ES:DI]
+        Add     ERROR, DELTAERROR
+        AdC     DI, DELTAOFFSET
+        Mov     [DS:2], AX
+
+        Mov     AH, [ES:DI]
+        Add     ERROR, DELTAERROR
+        AdC     DI, DELTAOFFSET
+        Mov     [DS:0Ch], AX
+
+        Mov     AH, [ES:DI]
+        Add     ERROR, DELTAERROR
+        AdC     DI, DELTAOFFSET
+        Mov     [DS:0Eh], AX
+
+        Dec     BX
+        JZ      M32Bit8MPanned5
+
+M32Bit8MPanned4:
+        MovQ    MM0, [DS:0]
+        MovQ    MM2, MM6
+        MovQ    MM1, [DS:8]
+        PUnpckLWD MM0, MM0
+
+        PMulLW  MM2, MM0
+        PUnpckHWD MM1, MM1
+
+        PMulHW  MM0, MM6
+        MovQ    MM3, MM6
+
+         Mov    AH, [ES:DI]
+         Add    ERROR, DELTAERROR
+         AdC    DI, DELTAOFFSET
+         Mov    [DS:0], AX
+
+        MovQ    MM4, MM2
+        PUnpckLWD MM2, MM0
+
+        PAddD   MM2, [SI]
+        PUnpckHWD MM4, MM0
+
+        PAddD   MM4, [SI+8]
+        PMulLW  MM3, MM1
+
+        MovQM   [SI], MM2
+        PMulHW  MM1, MM6
+
+         Mov    AH, [ES:DI]
+         Add    ERROR, DELTAERROR
+         AdC    DI, DELTAOFFSET
+         Mov    [DS:2], AX
+
+        MovQM   [SI+8], MM4
+        MovQ    MM5, MM3
+
+        MovQ    MM0, [SI+18h]
+        PUnpckLWD MM3, MM1
+        PAddD   MM3, [SI+10h]
+        PUnpckHWD MM5, MM1
+        MovQM   [SI+10h], MM3
+        PAddD   MM5, MM0
+
+         Mov    AH, [ES:DI]
+         Add    ERROR, DELTAERROR
+         AdC    DI, DELTAOFFSET
+         Mov    [DS:0Ch], AX
+
+        MovQM   [SI+18h], MM5
+
+         Mov    AH, [ES:DI]
+         Add    ERROR, DELTAERROR
+         AdC    DI, DELTAOFFSET
+         Mov    [DS:0Eh], AX
+
+        Add     SI, 20h
+
+        Dec     BX
+        JNZ     M32Bit8MPanned4
+
+M32Bit8MPanned5:
+        MovQ    MM0, [DS:0]
+        MovQ    MM2, MM6
+
+        MovQ    MM1, [DS:8]
+        PUnpckLWD MM0, MM0
+
+        PMulLW  MM2, MM0
+        MovQ    MM3, MM6
+
+        PMulHW  MM0, MM6
+        PUnpckHWD MM1, MM1
+
+        MovQ    MM4, MM2
+        PMulLW  MM3, MM1
+
+        PUnpckLWD MM2, MM0
+        PMulHW  MM1, MM6
+
+        PAddD   MM2, [SI]
+        PUnpckHWD MM4, MM0
+
+        PAddD   MM4, [SI+8]
+        MovQ    MM5, MM3
+
+        MovQM   [SI], MM2
+        PUnpckLWD MM3, MM1
+
+        MovQM   [SI+8], MM4
+        PUnpckHWD MM5, MM1
+
+        PAddD   MM3, [SI+10h]
+        PAddD   MM5, [SI+18h]
+
+        MovQM   [SI+10h], MM3
+        MovQM   [SI+18h], MM5
+
+M32Bit8MPannedEnd:
+IF MONITORPERFORMANCE
+        RdTSC
+        Add     CS:M32BitMCounter8BitTicksLow, EAX
+        AdC     CS:M32BitMCounter8BitTicksHigh, EDX
+ENDIF
+        Ret
+
+EndP    M32Bit8MPanned
+
+;컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+
+Proc    PreM32BitMPanned
+        Assume DS:Driver
+
+        Mov     EAX, [SI+0Ch]           ; LEAX = left vol, HEAX = right vol
+        Mov     [DWord Ptr CS:M32BitMVolumeData], EAX
+        Mov     [DWord Ptr CS:M32BitMVolumeData+4], EAX
+
+        SegCS   MovQ MM6, M32BitMVolumeData
+
+        Ret
+
+EndP    PreM32BitMPanned
+        Assume DS:Nothing
+
+;컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+

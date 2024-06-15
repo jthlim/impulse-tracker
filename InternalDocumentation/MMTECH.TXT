@@ -1,0 +1,143 @@
+
+Here's something that might help you... I wrote it quite fast but it should
+be accurate ;)  However, there's probably a lot of stuff here that you don't
+need/understant for now... but keep all this, you'll need it soon ;)
+
+--> This is NOT the "official" Tehcnical stuff....
+
+File Header:
+
+	offset type/size	comment
+	------ --------- ---------------------------------
+	0    char[8]	Signature: 'ziRCONia'
+
+	8    word	file header size (from offset 10, not counting this
+			word)
+	10   word	version 0xyyzh (x.yy) (displayed in hex. no conversion)
+				z: 0 	nothing
+				   1-0eh  revision a to n (-may- be useful...)
+				   0fh	Beta
+	12   word	number of blocks within file
+	14   dword	total length of unpacked file
+	18   dword	file offset where is located the "block offset table"
+	22   word	dummy... must currently be 0ffffH
+
+
+	The block offset table is simply N_of_Block dwords which are the
+	absolute position of each block in the file.  Each of those blocks have
+	the following header:
+
+	0    dword	unpacked size
+	4    dword	compressed size
+	8    dword	XOR check (see note below)
+	12   word	number of "sub-blocks" (nblk)
+	14   word	flags (see below)
+	16   word	number of translation table entry } for compression
+	18   word 	start number of bit               } don't mind them
+							    for now...
+	20   sub-block[nblk]	Sub-blocks of data info.
+
+	each sub-block has the following info:
+		0    dword	absolute position in uncompressed file
+		4    dword	size of uncompressed block
+	all "nblk" sub-block info are stored right after the block header.
+
+	Those small blocks are only non-contiguous blocks of the "same type"
+	grouped together within one bigger block for better compression.
+
+	- XOR check:	instead of implementing a CRC, I coded a XOR check.
+			How it works: a dword variable is set to 0, and XORed
+			with every complete 4 bytes of the original data of the
+			"bigblock".  Remaining bytes (i.e, size of bigblock is
+			not a multiple of 4) are simply ignored.  This is only
+			to implement a minimal check of destination when
+			decompressing.
+
+	- Flags:	this is a 16 bits field:
+
+	      15    14    13    12    11    10    9     8
+	   ÚÄÄÄÄÄÂÄÄÄÄÄÂÄÄÄÄÄÂÄÄÄÄÄÂÄÄÄÄÄÂÄÄÄÄÄÂÄÄÄÄÄÂÄÄÄÄÄ¿
+	   ³  0  ³  0  ³  0  ³  0  ³  0  ³  0  ³Abs16³ M/S ³
+	   ÀÄÄÄÄÄÁÄÄÄÄÄÁÄÄÄÄÄÁÄÄÄÄÄÁÄÄÄÄÄÁÄÄÄÄÄÁÄÄÄÄÄÁÄÄÄÄÄÙ
+			      7     6     5     4     3     2     1     0
+			   ÚÄÄÄÄÄÂÄÄÄÄÄÂÄÄÄÄÄÂÄÄÄÄÄÂÄÄÄÄÄÂÄÄÄÄÄÂÄÄÄÄÄÂÄÄÄÄÄ¿
+			   ³  R  ³   T  y  p  e    ³  R  ³ 8/16³Delta³Comp.³
+			   ÀÄÄÄÄÄÁÄÄÄÄÄÁÄÄÄÄÄÁÄÄÄÄÄÁÄÄÄÄÄÁÄÄÄÄÄÁÄÄÄÄÄÁÄÄÄÄÄÙ
+	   bits marked as "0" MUST be 0 (they are reserved for future
+		extensions...) Every "1" must be considered as invalid or
+		unsupported feature (compressed by a newer version of MMCMP)
+	   bits marked as "R" are reserved (used during compression processing
+		and they don't mean much within the file...) No check should be
+		performed on those bits.
+
+	      - Comp.:	0: not compressed
+			1: compressed
+	      - Delta:	0: data is not changed
+			1: data is Delta (every byte or word is the difference
+			between itself and the previous one. First byte or word
+			is compared to 0.
+	      - 8/16:	0: 8 bits compression scheme
+			1: 16 bits compression scheme
+	      - M/S:	0: mono
+			1: stereo (not implemented yet) MUST BE 0
+
+	      - Abs16	Whithin compression algorithm, 16 bits samples are
+			converted to deltas and transformed a bit so there's
+			no negative numbers.  However, some trackers already
+			convert data to deltas, but there's still the little
+			transformation to do.
+			0: don't do it
+			1: do it
+			Note: This bit IS NOT checked if Delta bit is 1, but
+			      should be 0 in this case.  May only be set if
+			      Delta bit is 0.
+
+	      - Type:	This field doesn't really serve any purpose ;) but
+			helping identify type of data in this block.  There's
+			no strict identifier but the following block types are
+			used by MMCMP (warning: do not expect the following to
+			always be true... data of different types for us (e.g
+			instrument header and sample header) may be interpreted
+			as the same type of block (they are contiguous, or
+			similar, etc...) for better compression.)  The three
+			bits are stored in the order you would expect (MSB at
+			left, LSB at right)
+
+			0:  Module identifier: the firsts bytes of a module
+			    (this type must NOT be used for anything else...)
+			1:  Module header: anything useful in the header, which
+			    is not in block-type 0 (actually not used by MMCMP)
+			2:  instrument header
+			3:  sample header
+			4:  patterns
+			5:  sample
+			6:  no definition yet...
+			7:  remaining (every part of the module that hasn't
+			    been thrown into the "block list" (i.e probably
+			    don't fit under any block types...)
+
+			Note that MMCMP sorting scheme puts block of type 0
+			first and type 7 last.  This is also some sort of
+			priority.  As for now, know that block of type 0 is
+			UNIQUE and is the FIRST.
+
+
+Scanning files:
+
+	1. Check if installed and disable MMTSR
+	2. Open module
+	3. Check signature.  If not 'ziRCONia' jump to 11
+	4. read "block offset table" offset field (dword at offset 18)
+	   (and any other info you would like to read)
+	5. jump to this position within the file
+	6. read the first entry of the table (position of block 0)
+	7. jump to this position within the file
+	8. read the block header.
+	9. If block-type field is not 0, jump to 6 and read the next entry
+	   instead. (the first block should be of type 0. If not, there's
+	   probably no block of this type...)
+	10.Read the uncompressed data (it should not have the compressed flag
+	   set)
+	11.reenable MMTSR if installed
+	12.Do what you would do with the header info and close module if you
+	   wish...

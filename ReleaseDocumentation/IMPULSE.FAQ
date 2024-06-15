@@ -1,0 +1,261 @@
+
+
+*** PLEASE take the time to check quickly through this document BEFORE ***
+*** you write to me. If the answer to your questions lies within here, ***
+*** do NOT expect a reply at all.                                      ***
+
+This document is currently incomplete.
+
+1. Getting Impulse Tracker working.
+ 1.1 Requirements to run IT
+ 1.2 Insufficient memory messages
+ 1.3 "Mix data not allocated"
+ 1.4 Video characters scrambled
+ 1.5 Impulse Tracker often hangs
+ 1.6 Files won't load/take a long time to load!
+ 1.7 Impulse Tracker doesn't support my soundcard!
+ 1.8 The sound breaks up/computer slows down when playing songs!
+ 1.9 Microsoft Windows and Impulse Tracker
+
+2. Using Impulse Tracker
+ 2.1 Loading external samples
+
+3. Miscellaneous
+ 3.1 What are these CACHE.ITS and CACHE.ITI files??
+ 3.2 Distribution sites.
+
+4. Future versions of Impulse Tracker - Not written yet
+
+1.1 Requirements of IT
+
+        ------------------------------
+        NOTE WIN95 USERS -> READ LATER
+        ------------------------------
+
+        Impulse Tracker requires a 386+ PC and > 500k of memory. Impulse
+        Tracker uses EMS memory. To setup EMS memory, use the following lines
+        in your CONFIG.SYS file:
+
+                DEVICE=<path>\HIMEM.SYS
+                DEVICE=<path>\EMM386.EXE RAM H=255
+
+        Do *NOT* have "NOEMS" or "FRAME=NONE" on the same line as EMM386.EXE
+
+        Also shove these lines in, if they're not already there:
+
+                DOS=HIGH,UMB <--- just to get yourself a little more memory
+                STACKS=0,0 <--- Some computers require this to prevent crashing
+
+        I cannot guarantee that IT will work with QEMM, but Leszek Clapinski
+        wrote to me with this advice (thanks!):
+        In your config.sys, use:
+         DEVICE=<path>\QEMM386.SYS DMA=64 HANDLES=255 FORCEEMS
+        Then use "IT -P2"
+
+        I recommend that you also devicehigh and Load-high (LH) as many
+        possible drivers, so that you have more conventional memory to play
+        around with.
+
+        -----------
+        Win95 Users
+        -----------
+
+        If you are a Win95 user, you're probably best off not having HIMEM.SYS
+        *OR* EMM386.EXE in your CONFIG.SYS file. If you *do* have EMM386,
+        make sure you do NOT have "noems" as a parameter.
+
+        Win95's internal EMS handling routines *DO* automatically provide
+        the optimum environment for IT, so you should be able to ignore the
+        settings given above.
+
+1.2 Insufficient memory messages
+
+        If you get Insufficient Memory messages at the soundcard
+        initialisation, read section 1.3
+
+        If you do not have enough conventional memory, the program will
+        exit to DOS almost immediately. If you *JUST* have enough conventional
+        memory, then there may not be enough memory left over to load the
+        sound driver(s) ( -> No sound card detected )
+
+1.3 "Mix Data not allocated" messages
+
+        All non-wavetable cards require extra *conventional* memory to be
+        allocated in order for them to run appropriately. The amount requires
+        differs between the drivers and depends also on the mixing speed (the
+        higher the mix speed, the more memory required). If you get this
+        message, try to free up some conventional memory.
+
+1.4 Video character's scrambled
+
+        Some video cards (esp Matrox cards) did not follow the VGA register
+        standard correctly. Impulse Tracker tries to detecting whether
+        you have such a card, but if this is not successful, run IT /v2
+        for Matrox compatibility mode.
+
+1.5 Impulse Tracker often hangs
+
+        Impulse Tracker may not operate securely in anything other than
+        DOS and Windows 95 (these are the two systems that IT has been
+        extensively tested on) - QEMM/Command shells (eg 4DOS/NDOS) have
+        been known to cause errors in many situations.
+
+        Aside from these, if Impulse Tracker hangs on you, please write to
+        me immediately, with a full description of what happens/how you can
+        make it happen. (Including the version of IT that you use!)
+
+        If you get a blank screen when you run Impulse Tracker, try using
+        command line parameters to specify your soundcard and port/irq/dma.
+        The autodetect procedures seem pretty reliable, but there's a chance
+        that they may be interfering/interacting with unexpected hardware.
+
+1.6 Files won't load/take a long time to load!
+
+        Some music modules are actually compressed with a program called
+        MMCMP. Under normal conditions, these files can be decompressed
+        automatically, under the following situations, they _cannot_:
+
+         1) You do NOT have EMM386 loaded - the decompression routines
+            require EMS memory, so if you do not have EMS, you cannot
+            load these files.
+         2) You are running Impulse Tracker through Windows 3.xx -
+            Windows 3.xx prevents programs from doing certain things...
+            including the setup routines that the decompressor requires
+            to run - so these files cannot be loaded under Windows 3.xx
+
+        These files will take longer to load, as they are compressed and are
+        decompressed to disk first.
+
+1.7 Impulse Tracker doesn't support my soundcard!
+
+        There may be two reasons for this:
+          1) Impulse Tracker really doesn't support your soundcard.
+          2) Impulse Tracker supposedly does support your soundcard but
+             you can't get it to work.
+
+        1) Solution: Convince your soundcard manufacturer to send me a sound
+           card to play with AS WELL AS all the programming information.
+           Alternatively, find a soundcard that Impulse Tracker *DOES*
+           support - you can pick up some decent soundcards really cheaply.
+
+        2) First of all, check that you have enough memory. If you have
+           a low amount of FreeMem once you load Impulse Tracker, it probably
+           means that there wasn't enough memory to load the sound driver file
+           which will automatically cause a detect failure.
+
+           Unfortunately, not all 100% compatible (esp "100% SBPro compatible")
+           soundcards are REALLY 100% compatible. If the drivers do not detect
+           your soundcard, then try specifying full command line parameters.
+           If it still doesn't work, then I'm sorry - there's nothing I can do
+           about this. Hassle your sound card manufacturer to make decent
+           eqiupment.
+
+           Impulse Tracker uses SB cards in a different *MODE* of playback
+           from most programs so that they are more efficient and also so
+           that they can operate in the background of Windows 95. So just
+           because your soundcard works in another program, it doesn't mean
+           that it's 100% compatible. (this is for all of you who may think
+           "But this card works in other programs, why doesn't it work in IT?")
+
+           For Sound Blaster cards, make sure you have the BLASTER environment
+           variable set in order for IT to detect your card reliably
+           (SB16/AWE32 excluded, as these use hardware routines).
+
+1.8 The sound breaks up/computer slows down when playing songs!
+
+        (This section only deals with software mixed cards, ie. almost
+         every soundcard except native GUS, Interwave and EMU8000)
+
+        Sound output from the computer requires HEAVY computation - up to
+        64 thousand calculations per second PER NOTE playing. If your computer
+        is unable to keep up with this, the sound will have very obvious
+        chunks in it and your computer will slow down noticeably.
+
+        Solutions:
+         1) If you're running Impulse Tracker under windows, you may find
+            that running it from a DOS bootup provides a SIGNIFICANT increase
+            the capabilities of your computer in this respect (3x faster
+            in DOS than Win95 for me)
+         2) Limit the number of notes you can have simultaneously via the
+            command line (/Lxx) - eg. "IT /L32" will limit playback to
+            32 simultaneous notes maximum.
+         3) Lower the number of calculations required per second per note.
+            This is done by changing the "mixing speed" via the command line:
+            eg: "IT /m32000" will cause 32000 calculations per second per note
+            to be made. "IT /m22000" will cause 22000 calculations per second
+            per note to be made. Check drivers.txt to find the range of
+            mixing speed values that your soundcard can manage.
+         4) Get a faster computer :)
+
+1.9 Microsoft Windows and Impulse Tracker
+
+        Microsoft Windows 3.xx and Impulse Tracker is a definite no-no.
+        I do NOT guarantee ANYTHING under this configuration. I probably
+        also will not fixup any problems that occur in Impulse Tracker
+        that only occur under Windows 3.xx
+
+        Microsft Windows '95 and Impulse Tracker *SHOULD* work fine.
+        If no sound card can be detected under Windows '95, check first that
+        you have no other program using your soundcard (or another DOS window
+        still open that used your soundcard).
+
+        Only certain soundcards can play in the background of Windows '95 for
+        technical reasons. Please read the relevant section of DRIVERS.DOC
+        for your soundcard.
+
+        Some people have found that Impulse Tracker will hang after a few
+        minutes under Windows '95. Disabling virtual memory may solve this
+        problem. To disable Virtual Memory, right click on My Computer,
+        Properties, Performance, Virtual Memory and check the "disable" box.
+
+2.1 Loading external samples
+
+        To load in another sample so that you can use it in your composition,
+        go to the sample-list page (F3), then press "Enter". You will be
+        taken to the "load sample" screen, where you can test out and select
+        samples from a wide variety of formats. This includes:
+          .IFF, .WAV, .S3I, .ITS, .RAW, and TX Wave .Wxx formats.
+
+        You can even load samples DIRECTLY OUT of other modules. In the sample
+        loader, navigate to a drive/directory which contains modules, and you
+        will see that they can opened as 'libraries.' So far, support for
+        external sample loading from modules is available for:
+          .MOD, .MTM, .S3M, .XM, .669, .PTM, .FAR and of course, .IT
+
+        .PAT and .KRZ instruments can also be loaded as sample libraries at
+        the moment.
+
+3.1 What are these CACHE.ITS and CACHE.ITI files?
+
+        Whenever you load a sample or instrument, Impulse Tracker has to
+        load all the files to find out their contents, to determine
+        parameters such as sample format, bit fields, etc. CACHE.ITS and
+        CACHE.ITI are files created by Impulse Tracker so that on subsequent
+        usage, this information can be loaded almost instantaneously from
+        a single file, rather than having to reload all the information
+        again.
+
+        These may be deleted without disrupting program usage, but they will
+        be recreated when you attempt to load samples/instruments from the
+        directory.
+
+3.2 Distribution Sites
+
+        To get the latest versions of IT on the web, check out:
+
+        USA Site                - Shawn Mativetsky (Shawn202)
+                                  http://www.noisemusic.org/it
+        UK Site                 - Andi Simpson (Imminent)
+                                  http://www.mixbbs.demon.co.uk
+        Spanish Site            - Javier Gutierrez
+                                  http://www.musica.org/impulse
+        Music and Tracking Site - Matthias Ziegs (MAZ)
+                                  http://www.maz-sound.com
+        IT Resource Central     - Matthew Gardner
+                                  http://www.unidev.com/~logic/music/it
+
+        Please don't write to me to become a distribution site - the sites
+        above should be sufficient, and I don't think it is necessary to
+        have BBS distributions since the use of the internet has become
+        so widespread.
+

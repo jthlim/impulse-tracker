@@ -1,0 +1,400 @@
+
+-------------------------------------
+## Impulse Tracker MIDI Supplement ##
+-------------------------------------
+
+Introduction
+============
+
+The biggest new addition to Impulse Tracker 2.12 has been support for
+sending data out through the MIDI protocol. Earlier versions of Impulse
+Tracker (IT) have had support for incoming MIDI data, so it was possible to
+play on a 'MIDIfied' keyboard and have IT 'track' all the notes down in the
+pattern in realtime.
+
+MIDI out, however, is a completely different ballgame. You in fact don't
+have to read this supplement at all if you wish to get MIDI working, but in
+order to gain full usage of MIDI out, you will have to read this in order
+to understand how IT's MIDI support fully works
+
+
+MIDI Support & Soundcards (Modified by Pulse)
+=============================================
+
+At present, the only sound devices IT supports for MIDI output are the AMD
+InterWave and the Creative Labs Sound Blaster AWE32. Support for other
+soundcards is via the generic MPU401 driver. To use this driver, you must
+run "IT /S19 /A<address>" where <address> is the address of your MPU401
+compatible card (eg. "IT /S19 /A330"). Note that the generic MPU401 driver
+does *NOT* support sample playback at all.
+
+MIDI And AWE32 Soundcards (Pulse)
+---------------------------------
+
+I have found that the Windows '95 drivers for the AWE32 are somewhat buggy.
+On my computer, I can use MIDI In/Out in Impulse Tracker *IF* I disable the
+MIDI support within Windows '95. Otherwise, it is simply not recognised. To
+disable the MIDI support in Windows '95, right click on "My Computer",
+"Properties", "Device Configuration", "Sound, Video & Game Controllers".
+Double click on "Creative Labs SB16 or AWE32" and go to the resources.
+Uncheck the "Use Automatic Settings" box if it is set and change the basic
+configuration to one that does NOT include the MIDI Ports 300h or 330h.
+(For example, Basic Configuration 0 has only 220h, 5, 1, 5 on my computer
+ and IT works fine in a DOS Box)
+
+
+Enabling MIDI
+=============
+
+To enable MIDI output, you must first have IT on Instrument control mode
+rather than Sample control mode. To do this, press F12 to go to the Song
+Variables screen and switch control to 'Instruments' if you haven't already
+done so.
+
+
+MIDI & Instruments
+==================
+
+MIDI Channel
+------------
+
+New to the Pitch section of the Instrument screen (press F4 and select the
+"Pitch" button) are the sliders "MIDI Channel", "MIDI Program" and "MIDI
+Bank". Once the MIDI Channel value for that instrument is set to a value
+other than zero, IT will send out MIDI data whenever that instrument is
+encountered in a pattern, on that particular MIDI Channel. What data IT
+actually sends through the MIDI port will be a note on command, although
+this will be discussed in more detail later.
+
+MIDI Program/MIDI Bank
+----------------------
+
+The MIDI Program and MIDI Bank sliders work in a similar manner to each
+other. If they have a value set to -1, IT will not transmit a program change
+message nor a bank change message for that instrument. If you specifically
+set a MIDI Program for that instrument, IT will send a 'program change'
+message along with the 'note on' message.
+
+The MIDI Bank instrument setting is also the same; IT will not send a bank
+change message if the MIDI Bank slider is set to Off (ie: has a value of
+-01). If the MIDI Bank setting is active for that instrument, IT will send
+it along with the note on message as well.
+
+Summary
+-------
+
+IT will always send a 'note on' command for a particular MIDI channel
+whenever a MIDI instrument is encountered in the pattern. (A MIDI instrument
+is simply an instrument where the MIDI Channel value has been set to
+something other than "Off"). IT will also send a program change command and/or
+a bank change command along with the note on command if they are set active.
+
+
+More Advanced MIDI
+==================
+
+How MIDI Works
+--------------
+
+MIDI is not a file format (like IT is a module format) nor is it even a file
+layout. MIDI is a computer protocol (or language) which is used to
+communicate between devices . You may like to think of it as a network,
+where the MIDI cables are the cables you lay between computers, and MIDI is
+the network protocol (such as Novell NetWare, Windows Networking or TCP/IP)
+used to communicate between the sound devices. When an instrument is said to
+be 'MIDI compliant', that means that it has support for the MIDI protocol
+and understands MIDI messages.
+
+The .MID file format is simply a way to store these messages. It is a
+collection of MIDI data, and when a .MID file is run through a MIDI player,
+all the MIDI player does is send the data in the .MID file out through the
+computer's MIDI port. In a network analogy, if you can imagine that every
+single transaction run through the network was being logged to a file on
+your hard disk; that every single byte was being recorded to a logfile, this
+is what a .MID file is.
+
+An example of MIDI Communication in IT
+--------------------------------------
+
+You've read above that when IT encounters a MIDI instrument in the
+patterndata, it sends a 'note on' command, which is defined in the MIDI
+protocol to be 'Play this note on this MIDI channel at this particular
+velocity'. (Velocity is similar to volume ). If you play a MIDI instrument
+which is mapped to MIDI channel 2 at C-5 with a velocity of 64, the actual
+data which IT sends out to the MIDI port resembles something like this (in
+hex):
+
+	Note On with parameters;
+		MIDI Channel: 2
+		Note: C-5
+		Velocity: 64
+
+        Data that IT sends out (hex): 91 3C 40
+        Data that IT sends out (decimal): 145 60 64
+
+We'll run through each of these three bytes step by step.
+
+The first byte (91 in hex, or 91h) is the actual 'Note on' command. It tells
+the receiving MIDI device that the data which follows is part of the 'note
+on' data. An analogy which trackers may find useful is the effect column.
+There, you have an effect command and effect data; for example, the effect
+'G20' can be split up into two parts--'G' and '20'. The 'G' part is the
+actual effect command which tells IT that you wish to perform a portamento,
+and the '20' part is the effect data, or in this case the spe ed at which
+the portamento should occur. In this MIDI example, the '9' is the MIDI
+command and the '1 3C 40' is the rest of the data for that command.
+ 
+Now, the second digit (1 in our example) specifies the MIDI channel. MIDI
+channels are 0-based; that is, if you want to send to MIDI channel 6, IT
+specifies 05 for the actual data. MIDI channel 10 is 09h, MIDI channel 14 is
+0Dh, etc. Here we're sending to MIDI channel 2, so the value sent out over
+MIDI is 01h.
+
+The second byte (3Ch) is actually the note to send (C-5 here). In MIDI, all
+command (parameter) data is between a scale of 00h-7Fh (or 0-127 in
+decimal). Notes are transmitted the same way - via numbers. If you imagine
+C-1 is sent with a value of 00h, C#1 i s 01h, D-2 is 02h, etc, then the note
+we want to play, C-5, has a value of 3Ch (60 decimal).
+
+Now the first and second bytes are done with, the third byte should be
+fairly easy to understand. This byte represents the velocity at which the
+note should be played. In our case, we want a velocity of 64, which
+translates to 40h, and so this is the value which is sent out.
+
+So to recap, we have three bytes for the note on command, "91 3C 40".
+
+        Byte 1: 91 == Note on command (on MIDI channel #2)
+        Byte 2: 3C == Note on data (Note to play, C-5)
+        Byte 3: 40 == Note on data (Velocity of 64 decimal)
+
+Configuring IT's MIDI out data
+------------------------------
+
+Keeping the above example in mind, press Shift-F1 to get to IT's MIDI screen
+and press the 'MIDI Output Configuration' button. This will take you to IT's
+MIDI out engine. Now, if you examine the 'Note On' field, it reads:
+
+	9c n v
+
+This can be correlated to our above example of '91 3C 40'. Now, the 'c n v'
+in the Note On field corresponds to 'channel', 'note' and 'velocity'. Think
+of them as variables; IT will substitute the appropriate channel, note and
+velocity values which it encounters in the MIDI instrument information
+and/or patterndata.
+
+If you now actually defined a MIDI instrument to play on MIDI channel 2, and
+you played it in a pattern at C-5 with velocity 64, all IT does is read the
+'Note On' field from the MIDI configuration screen and substitute '1' for
+'c', '3C' (C-5) for 'n' and '64' for 'v'. Therefore, IT will read '9c n v'
+and replace it with '91 3C 40'.
+
+In any of the MIDI output fields, lowercase letters represent variables (or
+subsitutions which IT should make) and uppercase letters or numbers are
+constants which IT writes to the MIDI port directly without any change.
+Therefore, these fields are case se nsitive--for the note on command, '9c n
+v' is blatantly different to '9C n v'. 9c represents 'send byte 09 followed
+by the MIDI channel byte', whereas 9C represents 'send the byte 9C'.
+
+In short, 0-9 and A-F are treated as hexadecimal constants and will be
+passed through directly. Lowercase letters will be treated as variables and
+substituted accordingly. Note that variables are regarded as 'full bytes' by
+themselves and are never part of an actual byte sequence except for the
+variable 'c', so '9n' is exactly the same as '09 n' or '9 n'; all of them
+will expand to the sequence '09 <MIDI note byte>'. 'c' is the only value
+that takes on a nibble (4-byte) value, due to the MIDI protocol definition.
+This means that 9c will actually become one byte when expanded, with the
+lower digit representing the channel.
+
+IT MIDI Variables
+-----------------
+
+c: MIDI channel
+
+  This is simply the MIDI channel of which the instrument is set
+  to, 0-based. Note that this is the only nibble sized variable.
+
+m: note value (instrument)
+  A value from 00-7Fh representing the note to be played, where
+  C-5 is 60h. This is the note entered in the pattern, not the
+  translated value.
+
+n: note value (sample)
+
+  A value from 00-7Fh representing the note to be played, where
+  C-5 is 60h. This is the note after instrument translations have
+  been applied.
+
+o: Offset value
+
+  Extra parameter than can be sent via Oxx commands.
+
+v: velocity
+
+  The MIDI velocity of the note.
+
+u: volume
+
+  Volume is similar to velocity, except that velocity does not
+  take the volume envelope and fadeout values into account, whereas the
+  'u' volume variable does.
+
+x: pan set
+
+        Sends a MIDI panning value. This does not take into account
+panning envelopes.
+
+y: calculated pan
+
+        Sends a MIDI panning value which does take into account
+panning envelopes.
+
+a: high byte of bank select
+b: low byte of bank select
+
+	These commands are only really useful in the bank change
+field. 
+
+z: macro data
+
+	(See section on macros for full explanation).
+
+Configuring MIDI Output for Your Keyboard
+-----------------------------------------
+
+In the basic IT distribution, the only fields which have any data are 'Note
+on', 'Note Off' and 'Program Change'. The reason for this is that these are
+the only commands which are set as standards by MIDI. MIDI commands such as
+Change Pan, Bank Select , e tc all differ from synth to synth. There's not
+much which can be done to solve this, you will have to look up your synth's
+manual to find out the exact MIDI commands it needs to issue a panning
+change, bank select, etc.
+
+Some values which you may wish to try, however, will be:
+
+	Change pan: Bc 0A x
+	Bank select: Bc 0 a 20 b
+
+These may or may not work. If they do, then great, but if they don't, you
+will have to actually RTFM *gasp* in order to get these other commands
+working.
+
+
+Effect Commands & Macros
+========================
+
+Now that IT's MIDI engine is understood and the basis of MIDI communication
+has been laid down, perhaps the most powerful function of IT's MIDI engine,
+macros, will be explained.
+
+Standard Effects
+----------------
+
+Firstly, at the moment there is NO support for standard IT effect commands
+(such as pitch slide, portamento, vibrato etc) to work via MIDI. This may or
+may not be implemented in future. Currently, however, if you perform an E01
+effect on a note, nothing w ill happen as far as the MIDI aspect of the
+instrument is concerned.
+
+Macro Effects - SFx
+-------------------
+
+The SFx command, previously used in the .MOD format as "FunkRepeat", has
+been changed in IT to allow for the functioning of MIDI macros. The unused
+Zxx command will also now play a part in MIDI functioning.
+
+To understand how this works, it's best to take an example into account. At
+the beginning of this supplement, the MIDI sequence '91 3C 40' was used
+which was a Note On, MIDI channel #2 played at C-5 with a velocity of 64.
+This was represented in IT's MIDI configuration as '9c n v', so it made the
+appropriate substitutions to '91 3C 40'.
+
+The Macro Setup section of IT's MIDI Output Configuration screen can be used
+to define your own custom MIDI command/data sequences. These can be
+absolutely anything you like, from a MIDI SysEx command to a Note On
+command. In fact, to start off, we'll tak e a Note On sequence as an example
+and we will attempt to emulate the same '91 3C 40' bytes, except that we'll
+make this sequence ourselves rather than letting IT do the work for us.
+
+How SFx and Zxx commands relate
+-------------------------------
+
+Firstly, remember that IT substitutes values when it encounters variables.
+If you glance at the above section on IT MIDI Variables, you'll notice that
+the 'z' variable represents macro data. Now that this '91 3C 40' sequence
+has been driven into our he ads, try setting the SF0 macro field on IT's
+MIDI Output Configuration screen to '91 3C z'.
+
+Remember that the third byte in the MIDI sequence (40 in our normal
+example) is the velocity to send with the Note On message. The SF0 macro
+field you've just defined means that IT will read any Zxx effects and
+replace the 'z' variable in the SF0 macro with the 'xx' value from the Zxx
+effect. To enable the macro, simply put in a SF0 along with a Note On in the
+pattern data. Now, all values from Z00 to Z7F will substitute for 'z'
+accordingly. So, to show that our SF0 sequence will reproduce the exact same
+thing as our Note On command:
+
+	C-5 01 SF0 (this will play the note on command as usual, and
+	            specify that the SF0 macro sequence should be
+	            hooked to Zxx effects).
+	... .. ...
+	... .. ...
+	... .. ...
+	... .. Z40 (this will trigger our SF0 sequence with a 'z'
+	            value of 40h).
+
+The above patterndata should produce a note on event at row 0 in the
+pattern, and again at row 4. Now, try replacing the Z40 effect with Z7F and
+IT will substitute 'z' with '7F', or a velocity of 7Fh (127 decimal) in our
+SF0 sequence. The result should be that you'll hear a Note On with velocity
+64 on row 0, and a Note On with velocity 127 on row 4; ie: the second note
+triggered will be twice as loud. The The sequence that IT will send will be
+'91 3C 7F'.
+
+SFx commands summary
+--------------------
+
+Our example above of using a 'note on' command sequence for an SFx effect is
+rather pointless, since IT does this effect itself. However, it has
+hopefully served its purpose by demonstrating how effects work.
+
+The SFx commands, as you can see, can be redefined to absolutely any MIDI
+data at all. This can be something simple like a pitch slide, a complex
+SysEx 'set filter to aftertouch' command, or whatever you like. The
+possibilities are endless and are only li mited by what your synth can do;
+IT's SFx/Zxx combination is customisable enough to handle nearly any MIDI
+data you wish to output.
+
+If you wish to take advantage of these commands, you will have to look up
+the manual for your synth and get stuck into the MIDI/SysEx section. Please
+do not come to any IT support people asking for help on this subject because
+every synth is different.
+
+Z80 -> ZFF commands
+-------------------
+
+The Z80 to ZFF commands are also macro sequences, but they have no 'z'
+variable to substitute for. They are not 'hooked' to any SFx effects, they
+are straight, direct macro sequences. For example, if you have a MIDI
+controllable effects unit (such as an Alesis MidiVerb), you may wish to
+assign the Z80 command to set a up a certain value for the reverb delay
+length. Later in the song, you can issue a Z81 command to change the reverb
+delay or turn it off altogether.
+
+To summarise, the Z80 to ZFF commands are similar to SFx macro sequences,
+but they do not have any extra parameters (whereas the SFx macro's 'z'
+variables are controlled by Z00 to Z7F).
+
+
+Contact Information
+===================
+
+If there are any problems with this textfile, email ozone@post1.com or
+pulse@cyburbia.net.au
+
+  __/\___/\_/\____/\____/\ .. . Andre Pang % vault        ...:
+
+ /   /__  /   \_    \_  __) :.. mailto:ozone@post1.com . ....:
+(  :  /  (__:  )  |  |  _)_ : . http://www.mindflux.com.au/ .:
+ \___(  ______/|__;__|_____| :. irc: #trax (irc.neato.org) ..:
+      \/ - #ozone
+

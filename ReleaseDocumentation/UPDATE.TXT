@@ -1,0 +1,592 @@
+
+Contributors Additions
+  - IT215 file format saving. Note that this is an alternative compression
+      format and is often better, but not always. Public releases of IT214
+      Patch 1 and later can read IT215 compressed files. There is also a
+      version of MikIT that can read IT215 compression.
+  - Sample sorting enabled. On the sample/instrument list screens, files will
+      be priority sorted alphabetically if you don't move the cursor. If you
+      do move the cursor, then you can force a resort once all the files have
+      been loaded by pressing Alt-S.
+  - Reordering of order list with Alt-R while on the order list screen
+      (easier to try it out, than to try to explain it)
+  - Row lock in pattern editor if holding shift - very useful for chords
+    (ie. use Shift+note)
+  - 10 configurable 'preset' envelopes slots
+  - Extra instrument filter controls (under pitch menu).
+  - Alt-W on the sample list saves as .WAV format, not .RAW
+  - Individual Sample/Instrument solo.
+  - Personalised Network username
+
+Contributions of US$30 or more
+  - Stereo Diskwriter
+  - MIDI .IT -> .MID converter
+
+
+Bug fixes to Network version
+  - Correct data transmitted on:
+    1. Pattern Undo (Ctrl-Backspace)
+    2. Block Mix (Alt-M)
+  - EMS Error 83h during network sessions
+
+IT214 Network
+  - This includes the first version of Networked Impulse Tracker. Check
+    NETWORK.TXT for more information.
+
+  - ITSB16B.MMX for SBLive! users which shouldn't require reinitialisation.
+
+IT214 Patch 4 - This release has been made entirely for the VSOUND drivers,
+                which will allow you to setup IT to run under Windows '95/'98
+                with *ANY* soundcard. Check ITVSOUND.TXT for more information.
+
+  - Addition: Included command line option /V3 to wait for vertical retrace.
+  - Addition: Included command line option /X4 to disable cache file creation.
+
+  - Bug fix: Several fixes to the MIDI Out implementation
+  - Bug fix: S3M saver sometimes caused crash problems and pattern errors
+  - Bug fix: SCx and Qxx commands and will work with MIDI Out instruments
+  - Bug fix: 64 channel view doesn't skip channels with only volume-effects
+
+  - Driver news: 4-band EQ in diskwriter
+                 Minor miscellaneous upgrades
+                 Fixes to MMX drivers that clicked on 0 volume (oops)
+
+ Clarification (only because I saw some arguments on usenet)
+  - the MMX drivers use 32-bit precision mixing, not 16-bit.
+
+IT214 Patch 3 - Merry XMas guys!
+
+  - If anyone who has contributed has NOT received an EMail from me, please
+    write to me! I've sent out EMails to every one of you.. but a few
+    addresses have changed.. or I could have accidentally missed you (huge
+    apologies if so)
+
+  - Bug fix: IFF loader <incorrect info given to me before>
+  - Bug fix: XM modules with no patterns won't crash IT. (Apologies to the
+              GroovyCompo Organisers - for those interested in online music
+              tracking competitions, check http://www.groove.org)
+  - Bug fix: CACHE files stored on CDROMs will now work, irrespective of
+             their datestamp. Thanks to Humanoid/Prophecy for the Morbid Minds
+             CD on which I could finally test these routines!
+  - Bug fix: Obscure bug on instrument list under rare circumstances causing
+             playing notes to do weird things.
+
+  - Driver news: Updated driver format (incompatible with previous ITs)
+                 Resonant filters - check FILTERS.TXT for information.
+                 This stuff has been released basically so that contributors
+                 can distribute their songs that use filters..
+    - MMX drivers implemented.
+    - WAV driver - time accuracy improved
+                 - can specify destination directory (on shift-F5)
+                 - handles resonant filters
+
+IT214 Patch 2
+  - Bug Fix: 16-bit samples of an exact multiple of 32768 bytes in size were
+             getting corrupted on saving.
+  - Bug fix: MIDI Macros (unparameterised) were somehow disabled somewhere
+             after IT212.. now reenabled
+
+IT214 Patch 1
+  - Bug fix: EMM4.0 mode reenabled
+  - Bug fix: Volume envelopes were skipping some ticks (sounded too fast)
+  - Bug fix: Slight problems with the wav writer fixed
+  - Bug fix: S3M saving bug fixed (was introduced in IT214 due to a 'bug
+             report')
+  - Other miscellaneous fixups
+
+IT214 - Version jump to make sure samples don't get screwed up by the
+        prerelease (IT213) loader. This is the FINAL public release. Apart
+        from bugfixes/new soundcard drivers, don't expect to see anything in
+        the future...
+
+  - Samples are now compressed on the fly when saved and loaded from disk.
+    Note that this is NOT the same as using MMCMP.
+
+  - Several unimportant (debug) procedures removed to make slightly more
+    memory available.
+
+  - Driver news: Diskwriter interpolation changed from quadratic spline
+                 to cubic spline. (Requires a FPU)
+
+IT213 Update
+  - Modification: Sample panning reset to override instrument panning due to
+                  demand.
+
+  - Update: .IFF loader updated. Should deal with almost any .IFF file now.
+
+  - Update: EMS Stability improved
+
+  - Update: Several miscellaneous changes
+
+  - Update: If old effects is *ON*, then a looped volume envelope will NOT
+            include the last node (for XM compat)
+
+  - Update: More memory available (Help text was manually compressed)
+
+  - Row hilight information is now stored within the .IT module..
+
+  - Automatic MIDI Pitch wheel handling. Vibrato, pitch slides, portamentos
+    all handled.
+    <Note: REQUIRES a FPU.. the program will hang if you enable this on
+           Shift-F1 and you don't have a FPU (486DX+ chips have FPUs)>
+
+  - MIDI Configuration can be embedded into .IT files.
+    (Option is on Shift-F1)
+
+  - Driver news: Terratec EWS64 XL Codec software mixing driver
+                 Terratec Maestro 32/96 Codec software mixing driver
+                 Terratec Maestro 16/96 Codec software mixing driver
+                 Ensoniq SoundscapeVIVO Codec software mixing driver
+                 Sound Track PCI Codec software mixing driver
+                 ES1688 Audiodrive Codec software mixing driver (for ViperMAX)
+                 MPU401 generic driver. 
+                 Direct to Disk writer now uses logarithmic volume ramping
+                   and quadratic spline interpolation
+                 Read DRIVERS.TXT for information on all of these.
+
+IT212 Update - Special thanks go out to all those that did stability testing
+               of the beta versions of IT212.
+
+  - Bug fix: "Available Samples" in the instrument loading screen will be
+             correct if you're loading an instrument from within a module.
+
+  - Bug fix: Sample files will store default pan values.
+
+  - Bug fix: Trying to show pattern data past the end of a pattern will
+             not crash IT anymore. This could have occurred before if the
+             number of rows in a pattern were reduced during playback, then
+             switching to the info page.
+
+  - Bug fix: Deleting samples/instruments "within" a module has been disabled
+             (as it should be), so that the module itself cannot be deleted.
+
+  - Bug fix: Default sample pan will override instrument pan whether "Old
+             Effects" is on or off.
+
+  - .669 Loader, since Snowman is collecting 'em :)
+    This loader hasn't been extensively tested, maily because Composd.Exe
+    will not run on my machine (64MB is "Not enough extended memory" ?!?! ).
+    Most songs should play though.. Please don't bug me to update the loader
+    any further - you won't get a reply.
+
+  - *Much* better memory handling for patterns. EMM386 parameter H=255
+    should not be required in MOST cases now (you will only need it if
+    you use a large number of samples (ie. > 50) ). You should also have
+    more FreeMem to work with. Beta testers have noted that QEMM shows even
+    more stability problems in this version than previous versions - please
+    avoid QEMM as it DOES cause crashing for as yet unknown reasons. The old
+    memory allocation routines can still be found if you have EMS problems by
+    using /P2 on the command line.
+
+  - Keyboard handling on instrument lists has been improved to handle
+    multiple keypresses/releases. (but not on sample list due to usability)
+
+  - Default volume display in *NORMAL* (5 channel) pattern editor if you press
+    Ctrl-V. If you use a custom font, you will need to upgrade your font set
+    with FONTUPGR to see this properly.
+    Example:
+     C-4 01 .. ... <-- what volume is this??
+
+    Press Ctrl-V:
+     C-4 01 [32] ... <-- it'll show that the default volume of
+                         sample/instrument 1 is 32.
+
+    Alt-K has been upgraded to 'pick up' these default values. (So that you
+    can also slide from volume 0 to the sample's default without having to
+    explicitly key in the value).
+
+  - Automatic filename extension replacement on Ctrl-S, so that if you press
+    Ctrl-S after loading a .MOD, .669, .MTM or .XM, the filename will be
+    automatically modified to have a .IT extension.
+
+  - CDRom check for CACHE.IT? files. If you burn a CDRom of samples or
+    instruments, include the CACHE.ITI and CACHE.ITS files from IT211+ and
+    they should accelerate loading of sample and instrument names on all
+    future versions of IT.
+    < Not tested, since I can't :( >
+
+  - 64 channel miniview on the info page. (note: doesn't show all fields)
+
+  - Note dots added on the info page.
+    (You may have to update your info page settings by re-saving all prefs)
+
+  - Changed the old Alt-C on the instrument list to Alt-W (wipe data)
+    New Alt-C removes the instrument name and filename, but does NOT
+    remove the instrument parameters (like the Alt-C on the sample list)
+
+  - MIDI OUTPUT!
+    Fully configurable output
+    16 parameterised macros
+    128 constant macros
+    Check MIDI.TXT for details. (Big thanks to Ozone for writing this)
+
+  - Soundcard Driver news
+    þ Inserted a new algorithm into the direct-to-disk writer to remove
+      clicks at the end of samples in cases of Note Cut commands, Note Cut NNA
+      and instantaneous sample changes in sample mode. For those who have
+      sent me money and would like to receive the upgrade, EMail me.
+    þ ESS ES1868 AudioDrive driver. This will NOT support any other ESS
+      chipsets than the ES1868. Do not write to me asking for support for
+      other ESS chips unless you are willing to buy me a card (or send me
+      the money to do so). This driver supports mixing rates up to 56.8kHz
+      (16 bit, stereo) and it also supports MIDI In.
+    þ AWE32 driver update: More accurate tempo control and less clicks under
+                           Win95
+    þ TB Tropez users: I received an EMail telling me that the GUSMAX drivers
+                       were working fully with the TB Tropez cards! See how
+                       it works...
+    þ Sound drivers for the ST97 and EWS64 coming... as soon as I get them
+      working....
+
+    Other news: It seems that some people really don't care how much work
+                I've put into IT - Warez versions of the full ITWAV.DRV
+                are being sought after. Let me make this clear: Distribution
+                of the full version of ITWAV.DRV is NOT appreciated and if I
+                ever find the full version anywhere, IT will no longer be
+                publically released.
+
+
+IT211 Update - Not so much this time, as I have been working full time, so
+               since IT has been sitting on my HDD without changes for a
+               couple of weeks, I decided to release the update anyway.
+
+  - Saving a song with Ctrl-S or from the menu will not prompt about
+    'overwriting' the file.
+
+  - Compatibility Gxx volume fadeout fixed.
+
+  - Matrox autodetection fixed to set mouse cursor properly also.
+
+  - You can press 'L' or 'R' on the "load stereo sample" prompt to select
+    left or right channels.
+
+  - Increased file-header 'load-buffer' so that more Sound Forge .WAV files
+    should be recognised.
+
+  - Bug fix to: swap samples/instruments, insert/remove sample/instrument
+                and update instrument *could* have caused the current
+                editing pattern to skip being modified.
+
+  - Bug fix: Pressing delete on a non-note column in template mode should
+             work as expected.
+
+  - Note: If you delete your old IT.CFG files and run IT afresh, you'll
+          get an extra 'line' on the infopage to work with.
+
+  - .KRZ sample-library loader. Note that this does NOT support multiple
+    .KR* files (ie. .KR1, .KR2, .KR3). To use these files, you will have
+    to run MERGEKRZ.EXE (supplied) to create a single .KRZ file.
+      (BIG thanks to Markus Jonnson for the info!)
+
+  - .PAT sample-library loader.
+
+  - Creating a 'host instrument' after loading a sample will first attempt
+    to use an instrument of the same number as the sample before finding
+    the first empty instrument.
+
+  - Holding down Caps Lock in the pattern editor will allow you to play
+    notes without entering them into the patterns.
+
+  Driver modifications
+  - Bug fix for SB16 drivers which caused patterns not to 'play'. For those
+    that still have troubles with the SB16 driver, read DRIVERS.TXT
+  - For those of you who couldn't get the GUSMAX driver working, check out
+     DRIVERS.TXT also :)
+  - The ITWAV.DRV file now writes proper .WAV files instead of .RAW
+  - ITAWE32.DRV uses floating point calculations to reduce memory usage.
+    ITAWE32B.DRV (the old driver) still exists for people who don't have
+                 math coprocessors
+
+
+IT210 Update - some MAJOR fixes here.
+
+  - Approximate song length on Ctrl-P. Note that *some* soundcards will
+  require reinitialisation after this (almost all won't). The time given
+  is the 'ideal' time for the playback of the song and should correspond
+  *exactly* to GUS/AWE non-IRQ playback times.
+
+  - A few more player bug fixes for XM compatibility
+
+  - IT won't crash if you try to load instruments from an 'empty' drive
+    (eg. disk not inserted or no files present)
+
+  - In the pattern editor, Insert/Delete, Note Cut/Note Off/Note Delete
+    are all 'template aware' - they will span more than 1 channel if
+    you are editing in template mode and the template has height 1.
+    Also, 'picking up' data with Enter will turn off Template mode's except
+    for "Template-Notes Only"
+
+  - Volume column effects Ex/Fx/Gx in combination with effect Jxx should
+    operate as expected now.
+
+  - Deleting a file on the instrument list will update the instrument cache
+    file appropriately.
+
+  - Sample/Instrument cache file time check fixed.
+
+  - Slight modification to the handling of SBx commands to prevent
+    infinite loops.
+
+  - Simple crash recovery mechanism should you ever encounter a problem.
+    (You shouldn't need it!) This is on Ctrl-Alt-Del in DOS or
+    Ctrl-Alt-Ins in Windows. It is not guaranteed to work, but if it works
+    once, then I guess that the amount of time I spent on it was worth it
+    (~10 minutes).
+
+    For the technically minded lot, what it does is it tries to 'kick start'
+    the tracker again directly from the keyboard interrupt handler.
+
+  - Loading a stereo WAV file will cause a pop-up menu to appear to select
+    loading the left or right channels.
+
+  - GUSMAX users interested in using software mixing, check out DRIVERS.TXT
+
+  - Memory corruption error found and fixed which produced 3-sets of invalid
+    values in the order list/instruments (main reason for this release!)
+
+IT209 Update
+
+  ************************* FONT FILES REQUIRE UPDATING *********************
+   If you have your own custom font file, you will need to change character
+   number 184 to 190. If you have used one of the 'standard' font sets, you
+   will need to run ITF and grab an updated file. Failure to do so will just
+   make the sample page look stuffed - You have been warned :)
+  ***************************************************************************
+
+  Many Many MANY miscellaneous fixes to the XM loader and playback routines
+  -> XM support should be *MUCH* better now.
+  Volume effects have been debugged... hopefully :)
+
+  Some major errors fixed around (ie. dumping to DOS from the Instrument
+  screen, Pattern's not updating in memory correctly (which went wrong in
+  IT208) )
+
+  Added default sample pan to the sample list (default instrument pan WILL
+  override this if present). Note that using default pan is the equivalent
+  of using a 'set pan' effect on that row - the channel will be set to the
+  default sample pan.
+
+  You can change whether the info page displays sample names or instrument
+  names by pressing 'i'
+
+IT208 Update
+
+  So much so quickly? Well, I had exams. And when I have exams, I code, 'cos
+  it's better than having to study :)
+
+  ************************* FONT FILES REQUIRE UPDATING *********************
+   If you have your own custom font file, you will need to change character
+   number 184 to. If you have used one of the 'standard' font sets, you will
+   need to run ITF and grab an updated file. Failure to do so will just make
+   the info page and 10-channel editor look stuffed - You have been warned :)
+  ***************************************************************************
+
+ - Bug fix: Keyboard configuration files could have cause MAJOR problems...
+            fixed!
+
+ - Bug fix: Some files with the .MOD ID "CH" which actually were NOT MODs
+            were being identified as "Fast Tracker 2" modules.
+            (You may have to delete your CACHE.ITS files to force IT to
+             refresh it's data)
+
+ - Bug fixes: MIDI input won't corrupt input on the order list
+              MIDI input won't interfere with button presses
+              MIDI input won't insert effect SDF into patterns when recording
+                               where inappropriate.
+
+ - Old Left Ctrl+Shift-1 'removed', Left-Ctrl+Shift 1->4 still work - and
+   have been updated.
+
+   PROPER 10-channel editing mode available (complete with half sized cursors!)
+   as well as some minor logic improvements. (Try Left-Ctrl+Shift 2)
+
+ - ";" and "'" made to change the samples/instrument in the pattern editor
+   as '<' and '>' do - just much easier to do so on American keyboards.
+
+ - Dragging mouse nodes past boundaries is more accurate.
+
+ - "Channel details" display (on the infopage) *can* show the 64th channel
+   (oops in IT207)
+
+ - Matrox bug autodetection (Many thanks to Csaba Pankaczy for working with
+   me on this!)
+
+ - Message system hooked to a timer (ie. all those messages that appear
+   towards the top of the screen).. so that they will last a consistent
+   amount of time (independent of machine).
+
+ - Player Improvement: NNA mechanism will eliminate channels on two extra
+                       conditions now (no difference to playback, but should
+                       maximise channel usage)
+
+ - Improvement: Persistence of cache files through different sessions of IT
+                - ie. once the sample/instrument cache files are created, they
+                  are NOT recreated unless necessary.
+
+ - Root "\" directory has replaced "." directory on all loading screens.
+
+ - Several Template input related functions improved. Also, Block-Cut in
+   template mode won't overwrite your clipboard if you're working with
+   templates.
+
+ - Template: "Notes only" added. This is different from the other templates
+   in that it will NOT copy the template's instruments, volumes or effects.
+   Instead, it will change it's instrument/volume/effect according to the
+   last used instrument/volume/effect, and will insert whatever is speicfied
+   by the edit mask.
+
+ - Addition: Volume Column effects, Ax, Bx, Cx, Dx, Ex, Fx, Gx and Hx!!!!
+
+        Ax = Fine volume slide up by x
+        Bx = Fine volume slide down by x
+        Cx = Volume slide up by x
+        Dx = Volume slide down by x
+        Ex = Pitch slide down by x
+        Fx = Pitch slide up by x
+        Gx = Portamento to note with speed x
+        Hx = Vibrato with depth x
+
+   Note that the pitch/portamento scale here is DIFFERENT from the standard
+   effect slideup/down
+
+*  Note that if you use these in your songs, IT < 2.08 will NOT play them
+*  correctly... (in fact, it'll probably play it extremely painfully)
+
+ - Alt Up/Down/Ins/Del added to the note translation table.
+
+ - Minor modifications around the tracker
+
+ - Windows Sound System Driver! (Operates at mixing rates up to 64kHz!)
+   Impulse Tracker has the greatest soundcard support of any tracker by far!
+
+ - Old Effects will 'unlink' the memory of Gxx from Exx/Fxx
+
+ - XM LOADING!!!!!!!!!!
+
+   Don't write to me complaining about incompatibilities - I am aware of
+   lots of them and you probably won't get a reply. :) *MOST* songs should
+   have a near perfect conversion tho...
+
+ - Big safety feature!! Playback dying because of overload? Bad NNA selection?
+   F8 *should* stop playback immediately now! (in DOS).
+
+   In Windows '95, there may be a noticeable stall before playback stops
+   (ie. several seconds), or it may not function at all...
+
+IT207 update
+
+  - Some bug fixes to MIDI input.
+  - Ctrl-PgUp/PgDn on the sample list will redraw the waveforms
+  - Jxx memory should work fine (The memory didn't operate if the channel
+      wasn't active before)
+  - Template limits should be correctly applied. (ie. clipped within
+      C-0 and B-9)
+  - Going to a pattern from the Info Page ('G') will also go to the
+      current order playing.
+  - MIDI input can be enabled/disabled in the pattern editor with
+      Alt-Scroll Lock
+  - MOD in-module sample library loop points fixed.
+  - Envelope drawing algorithm slightly more tolerant of corrupt information
+  - Mouse envelope routines slightly improved for more accurate handling of
+      nodes.
+  - Added Message editor to main menu.
+  - Added 10 channel view to the info page (you may need to reset your info-
+      page settings and "save your preferences")
+  - Squished up the info page view to get a couple of extra lines! :)
+  - Ctrl-F7 on the order list will set the next pattern to play (at request
+      of ChuckB) - for DJ use
+  - Due to Win95's unstable disk-EMS routines, if you load a MMTSRed sample,
+      instrument or module (sample library), playback *will* stop to prevent
+      corruption of samples currently in memory.
+  - Notes in templates of height 1 will be played back in the pattern editor
+      (very useful for "multi sample" note entry)
+  - Added effects T0x and T1x for Tempo slide down and tempo slide up.
+  - Added .IT and .XM *INSTRUMENT* library support. Note that .ITs that
+      aren't in instrument mode or have no instruments will NOT be shown on
+      the instrument loader list.
+  - Added Alt-Ins and Alt-Del on the sample and instrument lists to add
+    in samples/instruments
+
+  **** NOTE: /Sx command line parameters have been changed around just for
+      neatness. CHECK SUMMARY.TXT FOR NEW /Sx VALUES OR RUN "IT /?" ***
+
+IT 2.06
+
+  - Update: Yet another update to the EMS routines.. for those of you who
+            couldn't be bothered to read the FAQ.
+
+            Also new command line switch:
+             /Px - Set pattern memory allocation strategy.
+            Check SUMMARY.TXT for info on this.
+
+  - Minor update: The 10-stage undo buffer will now use EMS memory under most
+                  circumstances.
+
+  - Minor update: S3M and IT loader routines slightly modified for more
+                  efficient memory usage.
+
+  - Minor update: "Song modified" flag logic slightly modified.
+
+  - Minor update: .WAV loader slightly improved. (should read any 8 or 16-bit
+                  format.)
+
+  - Minor Addition: IT will now release time slices to multitasking OS/s
+                    if you specify /T2 on the command line.
+                    If you are using the MIDI input capabilities of IT, you
+                    SHOULD NOT enable this (timing gets effected badly)
+
+  - Minor Addition: Set pattern length command on Ctrl-F2 (can set multiple
+                    patterns)
+
+  - Minor Addition: Command line switch /T1 to disable "usage time" indication
+
+  - Addition: TX Wave loader for .W?? samples (eg. from Kosmic's sample dirs)
+              Note: These are actually 12-bit samples, which are converted to
+                    16-bit at load time.
+
+  - Addition: .MOD sample library loader.
+
+              This "only" recognises the following MOD Identifications -
+              "M.K.", "M!K!", "FLT4", "FLT8", "4CHN", "6CHN", "8CHN"
+              And FT2's extended MOD identification, "xxCH"
+
+              If you have an "Old Amiga-MOD format" MOD (which doesn't have an
+              ID), then you'll have to save it as another format if you want
+              to rip directly from it.
+
+              So sample library support in total:
+               .MOD, .669, .FAR, .MTM, .S3M, .PTM, .XM, .IT
+
+  - Addition: Intelligent MIDI Input for SB16 and Interwave cards!
+              MIDI options screen is on Shift-F1 (those of you who have IT.CFG
+              from older versions of IT *WILL* need to visit this screen at
+              least once if you want to use MIDI - "Save All Preferences" will
+              save these settings)
+
+              In the pattern editor, Ctrl-Z is "Change MIDI playback trigger."
+              Normally, it is quite difficult to start at a row/pattern with
+              MIDI - this options allow you to control whether a pattern or
+              song should START playing when you play the first note.
+
+              (IT will play either from the start of the current pattern or
+               the song starting from the current row depending on your choice)
+              Once this is done, the trigger is immediately unset, so you will
+              have to setup this trigger again if you want to use it.
+
+              Note that this *will* turn on pattern tracing. To disable it,
+              use Scroll-Lock.
+
+              ****** NOTE ******
+
+              SB16's MIDI input is somewhat 'iffy'. If you stop receiving
+              MIDI input, you need to reinit the soundcard (Ctrl-I) (possibly
+              several times). I don't know why it does this. Dont' write
+              to me about it, 'cos I have spent MANY MANY hours on this little
+              problem and I don't want to know about it. Also, in Win95, I
+              found it necessary to change my SB16's configuration to EXCLUDE
+              the MIDI port (and I used a Microsoft MPU401 driver instead),
+              otherwise MIDI input was ignored.
+
+              Sorry, no GUS MIDI at the moment, as I couldn't get it working.
+              Please do NOT write to me about this, you will not get a reply.
+              An updated GUS driver will be released if/when I get it working.

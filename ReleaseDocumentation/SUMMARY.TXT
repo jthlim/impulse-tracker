@@ -1,0 +1,296 @@
+
+                       Summary Information - Command Line
+
+ -SFilename.Drv - Set soundcard driver
+
+ -Sxx     Quick set sound card
+             0 = No Sound
+             1 = PC Speaker
+             2 = Sound Blaster 1.xx
+             3 = Sound Blaster 2.xx
+             4 = Sound Blaster Pro
+             5 = Sound Blaster 16
+             6 = Sound Blaster AWE 32
+             7 = Gravis UltraSound
+             8 = Interwave IC
+             9 = Pro Audio Spectrum
+             10 = Pro Audio Spectrum 16
+             11 = Windows Sound System
+             12 = ESS ES1868 AudioDrive
+             13 = EWS64 XL Codec
+             19 = Generic MPU401 driver
+             20 = Disk writer device
+
+ -Axxx    Set sound card's address (hexadecimal)
+ -D#      Set DMA channel (decimal)
+ -I##     Set IRQ number (decimal)
+
+ -M#####  Set mixing speed (decimal)
+ -L###    Limit number of channels
+
+ -C       Control playback in DOS Shell (with Grey +/-, Right Alt & Right Ctrl)
+ -F       Disable file-colour distinctions
+ -K       Exchange F1 and F11 keys
+ -Px      Pattern memory allocation strategy.
+            -P0 = Try to store patterns in conventional memory first, EMS is
+                  only used once conventional memory runs out.
+                   Not recommended, but those of you who use IT in Windows 3.xx
+                   should try this option if you get EMS errors. (I recommend
+                   that you don't use IT under Windows 3.xx at all)
+            -P1 = Use one block of EMS for all patterndata.
+                   This is the most memory efficient of all the pattern
+                   storage modes - (this is also the default)
+            -P2 = Use EMS blocks for each pattern
+                   This is a VERY wasteful but 'safe' memory allocation scheme.
+ -R       Reverse channels (flip left-right), same as Alt-R on the info page.
+ -T1      Disable usage time indication
+ -T2      Enable timeslice release
+ -V1      Override VGA detection/Matrox detection.
+ -V2      Force matrox compatibility mode (use with -v1)
+ -V3      Wait for vertical retraces
+ -X1      Disable internal MMTSR
+ -X2      Disable mouse
+ -X3      Disable drive map detection
+ -X4      Disable cache file creation
+
+
+                 Summary Information - Effects, alphabetically
+
+ Volume Column Effects
+  Ax - Volume slide up
+  Bx - Volume slide down
+  Cx - Fine volume slide up
+  Dx - Fine volume slide down
+  Ex - Pitch slide down
+  Fx - Pitch slide up
+  Gx - Portament to
+  Hx - Vibrato with speed x
+
+ General Effects
+ Axx - Set speed (set number of frames per row)
+ Bxx - Jump to order
+ Cxx - Break to row xx of (next) pattern
+ Dxy - Volume slide, x=0 down; y=0 up; x=F fine down; y=F fine up
+ Exx - Pitch slide down by xx
+ EFx - Fine pitch slide down by x
+ EEx - Extra fine pitch slide down by x
+ Fxx - Pitch slide up by xx
+ FFx - Fine pitch slide down by x
+ FEx - Extra fine pitch slide down by x
+ Gxx - Portamento to note with speed xx
+ Hxy - Vibrato with speed x, depth y
+ Ixy - Tremor with ontime x, offtime y
+ Jxy - Arpeggio with halftones x and y
+ Kxy - Dual command: H00 and Dxy
+ Lxy - Dual command: G00 and Dxy
+ Mxx - Set channel volume to xx (0->40h)
+ Nxy - Channel volume slide, x=0 down; y=0 up; x=F fine down; y=F fine up
+ Oxx - Set sample offset to xx00h
+ Pxy - Panning slide, x=0 right; y=0 left; x=F fine right; y=F fine left
+ Qxy - Retrigger note every y frames with volume modifier x
+        Values for x:
+          0: (nothing)    4: -8           8: (nothing)    C: +8
+          1: -1           5: -16          9: +1           D: +16
+          2: -2           6: *2/3         A: +2           E: *3/2
+          3: -4           7: *1/2         B: +4           F: *2
+ Rxy - Tremelo with speed x, depth y
+ S3x - Set vibrato waveform
+ S4x - Set tremelo waveform
+ S5x - Set panbrello waveform
+        Waveforms for x in S3x, S4x and S5x:
+          0 = Sine                      2 = Square
+          1 = Ramp down                 3 = Random
+ S6x - Pattern delay for x frames
+ S7x - Instrument functions
+        Values for x in S7x:
+          0: Past note cut              5: Set NNA to note off
+          1: Past note off              6: Set NNA to note fade
+          2: Past note fade             7: Turn off volume envelope
+          3: Set NNA to note cut        8: Turn on volume envelope
+          4: Set NNA to continue
+ S8x - Set pan position
+ S91 - Set surround sound
+ SB0 - Set loopback point
+ SBx - Loop x times to loopback point
+ SCx - Note cut after x frames
+ SDx - Note delay for x frames
+ SEx - Pattern delay for x rows
+ SFx - Select parameterised MIDI Macro
+ T0x - Tempo slide down by x
+ T1x - Tempo slide up by x
+ Txx - Set tempo (20h->0FFh)
+ Uxy - Fine vibrato with speed x, depth y
+ Vxx - Set global volume to xx (0->80h)
+ Wxx - Global volume slide, x=0 down; y=0 up; x=F fine down; y=F fine up
+ Xxx - Set panning position (0->0FFh)
+ Yxy - Panbrello with speed x, depth y
+ Zxx - MIDI Macro - check MIDI.TXT
+
+                  Summary Information - Effects, categorically
+
+Note: Not all effects are listed here.
+
+Speed Control
+ Axx - Set speed
+ T0x - Tempo slide down by x
+ T1x - Tempo slide up by x
+ Txx - Set tempo (20h->0FFh)
+ S6x - Pattern delay for x frames
+ SEx - Pattern delay for x rows
+
+Position Control
+ Bxx - Jump to order
+ Cxx - Break to row xx of (next) pattern
+ SB0 - Set pattern loopback point
+ SBx - Loop pattern x times
+
+Volume Control
+ Ax  - Volume slide up
+ Bx  - Volume slide down
+ Cx  - Fine volume slide up
+ Dx  - Fine volume slide down
+ Dxy - Volume slide, x=0 down; y=0 up; x=F fine down; y=F fine up
+ Ixy - Tremor with ontime x, offtime y
+ Mxx - Set channel volume to xx (0->40h)
+ Nxy - Channel volume slide, x=0 down; y=0 up; x=F fine down; y=F fine up
+ Vxx - Set global volume to xx (0->80h)
+ Wxx - Global volume slide, x=0 down; y=0 up; x=F fine down; y=F fine up
+ Rxy - Tremelo with speed x, depth y
+ S4x - Set tremelo waveform
+
+Panning Control
+ Xxx - Set panning position (0->0FFh)
+ S8x - Set pan position
+ S91 - Set surround sound
+ Pxy - Panning slide, x=0 right; y=0 left; x=F fine right; y=F fine left
+ Yxy - Panbrello with speed x, depth y
+ S5x - Set panbrello waveform
+
+Pitch Control
+ Exx - Pitch slide down by xx
+ EFx - Fine pitch slide down by x
+ EEx - Extra fine pitch slide down by x
+ Ex  - Pitch slide down
+ Fxx - Pitch slide up by xx
+ FFx - Fine pitch slide up by x
+ FEx - Extra fine pitch slide up by x
+ Fx  - Pitch slide up
+ Gxx - Portamento to note with speed xx
+ Gx  - Portamento to
+ Hxy - Vibrato with speed x, depth y
+ Hx  - Vibrato with speed x
+ Uxy - Fine vibrato with speed x, depth y
+ S3x - Set vibrato waveform
+ Jxy - Arpeggio with halftones x and y
+
+                     Summary Information - Pattern Editor 1
+
+Data Entry
+ Alt-0 -> Alt-9  Set skipvalue to 0-9
+ . (period)      Clear field(s)
+ 1               Note cut (^^^)
+ `               Note off (ÍÍÍ) / panning toggle (in volume column)
+ Spacebar        Use last (default) note/instrument/volume/effect/effectvalue
+
+              ³ ³ ³³ ³ ³ ³ ³³ ³³ ³ ³ ³ ³³ ³ ³ ³ ³³ ³³ ³ ³ ³ ³³ ³ ³
+              ³ ³ ³³ ³ ³ ³ ³³ ³³ ³ ³ ³ ³³ ³ ³ ³ ³³ ³³ ³ ³ ³ ³³ ³ ³
+              ³ ³S³³D³ ³ ³G³³H³³J³ ³ ³2³³3³ ³ ³5³³6³³7³ ³ ³9³³0³ ³
+              ³ ÀÂÙÀÂÙ ³ ÀÂÙÀÂÙÀÂÙ ³ ÀÂÙÀÂÙ ³ ÀÂÙÀÂÙÀÂÙ ³ ÀÂÙÀÂÙ ³
+              ³ Z³ X³ C³ V³ B³ N³ M³ Q³ W³ E³ R³ T³ Y³ U³ I³ O³ P³
+              ÀÄÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄÄÙ
+
+Pattern selection
+ +, -               Next/Previous pattern (*)
+ Shift +, -         Next/Previous 4 patterns (*)
+ Ctrl +, -          Next/Previous order's pattern (*)
+
+Miscellaneous
+ Enter              Get default note/instrument/volume/effect
+ '<' or Ctrl-Up     Decrease instrument
+ '>' or Ctrl-Down   Increase instrument
+ Grey '/'           Decrease octave
+ Grey '*'           Increase octave
+ ',' (comma)        Toggle edit mask for current field
+
+ Ins/Del            Insert/Delete a row to/from current channel
+ Alt-Ins/Del        Insert/Delete an entire row from pattern (*)
+ Alt-N              Toggle Multichannel
+ 2*Alt-N            Multichannel selection menu
+ Alt-Enter          Store pattern data
+ Alt-Backspace      Revert pattern data (*)
+ Ctrl-Backspace     Undo - any function with (*) can be undone.
+
+ Ctrl-F2            Set (multiple) pattern length
+
+Cursor Control
+ Up/Down            Move up/down by the skipvalue
+ Ctrl-Home/End      Move up/down by 1 row
+ Alt-Up/Down        Slide pattern up/down by 1 row
+ Alt-Left/Right     Move forwards/backwards one channel
+ Ctrl-Left/Right    Move left/right between track columns
+ Tab/Shift-Tab      Move forwards/backwards to note column
+ PgUp/PgDn          Move up/down by n lines (n=Row hilight major)
+ Ctrl-PgUp/PgDn     Move to top/bottom of pattern
+ Home               Move to start of column/start of line/start of pattern
+ End                Move to end of column/end of line/end of pattern
+ Backspace          Move to previous position (accounts for Multichannel)
+
+ Ctrl-C             Toggle centralise cursor option.
+
+Track View Functions
+ Alt-T              Cycle current track's view
+ Alt-R              Remove all track views
+ Alt-H              Toggle track-view divisions
+ Ctrl-0             Deselect current track
+ Ctrl-1 - Ctrl-5    View current track in scheme 1-5
+ Ctrl-Left/Right    Move left/right between track columns
+
+ Left-Ctrl &
+  Left-Shift 1-4    Quick setup view scheme (and enable cursor-tracking)
+
+ Ctrl-T             Toggle view-channel cursor tracking
+
+                     Summary Information - Pattern Editor 2
+
+Block functions.
+ Shift-Movement Mark block
+ Alt-B          Mark beginning of block
+ Alt-E          Mark end of block
+ Alt-D          Quick mark n/2n/4n/... lines (n=Row Hilight Major)
+ Alt-L          Mark entire column/pattern
+
+ Alt-U          Unmark block/release clipboard
+
+ Alt-Q          Raise notes by a semitone (*)
+ Alt-A          Lower notes by a semitone (*)
+
+ Alt-S          Set instrument (*)
+ Alt-V          Set volume/panning (*)
+ Alt-W          Wipe volume/panning not associated with a note/instrument (*)
+ Alt-K          Slide volume/panning column (*)
+ 2*Alt-K        Wipe all volume/panning controls (*)
+ Alt-J          Volume amplifier (*) / Fast Volume attenuate (*)
+ Alt-Z          Cut block (*)
+ Alt-X          Slide effect value (*)
+ 2*Alt-X        Wipe all effect & effect value data (*)
+
+ Alt-C          Copy block into clipboard
+ Alt-P          Paste data from clipboard (*)
+ Alt-O          Overwrite with data from clipboard (*)
+ Alt-M          Mix data from clipboard with pattern data (*)
+
+ Alt-F          Double block length (*)
+ Alt-G          Halve block length (*)
+
+ Alt-I          Select template mode / Fast volume amplify (*)
+ Ctrl-J         Toggle fast volume amplification with Alt-J/Alt-I
+
+Playback functions
+ 4              Play note under cursor
+ 8              Play row
+
+ Ctrl-F6        Play pattern from current row
+ Ctrl-F7        Set/Clear playback mark (for use with F7)
+
+ Alt-F9         Toggle current channel on/off
+ Alt-F10        Solo current channel on/off

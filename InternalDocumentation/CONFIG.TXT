@@ -1,0 +1,54 @@
+Configuration file for IT.EXE
+
+Offset  Length  Meaning
+0       70      Module directory
+70      70      Sample directory
+140     70      Instrument directory
+210     1       Keyboard style <not used any more!>
+
+211     3*16    Palette information
+
+259     50      Display window setup
+                Structure is 6*8 bytes, followed by 1 word = number of windows
+                Structure of each 8 byte record is:
+                 Word: Method. (0 = volume bars, 1 = 5 track view, etc)
+                 Byte: Top channel
+                 Byte: Top line on screen
+                 Word: Length of window
+                 Word: Display memory offset of top left of window.
+
+309     217 bytes so far     Pattern edit setup.
+
+                Offset (W = word, B = byte)
+
+                309 W    - MUST be 0 (key signatures not defined)
+                311 W    - number of channels to edit (5, but recalculated
+                             whenever the screen changes)
+                313 B    - Row hilight minor (eg. every 4)
+                314 B    - Row hilight major (eg. every 16)
+                315 B    - Edit mask. Bit 0 = edit ins, 1 = edit vol, 2 = edit FX
+                316 B    - View division (1= show divisions)
+                317 W    - Number of 'viewed' channels
+                319 100W - Channel viewmethods. First word = channel
+                                                Second word = method
+                                Methods: 0 = full edit
+                                         1 = compressed edit
+                                         2 = extra compressed edit
+                                         3 = 3-character selective edit
+                                         4 = 2 character selective edit
+
+                                0FFFFh indicates end of list
+
+                519 B    - View-channel cursor tracking (1 = on)
+                520 B    - Effect/Effectvalue link (1 = on)
+                521 B    - Flags. Bit 0 = centralise cursor
+                                  Bit 1 = hilight current row
+                                  Bit 2 = fast volume changes
+                                  Bit 3 = MIDI Quantize to tick
+                                  Bit 4 = MIDI program base 1
+                                  Bit 5 = MIDI record note-offs
+                                  Bit 6 = MIDI record velocity
+                                  Bit 7 = MIDI Record aftertouch
+                522 B   - MIDIAmplification
+                523 B   - MIDICentral note
+                524 W   - Fast volume amplification

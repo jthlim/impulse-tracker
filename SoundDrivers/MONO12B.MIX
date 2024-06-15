@@ -1,0 +1,188 @@
+
+ERROR           EQU     CX
+DELTAERROR      EQU     BP
+DELTAOFFSET     EQU     DX
+
+                        ; Different mixing routines required:
+                        ;  Left         } shared
+                        ;  Right        }
+                        ;  Central
+                        ;  Surround
+                        ;  Panned ; Each requires 8 bit and 16 bit
+                        ; Single output - for Mono, pure left/pure right
+
+M12Mix8Central Macro Index
+
+M12Mix8Central&Index&:
+        Mov     BL, [ES:DI]                                     ;; 2
+        Add     ERROR, DELTAERROR                               ;; 1
+        Mov     AX, [EBX+EBX]                                   ;; 2
+        AdC     DI, DELTAOFFSET                                 ;; 1
+        Sub     [SI+(Index-15)*2], AX
+
+EndM
+
+M12Mix16Central Macro Index
+
+M12Mix16Central&Index&:
+        Mov     BL, [ES:EDI+EDI+1]
+        Add     ERROR, DELTAERROR
+        Mov     AX, [EBX+EBX]
+        AdC     DI, DELTAOFFSET
+        Sub     [SI+(Index-15)*2], AX
+
+EndM
+
+;ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Mix12Central8BitOffsetTable      Label   Word
+
+        IndexCounter    =       15
+
+        M12Mix8CentralOffset Macro Index
+                DW      Offset M12Mix8Central&Index&
+        EndM
+
+        REPT 16
+                M12Mix8CentralOffset    %IndexCounter
+                IndexCounter = IndexCounter-1
+        EndM
+
+Proc            Mix12Central8Bit
+
+                Dec     AX
+                Mov     BX, AX
+                And     AX, 0Fh
+                ShR     BX, 4
+                Add     AX, AX
+                Inc     BX
+                Mov     LoopCounter, BX
+                Mov     BX, AX
+
+                ShL     AX, RESOLUTIONSHIFT-1
+
+                Add     SI, AX
+
+                Push    [CS:Mix12Central8BitOffsetTable+BX]
+
+M12Central8BitVolume EQU     $+3
+                Mov     EBX, 0          ; Set BH = volume
+
+                RetN
+
+                M12Mix8Central 0
+                M12Mix8Central 1
+                M12Mix8Central 2
+                M12Mix8Central 3
+                M12Mix8Central 4
+                M12Mix8Central 5
+                M12Mix8Central 6
+                M12Mix8Central 7
+                M12Mix8Central 8
+                M12Mix8Central 9
+                M12Mix8Central 10
+                M12Mix8Central 11
+                M12Mix8Central 12
+                M12Mix8Central 13
+                M12Mix8Central 14
+                M12Mix8Central 15
+
+                Add     SI, 32
+                Dec     LoopCounter
+                JNZ     M12Mix8Central0
+
+                Ret
+
+EndP            Mix12Central8Bit
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Proc            PreMix12Central8Bit
+
+                Mov     AL, [SI+0Eh]
+                Mov     Byte Ptr [CS:M12Central8BitVolume], AL
+
+                Ret
+
+EndP            PreMix12Central8Bit
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Mix12Central16BitOffsetTable      Label   Word
+
+        IndexCounter    =       15
+
+        M12Mix16CentralOffset Macro Index
+                DW      Offset M12Mix16Central&Index&
+        EndM
+
+        REPT 16
+                M12Mix16CentralOffset    %IndexCounter
+                IndexCounter = IndexCounter-1
+        EndM
+
+Proc            Mix12Central16Bit
+
+                Dec     AX
+                Mov     BX, AX
+                And     AX, 0Fh
+                ShR     BX, 4
+                Add     AX, AX
+                Inc     BX
+                Mov     LoopCounter, BX
+                Mov     BX, AX
+
+                ShL     AX, RESOLUTIONSHIFT-1
+
+                Add     SI, AX
+
+                Push    [CS:Mix12Central16BitOffsetTable+BX]
+
+M12Central16BitVolume     EQU     $+3
+                Mov     EBX, 0          ; Set BH = volume
+
+
+                RetN
+
+                M12Mix16Central 0
+                M12Mix16Central 1
+                M12Mix16Central 2
+                M12Mix16Central 3
+                M12Mix16Central 4
+                M12Mix16Central 5
+                M12Mix16Central 6
+                M12Mix16Central 7
+                M12Mix16Central 8
+                M12Mix16Central 9
+                M12Mix16Central 10
+                M12Mix16Central 11
+                M12Mix16Central 12
+                M12Mix16Central 13
+                M12Mix16Central 14
+                M12Mix16Central 15
+
+                Add     SI, 32
+                Dec     LoopCounter
+                JNZ     M12Mix16Central0
+
+                Ret
+
+EndP            Mix12Central16Bit
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Proc            PreMix12Central16Bit
+
+                Mov     AL, [SI+0Eh]
+                Mov     Byte Ptr [CS:M12Central16BitVolume], AL
+
+                Ret
+
+EndP            PreMix12Central16Bit
+
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+

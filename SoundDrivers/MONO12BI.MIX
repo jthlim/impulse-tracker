@@ -1,0 +1,242 @@
+
+ERROR           EQU     CX
+DELTAERROR      EQU     BP
+DELTAOFFSET     EQU     DX
+HIGHERROR       EQU     CH
+
+                        ; Different mixing routines required:
+                        ;  Left         } shared
+                        ;  Right        }
+                        ;  Central
+                        ;  Surround
+                        ;  Panned ; Each requires 8 bit and 16 bit
+                        ; Single output - for Mono, pure left/pure right
+
+                ; Interpolation = [DI+1]*Error + [DI]*(1-Error)
+                ;               = [DI+1]*Error + [DI] - [DI]*Error
+                ;               = Error*([DI+1]-[DI]) + [DI]
+
+
+M12Mix8ICentral Macro Index
+
+M12Mix8ICentral&Index&:
+        Mov     AX, [ES:DI]
+        Mov     BL, AL
+        SAR     AL, 1
+        SAR     AH, 1
+        Sub     AH, AL
+        Mov     AL, CH
+        ShR     AL, 1
+        IMul    AH
+        SHL     AX, 2
+        Add     BL, AH
+
+M12Mix8ICentralVolume&Index&   EQU $+1
+        Mov     BH, 12h
+
+        Add     ERROR, DELTAERROR               ;; 1
+        Mov     AX, [EBX+EBX]
+        AdC     DI, DELTAOFFSET                 ;; 1
+        Sub     [SI+(Index-15)*2], AX
+
+EndM
+
+M12Mix16ICentral Macro Index
+
+M12Mix16ICentral&Index&:
+        Mov     BX, [ES:EDI+EDI]
+        Mov     AH, [ES:EDI+EDI+3]
+        Mov     BL, BH
+        SAR     AH, 1
+        SAR     BH, 1
+        Sub     AH, BH
+        Mov     AL, CH
+        ShR     AL, 1
+        IMul    AH
+        SHL     AX, 2
+        Add     BL, AH
+
+M12Mix16ICentralVolume&Index&   EQU $+1
+        Mov     BH, 12h
+
+        Add     ERROR, DELTAERROR               ;; 1
+        Mov     AX, [EBX+EBX]
+        AdC     DI, DELTAOFFSET                 ;; 1
+        Sub     [SI+(Index-15)*2], AX
+
+EndM
+
+;ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Mix12Central8BitIOffsetTable      Label   Word
+
+        IndexCounter    =       15
+
+        M12Mix8ICentralOffset Macro Index
+                DW      Offset M12Mix8ICentral&Index&
+        EndM
+
+        REPT 16
+                M12Mix8ICentralOffset    %IndexCounter
+                IndexCounter = IndexCounter-1
+        EndM
+
+Proc            Mix12Central8BitI
+
+                Dec     AX
+                Mov     BX, AX
+                And     AX, 0Fh
+                ShR     BX, 4
+                Add     AX, AX
+                Inc     BX
+                Mov     LoopCounter, BX
+                Mov     BX, AX
+
+                ShL     AX, RESOLUTIONSHIFT-1
+
+                Add     SI, AX
+
+                Push    [CS:Mix12Central8BitIOffsetTable+BX]
+
+                Xor     EBX, EBX
+
+                RetN
+
+                M12Mix8ICentral 0
+                M12Mix8ICentral 1
+                M12Mix8ICentral 2
+                M12Mix8ICentral 3
+                M12Mix8ICentral 4
+                M12Mix8ICentral 5
+                M12Mix8ICentral 6
+                M12Mix8ICentral 7
+                M12Mix8ICentral 8
+                M12Mix8ICentral 9
+                M12Mix8ICentral 10
+                M12Mix8ICentral 11
+                M12Mix8ICentral 12
+                M12Mix8ICentral 13
+                M12Mix8ICentral 14
+                M12Mix8ICentral 15
+
+                Add     SI, 32
+                Dec     LoopCounter
+                JNZ     M12Mix8ICentral0
+
+                Ret
+
+EndP            Mix12Central8BitI
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Proc            PreMix12Central8BitI
+
+                Mov     AL, [SI+0Eh]
+
+        IndexCounter    =       0
+
+        PreMix12Central8BitIMacro Macro Index
+                Mov     Byte Ptr [CS:M12Mix8ICentralVolume&Index&], AL
+        EndM
+
+        REPT 16
+                PreMix12Central8BitIMacro       %IndexCounter
+                IndexCounter = IndexCounter+1
+        EndM
+
+                Ret
+
+EndP            PreMix12Central8BitI
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Mix12Central16BitIOffsetTable      Label   Word
+
+        IndexCounter    =       15
+
+        M12Mix16ICentralOffset Macro Index
+                DW      Offset M12Mix16ICentral&Index&
+        EndM
+
+        REPT 16
+                M12Mix16ICentralOffset    %IndexCounter
+                IndexCounter = IndexCounter-1
+        EndM
+
+Proc            Mix12Central16BitI
+
+                Dec     AX
+                Mov     BX, AX
+                And     AX, 0Fh
+                ShR     BX, 4
+                Add     AX, AX
+                Inc     BX
+                Mov     LoopCounter, BX
+                Mov     BX, AX
+
+                ShL     AX, RESOLUTIONSHIFT-1
+
+                Add     SI, AX
+
+                Push    [CS:Mix12Central16BitIOffsetTable+BX]
+
+                Xor     EBX, EBX
+
+
+                RetN
+
+                M12Mix16ICentral 0
+                M12Mix16ICentral 1
+                M12Mix16ICentral 2
+                M12Mix16ICentral 3
+                M12Mix16ICentral 4
+                M12Mix16ICentral 5
+                M12Mix16ICentral 6
+                M12Mix16ICentral 7
+                M12Mix16ICentral 8
+                M12Mix16ICentral 9
+                M12Mix16ICentral 10
+                M12Mix16ICentral 11
+                M12Mix16ICentral 12
+                M12Mix16ICentral 13
+                M12Mix16ICentral 14
+                M12Mix16ICentral 15
+
+                Add     SI, 32
+                Dec     LoopCounter
+                JNZ     M12Mix16ICentral0
+
+                Ret
+
+EndP            Mix12Central16BitI
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Proc            PreMix12Central16BitI
+
+                Mov     AL, [SI+0Eh]
+
+        IndexCounter    =       0
+
+        PreMix12Central16BitIMacro Macro Index
+                Mov     Byte Ptr [CS:M12Mix16ICentralVolume&Index&], AL
+        EndM
+
+        REPT 16
+                PreMix12Central16BitIMacro       %IndexCounter
+                IndexCounter = IndexCounter+1
+        EndM
+
+                Ret
+
+
+                Ret
+
+EndP            PreMix12Central16BitI
+
+
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+

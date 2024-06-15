@@ -1,0 +1,71 @@
+
+
+                           Networked Impulse Tracker
+
+
+What is Networked Impulse Tracker?
+----------------------------------
+
+Networked Impulse Tracker is simply that - a session of Impulse Tracker where
+multiple composers can all edit the same song at the same time! It may sound
+a little bizarre, but networked sessions can be both extremely fun and
+productive.
+
+
+Requirements
+------------
+
+        1. Impulse Tracker, 7 Apr 99 or later
+
+        2. Impulse Tracker Network driver file. (*.NET)
+
+        3. Some form of network supported by the network driver file.
+
+To Use
+------
+To initiate a Network session, Press Shift-ESC. A list of available drivers
+will be shown. Select one with Enter.
+
+
+ITIPX.NET
+---------
+
+ITIPX.NET is an IPX Network driver for Impulse Tracker. It is recommended that
+this is used over a LAN (ie. you will need a network card in your computer).
+Although Kali will work (IPX over the internet), performance will probably be
+unacceptable for most people through a modem.
+
+The IPX driver *will not be stable* under Win95. Upgrade to Win98.
+To install IPX to run under Windows, go to Start Menu->Settings->Control Panel.
+Select Network, and under the Configuration Tab, press Add, then select
+   Protocol->Microsoft->IPX/SPX Compatible Protocol
+
+The IPX driver will list the available sessions in the left hand box. Select
+a session to join by pressing Enter.
+
+The Username that the IPX driver transmits is associated with each driver file.
+The public distribution identifies itself as "Unregistered". Different
+usernames are availble for US$10 each. Payment can be made via Kagi at
+http://order.kagi.com/?4ZM
+
+Please specify a username, maximum length 15 characters, or else one will be
+chosen for you. Updated versions of the driver, if made, will be provided free
+of charge. However, changing your username will still cost $10.
+
+'Normal' usage of this driver should run quite stably. However, if you try hard
+to make it crash, I'm sure you will be able to.
+
+Note that connections will be automatically dropped if queued packets fail to
+be transmitted for more than 10 seconds.
+
+General Notes
+-------------
+Impulse Tracker supports a maximum of 4 users per session. Extra users will
+be automatically discarded.
+
+Many functions have been disabled under network mode. You will receive warning
+messages in these cases.
+
+Do *NOT* use hardware mixed drivers for networked sessions. This specifically
+means the AWE32, GUS and Interwave drivers. Since networked sessions can
+change samples 'behind your back', these drivers will not update correctly.
