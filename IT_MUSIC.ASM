@@ -1,6 +1,6 @@
-;�����������������������������������������������������������������������������Ŀ
-;� Music Module                                                                �
-;�������������������������������������������������������������������������������
+;ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+;³ Music Module                                                                ³
+;ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
 
                         .386
                         .387
@@ -8,9 +8,9 @@
 include switch.inc
 include network.inc
 
-;�����������������������������������������������������������������������������Ŀ
-;� Externals                                                                   �
-;�������������������������������������������������������������������������������
+;ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+;³ Externals                                                                   ³
+;ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
 
         Extrn   D_GotoStartingDirectory:Far
         Extrn   D_SetDriveDirectoryFar:Far
@@ -68,9 +68,9 @@ include network.inc
         Extrn   MIDIBufferEmpty:Far, MIDISend:Far, MIDI_ClearTable:Far
         Extrn   O1_ShowTime
 
-;�����������������������������������������������������������������������������Ŀ
-;� Globals                                                                     �
-;�������������������������������������������������������������������������������
+;ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+;³ Globals                                                                     ³
+;ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
 
         Global  Music_GetDisplayVariables:Far
         Global  Music_AutoDetectSoundCard:Far
@@ -173,7 +173,7 @@ include network.inc
         Extrn   PE_GetLastInstrument:Far
         Public  CurrentPattern
 
-;�������������������������������������������������������������������������������
+;ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
 
 ;
 ; Functions for playing control
@@ -193,9 +193,9 @@ Segment                 Music DWORD Public 'Code' USE16
 CREATENEWLOGFILE        EQU     0
 include debug.inc
 
-;�����������������������������������������������������������������������������Ŀ
-;� Variables                                                                   �
-;�������������������������������������������������������������������������������
+;ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+;³ Variables                                                                   ³
+;ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
 
 HOSTCHANNELSIZE         EQU     80
 SLAVECHANNELSIZE        EQU     128
@@ -256,7 +256,7 @@ EmptyPattern            Label
         DW      64, 64, 0, 0
         DB      64 Dup (0)
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
                                         ; Zero globals.
 
@@ -277,7 +277,7 @@ RowDelay        DB      0       ; } Must join on.
 RowDelayOn      DB      0       ; }
 PatternArray    DB      0
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 ALIGN 4
 
@@ -290,7 +290,7 @@ ChannelCountTable               DB      400 Dup (?)
 ;AllocateCount2                  DB      0
 ;AllocateCount3                  DB      0
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 ALIGN 2
 
@@ -298,7 +298,7 @@ PatternDataSegment      DW      ?
 CurrentEditPattern      DW      ?
 PatternEditMaxRow       DW      ?
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 NumberOfRows            DW      64      ; Non zero globals
 CurrentTick             DW      6
@@ -317,7 +317,7 @@ LastSlaveChannel        DW      0
 DecodeExpectedPattern   DW      0FFFEh
 DecodeExpectedRow       DW      0FFFEh
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 CmdLineNumChannels      DW      0FFFFh
 
@@ -477,7 +477,7 @@ PitchTable              Label   DWord
    DW      0, 16,     62352, 16, 62875, 17, 1790,  19, 10403, 20, 23425, 21
    DW      41118, 22, 63761, 23, 26111, 25, 59552, 26, 33342, 28, 13368, 30
 
-; Pitch extention for loading some XIs
+; Pitch extension for loading some XIs
 
    DW      0, 32,     59167, 33, 60214, 35, 3580, 38,  20806, 40, 46850, 42
    DW      16701, 45, 61986, 47, 52221, 50, 53567, 53, 1148, 57,  26736, 60
@@ -594,7 +594,7 @@ LinearSlideDownTable    Label
 
 ENDIF ; USEFPUCODE
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 InitCommandTable        Label   Word
         DW      Offset InitNoCommand, Offset InitCommandA
@@ -646,9 +646,9 @@ RetrigOffsets           Label
         DW      CommandQ_8, CommandQ_9, CommandQ_A, CommandQ_B
         DW      CommandQ_C, CommandQ_D, CommandQ_E, CommandQ_F
 
-;�����������������������������������������������������������������������������Ŀ
-;� Sound Driver Data                                                           �
-;�������������������������������������������������������������������������������
+;ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+;³ Sound Driver Data                                                           ³
+;ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
 
 IF OLDDRIVER
  DriverID                DB      "Impulse Tracker Sound Driver"
@@ -741,19 +741,19 @@ DriverRequiredFunctions Label
         DD      DWord Ptr S_GetDestination
         DD      DWord Ptr S_DrawString
 
-;�����������������������������������������������������������������������������Ŀ
-;� Functions                                                                   �
-;�������������������������������������������������������������������������������
+;ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+;³ Functions                                                                   ³
+;ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
 
-;�����������������������������������������������������������������������������Ŀ
-;� Command/Effect (call it what you like) information here!!                   �
-;�                                                                             �
-;�  For initialisation, DS:DI points to host channel data.                     �
-;�    Registers for use: All except DS:DI & ES (points to SongDataSegment)     �
-;�                                                                             �
-;�  For update, DS:DI points to host channel data.                             �
-;�    Registers for use: AX, BX, DX, ES, SI                                    �
-;�������������������������������������������������������������������������������
+;ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+;³ Command/Effect (call it what you like) information here!!                   ³
+;³                                                                             ³
+;³  For initialisation, DS:DI points to host channel data.                     ³
+;³    Registers for use: All except DS:DI & ES (points to SongDataSegment)     ³
+;³                                                                             ³
+;³  For update, DS:DI points to host channel data.                             ³
+;³    Registers for use: AX, BX, DX, ES, SI                                    ³
+;ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
 
 Proc            RecalculateAllVolumes Far
 
@@ -771,7 +771,7 @@ RecalculateAllVolumes1:
 
 EndP            RecalculateAllVolumes
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            InitPlayInstrument              ; BX = instrument offset
 
@@ -987,7 +987,7 @@ InitPlayInstrumentNoSample:
 
 EndP            InitPlayInstrument
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            ApplyRandomValues
 
@@ -1065,7 +1065,7 @@ RandomPanEnd:
 
 EndP            ApplyRandomValues
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 LastMIDIByte    DB      0FFh
 
@@ -1093,7 +1093,7 @@ MIDISendFilter2:
 EndP            MIDISendFilter
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            SetFilterCutoff ; Given BL = filtervalue.
                                 ; Assumes that channel is non-disowned
@@ -1116,7 +1116,7 @@ Proc            SetFilterCutoff ; Given BL = filtervalue.
 
 EndP            SetFilterCutoff
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            SetFilterResonance      ; Given BL = filtervalue.
                                         ; Assumes that channel is non-disowned
@@ -1139,7 +1139,7 @@ Proc            SetFilterResonance      ; Given BL = filtervalue.
 
 EndP            SetFilterResonance
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 MIDIPitchDepthSent      DW      0
 
@@ -1487,7 +1487,7 @@ MIDITranslateEnd:
 EndP            MIDITranslate
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            AllocateChannel         ; Returns SI. Carry set if problems
                 Assume DS:Music
@@ -2192,7 +2192,7 @@ AllocateChannelInstrument2:
 EndP            AllocateChannel
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Seed1           DW      1234h
 Seed2           DW      5678h
@@ -2228,7 +2228,7 @@ Proc            Random
 
 EndP            Random
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            GetLoopInformation
                                 ; Destroys AX, BX, CX, DX
@@ -2294,11 +2294,11 @@ GetLoopInformation6:
 
 EndP            GetLoopInformation
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 include it_m_eff.inc
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            PitchSlideDown          ; Expects SI to slave
                                         ; BX = slide value
@@ -2315,7 +2315,7 @@ ELSE
                                                 ; Go on to amiga slide down.
 EndP            PitchSlideDown
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            PitchSlideDownAmiga
 
@@ -2365,7 +2365,7 @@ PitchSlideDownAmiga3:
 
 EndP            PitchSlideDownAmiga
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            PitchSlideDownLinear
 ; Given BX = slide down value = 0->1024
@@ -2398,7 +2398,7 @@ PitchSlideDownLinear2:
 
 EndP            PitchSlideDownLinear
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 ENDIF   ; USEFPUCODE
 
@@ -2410,7 +2410,7 @@ Proc            PitchSlideUp            ; Expects SI to slave
 
 EndP            PitchSlideUp
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            PitchSlideUpLinear
 
@@ -2484,7 +2484,7 @@ ENDIF
 EndP            PitchSlideUpLinear
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            PitchSlideUpAmiga
 
@@ -2538,7 +2538,7 @@ ENDIF
 
 EndP            PitchSlideUpAmiga
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_GetWaveForm Far
 
@@ -2555,7 +2555,7 @@ Music_GetWaveForm1:
 
 EndP            Music_GetWaveForm
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_Poll Far
 
@@ -2566,7 +2566,7 @@ Proc            Music_Poll Far
 EndP            Music_Poll
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_InitTempo Far
 
@@ -2579,7 +2579,7 @@ Proc            Music_InitTempo Far
 
 EndP            Music_InitTempo
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            GetChannels     ; Returns min of NumChannels & DriverMaxChannels
                                 ; Also uses default channels if num channels
@@ -2617,7 +2617,7 @@ GetChannels3:                                   ; MC4
 EndP            GetChannels
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_ReinitSoundCard Far
 
@@ -2627,7 +2627,7 @@ Proc            Music_ReinitSoundCard Far
 
 EndP            Music_ReinitSoundCard
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_UnInitSoundCard Far
 
@@ -2635,7 +2635,7 @@ Proc            Music_UnInitSoundCard Far
 
 EndP            Music_UnInitSoundCard
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_InitMusic Far
 
@@ -2696,7 +2696,7 @@ Music_InitMusic1:
 
 EndP            Music_InitMusic
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_ReleasePattern Far        ; AX = pattern number
 
@@ -2749,7 +2749,7 @@ Music_ReleasePattern1:
 
 EndP            Music_ReleasePattern
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_GetPattern Far    ; AX = pattern number
                                         ; Returns DS:SI points to pattern data.
@@ -2812,7 +2812,7 @@ Music_GetPattern3:
 
 EndP            Music_GetPattern
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_GetPatternLocation Far    ; AX = pattern number
                                                 ; Returns AX = handle
@@ -2882,7 +2882,7 @@ EndP            Music_GetPatternLocationNoCount
 
 EndP            Music_GetPatternLocation
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_AllocatePattern Far       ; DX = length.
                                                 ; SI = Pattern
@@ -3003,7 +3003,7 @@ Music_AllocatePattern2:
 
 EndP            Music_AllocatePattern
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_AllocateSample Far        ; AX = Sample number, 0 based
                                                 ; EDX = length
@@ -3105,7 +3105,7 @@ Music_AllocateSample3:
 
 EndP            Music_AllocateSample
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_ReleaseSample Far         ; AX = sample number, 0 based
                                                 ; AH = 1 = called from network
@@ -3181,7 +3181,7 @@ Music_ReleaseSample5:
 
 EndP            Music_ReleaseSample
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_ClearSampleName Far       ; AX = Sample number (0 based)
 
@@ -3212,7 +3212,7 @@ Proc            Music_ClearSampleName Far       ; AX = Sample number (0 based)
 
 EndP            Music_ClearSampleName
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_ClearAllSampleNames Far
 
@@ -3235,7 +3235,7 @@ Music_ClearAllSampleNames1:
 
 EndP            Music_ClearAllSampleNames
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_ReleaseAllSamples Far
 
@@ -3257,7 +3257,7 @@ Music_ReleaseAllSamples1:
 
 EndP            Music_ReleaseAllSamples
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_ReleaseAllPatterns Far
 
@@ -3278,7 +3278,7 @@ Music_ReleaseAllPatterns1:
 
 EndP            Music_ReleaseAllPatterns
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_ClearInstrument Far               ; AX = Instrument number
                                                         ; (0 based)
@@ -3311,7 +3311,7 @@ Proc            Music_ClearInstrument Far               ; AX = Instrument number
 EndP            Music_ClearInstrument
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_ClearAllInstruments Far
 
@@ -3326,7 +3326,7 @@ Music_ClearAllInstruments1:
 
 EndP            Music_ClearAllInstruments
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_UnInitMusic Far
 
@@ -3348,7 +3348,7 @@ Music_UnInitMusic1:
 
 EndP            Music_UnInitMusic
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_GetSongSegment Far
 
@@ -3357,7 +3357,7 @@ Proc            Music_GetSongSegment Far
 
 EndP            Music_GetSongSegment
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_UnloadDriver
 
@@ -3375,7 +3375,7 @@ Music_UnloadDriver1:
 
 EndP            Music_UnloadDriver
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            NoFunction2
 
@@ -3393,7 +3393,7 @@ EndP            NoFunction
 
 EndP            NoFunction2
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_ClearDriverTables
                                         ; Makes all of them point to
@@ -3424,7 +3424,7 @@ ENDIF
 
 EndP            Music_ClearDriverTables
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_LoadDriver        ; Given DS:DX = filename
                 Assume DS:Nothing
@@ -3686,11 +3686,11 @@ ENDIF
 
 EndP            Music_LoadDriver
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 ADSCParams      DW      7 Dup (0)
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_AutoDetectSoundCard Far
                                 ; Returns DS:SI = string
@@ -3794,7 +3794,7 @@ Music_AutoDetectSoundCard4:
 EndP            Music_AutoDetectSoundCard
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_ShowAutoDetectSoundCard Far
 
@@ -3818,7 +3818,7 @@ Proc            Music_ShowAutoDetectSoundCard Far
 EndP            Music_ShowAutoDetectSoundCard
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_GetInstrumentMode Far
 
@@ -3833,7 +3833,7 @@ Proc            Music_GetInstrumentMode Far
 
 EndP            Music_GetInstrumentMode
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            UpdateGOTONote                  ; Get offset & arrayed flag.
 
@@ -3980,7 +3980,7 @@ UpdateGOTONote5:
 EndP            UpdateGOTONote
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            PreInitCommand
 
@@ -4070,7 +4070,7 @@ PreInitCommand4:
 
 EndP            PreInitCommand
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            UpdateNoteData
                         Assume DS:Music
@@ -4270,7 +4270,7 @@ UpdateNoteArrayed6:
 EndP            UpdateNoteData
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            UpdateVibrato   ; DS:SI points to slavechannelstruct.
 
@@ -4341,7 +4341,7 @@ UpdateVibrato1:
 
 EndP            UpdateVibrato
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Update Far
 
@@ -4412,7 +4412,7 @@ ENDIF
 
 EndP            Update
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            UpdateSamples
 
@@ -4509,7 +4509,7 @@ UpdateSamples2:
 EndP            UpdateSamples
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            UpdateEnvelope          ; Returns Carry if envelope needs
                                         ; to be turned off
@@ -4636,7 +4636,7 @@ UpdateEnvelope6:
 
 EndP            UpdateEnvelope
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 DoMIDICycle     DB      0
 
@@ -4645,7 +4645,7 @@ MIDIBanks       DW      16 Dup (0FFFFh)
 MIDIPan         DB      16 Dup (0FFh)
 MIDIPitch       DW      16 Dup (2000h)
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            UpdateMIDI
                 Assume DS:Music
@@ -4809,7 +4809,7 @@ UpdateMIDI4:
 EndP            UpdateMIDI
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            UpdateInstruments
                         Assume DS:Music ; Things to update:
@@ -5138,7 +5138,7 @@ UpdateInstrumentsNoMIDI:
 EndP            UpdateInstruments
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            UpdateData
 
@@ -5413,7 +5413,7 @@ UpdateData_Song1:
 EndP            UpdateData
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_GetNumberOfSamples Far            ; Returns AX
 
@@ -5455,7 +5455,7 @@ Music_GetNumberOfSamples2:
 EndP            Music_GetNumberOfSamples
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_GetNumberOfInstruments Far            ; Returns AX
 
@@ -5497,7 +5497,7 @@ Music_GetNumberOfInstruments2:
 EndP            Music_GetNumberOfInstruments
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_GetSampleHeader Far               ; AX = sample, 1 based
 
@@ -5512,7 +5512,7 @@ Proc            Music_GetSampleHeader Far               ; AX = sample, 1 based
 EndP            Music_GetSampleHeader
                         ; Returns DS:SI
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_GetSampleLocation Far             ; AX = sample (1based)
                                                         ; CH = page.
@@ -5580,7 +5580,7 @@ Music_GetSampleLocationEnd2:
 
 EndP            Music_GetSampleLocation
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 ; Accessed via Int 3
 Proc            Music_UpdateSampleLocation Far          ; Reqs ESI.
@@ -5599,7 +5599,7 @@ Proc            Music_UpdateSampleLocation Far          ; Reqs ESI.
 
 EndP            Music_UpdateSampleLocation
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_FarUpdateSampleLocation Far
 
@@ -5615,7 +5615,7 @@ Proc            Music_FarUpdateSampleLocation Far
 
 EndP            Music_FarUpdateSampleLocation
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_GetPlayMode Far
 
@@ -5638,7 +5638,7 @@ Proc            Music_GetPlayMode Far
 
 EndP            Music_GetPlayMode
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_GetPlayMode2 Far
 
@@ -5660,7 +5660,7 @@ Proc            Music_GetPlayMode2 Far
 EndP            Music_GetPlayMode2
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_PlayPattern Far   ; AX = pattern, BX = number of rows
                                         ; CX = row to start
@@ -5690,7 +5690,7 @@ Proc            Music_PlayPattern Far   ; AX = pattern, BX = number of rows
 EndP            Music_PlayPattern
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_PlaySong Far      ; AX = Order
 
@@ -5724,7 +5724,7 @@ Proc            Music_PlaySong Far      ; AX = Order
 
 EndP            Music_PlaySong
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_PlayPartSong Far          ; AX = order, BX = row.
 
@@ -5758,7 +5758,7 @@ Proc            Music_PlayPartSong Far          ; AX = order, BX = row.
 
 EndP            Music_PlayPartSong
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_KBPlaySong Far
 
@@ -5770,7 +5770,7 @@ Proc            Music_KBPlaySong Far
 
 EndP            Music_KBPlaySong
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_StopChannels
 
@@ -5823,7 +5823,7 @@ Music_StopChannelsNoMIDI:
 
 EndP            Music_StopChannels
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_Stop Far
 
@@ -5965,7 +5965,7 @@ Music_Clear2:
 EndP            Music_Stop
                 Assume DS:Nothing, ES:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_UpdatePatternOffset Far
 
@@ -5975,7 +5975,7 @@ Proc            Music_UpdatePatternOffset Far
 
 EndP            Music_UpdatePatternOffset
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_PlayNote Far              ; DS:SI points to 5-note struct
                                                 ; AX = channel
@@ -6072,7 +6072,7 @@ Music_PlayNote5:
 EndP            Music_PlayNote
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_PlaySample Far
                                                         ; AL = Note
@@ -6133,7 +6133,7 @@ Music_PlaySample1:
 
 EndP            Music_PlaySample
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_GetHostChannelInformationTable Far
 
@@ -6148,7 +6148,7 @@ Proc            Music_GetHostChannelInformationTable Far
 EndP            Music_GetHostChannelInformationTable
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_GetSlaveChannelInformationTable Far
 
@@ -6164,7 +6164,7 @@ Proc            Music_GetSlaveChannelInformationTable Far
 EndP            Music_GetSlaveChannelInformationTable
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_NextOrder Far
 
@@ -6191,7 +6191,7 @@ Music_NextOrder1:
 EndP            Music_NextOrder
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_LastOrder Far
 
@@ -6228,7 +6228,7 @@ Music_LastOrder1:
 EndP            Music_LastOrder
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_SetGlobalVolume Far
 
@@ -6251,7 +6251,7 @@ Proc            Music_SetGlobalVolume Far
 EndP            Music_SetGlobalVolume
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_MuteChannel Far           ; AX = channel number
 
@@ -6293,7 +6293,7 @@ Music_MuteChannel2:
 EndP            Music_MuteChannel
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_UnmuteChannel Far           ; AX = channel number
 
@@ -6354,7 +6354,7 @@ Music_UnmuteChannel2:
 EndP            Music_UnmuteChannel
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_ToggleChannel Far         ; AX = channel number.
 
@@ -6387,7 +6387,7 @@ Music_ToggleChannel1:                   ; Mute channel
 
 EndP            Music_ToggleChannel
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_UnmuteAll Far
 
@@ -6483,7 +6483,7 @@ Music_SoloChannel11:
 EndP            Music_SoloChannel
 EndP            Music_UnmuteAll
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_InitMuteTable Far
 
@@ -6511,7 +6511,7 @@ Proc            Music_InitMuteTable Far
 
 EndP            Music_InitMuteTable
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_InitStereo Far
 
@@ -6532,7 +6532,7 @@ Proc            Music_InitStereo Far
 
 EndP            Music_InitStereo
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_IncreaseSpeed Far ; Returns AX = speed
 
@@ -6554,7 +6554,7 @@ Music_IncreaseSpeed1:
 
 EndP            Music_IncreaseSpeed
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_DecreaseSpeed Far
 
@@ -6577,7 +6577,7 @@ Music_DecreaseSpeed1:
 
 EndP            Music_DecreaseSpeed
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_SetSoundCard Far          ; AL contains sound card num
 
@@ -6601,7 +6601,7 @@ Proc            Music_SetSoundCard Far          ; AL contains sound card num
 
 EndP            Music_SetSoundCard
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_SetSoundCardDriver Far
 
@@ -6612,7 +6612,7 @@ Proc            Music_SetSoundCardDriver Far
 
 EndP            Music_SetSoundCardDriver
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_SetDMA Far
 
@@ -6623,7 +6623,7 @@ Proc            Music_SetDMA Far
 
 EndP            Music_SetDMA
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_SetMixSpeed Far
                 Assume DS:Nothing
@@ -6634,7 +6634,7 @@ Proc            Music_SetMixSpeed Far
 
 EndP            Music_SetMixSpeed
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_SetIRQ Far
                 Assume DS:Nothing
@@ -6645,7 +6645,7 @@ Proc            Music_SetIRQ Far
 
 EndP            Music_SetIRQ
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_SetAddress Far
 
@@ -6655,7 +6655,7 @@ Proc            Music_SetAddress Far
 
 EndP            Music_SetAddress
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_GetDisplayVariables Far
 
@@ -6667,7 +6667,7 @@ Proc            Music_GetDisplayVariables Far
 
 EndP            Music_GetDisplayVariables
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_AssignSampleToInstrument Far           ; BX = sample num
                                                              ; returns AX
@@ -6766,7 +6766,7 @@ Music_AssignSampleToInstrument3:
 EndP            Music_AssignSampleToInstrument
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_SetLimit Far
 
@@ -6775,7 +6775,7 @@ Proc            Music_SetLimit Far
 
 EndP            Music_SetLimit
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_ReverseChannels Far
 
@@ -6784,7 +6784,7 @@ Proc            Music_ReverseChannels Far
 
 EndP            Music_ReverseChannels
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_IncreaseVolume Far
 
@@ -6815,7 +6815,7 @@ Music_IncreaseVolume1:
 EndP            Music_IncreaseVolume
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_DecreaseVolume Far
 
@@ -6845,7 +6845,7 @@ Music_DecreaseVolume1:
 EndP            Music_DecreaseVolume
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_RegetLoopInformation Far
 
@@ -6901,7 +6901,7 @@ Music_RegetLoopInformation2:
 EndP            Music_RegetLoopInformation
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            ResetSoundCardMemory Far
 
@@ -6909,7 +6909,7 @@ Proc            ResetSoundCardMemory Far
 
 EndP            ResetSoundCardMemory
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_SoundCardLoadSample Far           ; AX = sample number
                                                         ; (1 based)
@@ -6931,7 +6931,7 @@ Music_SoundCardLoadSample1:
 
 EndP            Music_SoundCardLoadSample
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_SoundCardLoadAllSamples Far
 
@@ -6984,7 +6984,7 @@ Music_SoundCardLoadAllSamples2:
 EndP            Music_SoundCardLoadAllSamples
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_GetFreeSoundCardMemory Far
 
@@ -6993,7 +6993,7 @@ Proc            Music_GetFreeSoundCardMemory Far
 
 EndP            Music_GetFreeSoundCardMemory
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_GetNumChannels Far
 
@@ -7003,7 +7003,7 @@ Proc            Music_GetNumChannels Far
 
 EndP            Music_GetNumChannels
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_GetPitchTable Far ; Returns ES:DI to pitch table
 
@@ -7015,7 +7015,7 @@ Proc            Music_GetPitchTable Far ; Returns ES:DI to pitch table
 
 EndP            Music_GetPitchTable
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_ToggleReverse Far
 
@@ -7033,7 +7033,7 @@ Proc            Music_ToggleReverse Far
 EndP            Music_ToggleReverse
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_PatternStorage Far
 
@@ -7042,7 +7042,7 @@ Proc            Music_PatternStorage Far
 
 EndP            Music_PatternStorage
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_InitMixTable Far
 
@@ -7061,7 +7061,7 @@ Proc            Music_InitMixTable Far
 
 EndP            Music_InitMixTable
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_GetTempo Far
 
@@ -7072,7 +7072,7 @@ Proc            Music_GetTempo Far
 
 EndP            Music_GetTempo
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_GetLastChannel Far        ; Returns AX
 
@@ -7102,7 +7102,7 @@ Music_GetLastChannel2:
 
 EndP            Music_GetLastChannel
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_GetDriverScreen Far
 
@@ -7110,7 +7110,7 @@ Proc            Music_GetDriverScreen Far
 
 EndP            Music_GetDriverScreen
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_GetDriverVariable Far
 
@@ -7118,7 +7118,7 @@ Proc            Music_GetDriverVariable Far
 
 EndP            Music_GetDriverVariable
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_SetDriverVariable Far
 
@@ -7126,7 +7126,7 @@ Proc            Music_SetDriverVariable Far
 
 EndP            Music_SetDriverVariable
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_SetNextOrder Far
 
@@ -7137,7 +7137,7 @@ Proc            Music_SetNextOrder Far
 
 EndP            Music_SetNextOrder
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_GetDelay Far
 
@@ -7177,8 +7177,8 @@ Music_GetDelay2:
 
 EndP            Music_GetDelay
 
-;�������������������������������������������������������������������������������
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 StopSong        DB      0
 TimerCounter    DD      0
@@ -7201,7 +7201,7 @@ Proc            InternalTimer Far
 
 EndP            InternalTimer
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_TimeSong Far              ; Time song!
 
@@ -7302,7 +7302,7 @@ Music_TimeSong4:
 
 EndP            Music_TimeSong
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_ShowTime Far
 
@@ -7320,7 +7320,7 @@ Proc            Music_ShowTime Far
 
 EndP            Music_ShowTime
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_GetPatternLength Far
 
@@ -7329,7 +7329,7 @@ Proc            Music_GetPatternLength Far
 
 EndP            Music_GetPatternLength
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_SaveMIDIConfig Far
 
@@ -7363,7 +7363,7 @@ Music_SaveMIDIConfig1:
 EndP            Music_SaveMIDIConfig
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_GetMIDIDataArea Far
 
@@ -7372,7 +7372,7 @@ Proc            Music_GetMIDIDataArea Far
 
 EndP            Music_GetMIDIDataArea
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_ToggleOrderUpdate Far
 
@@ -7394,7 +7394,7 @@ Music_ToggleOrderUpdate1:
 EndP            Music_ToggleOrderUpdate
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_ToggleSoloInstrument Far
 
@@ -7405,7 +7405,7 @@ Proc            Music_ToggleSoloInstrument Far
 
 EndP            Music_ToggleSoloInstrument
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_ToggleSoloSample Far
 
@@ -7415,7 +7415,7 @@ Proc            Music_ToggleSoloSample Far
 
 EndP            Music_ToggleSoloSample
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            Music_ToggleSolo Far
 
@@ -7472,10 +7472,10 @@ EndP            Music_ToggleSolo
                 Assume DS:Nothing
 
 
-;�������������������������������������������������������������������������������
+;ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
 
 EndS
 
-;�������������������������������������������������������������������������������
+;ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
 
 End
