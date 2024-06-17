@@ -1,0 +1,23 @@
+# compiled code and listings
+*.OBJ
+*.obj
+*.EXE
+*.exe
+*.MAP
+*.map
+*.LST
+*.lst
+# don't ignore source.lst (not an assembler listing!)
+!source.lst
+
+# audio drivers
+*.DRV
+*.drv
+*.MMX
+*.mmx
+*.3DN
+*.3dn
+
+# network driver
+*.NET
+*.net
