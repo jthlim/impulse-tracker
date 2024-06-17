@@ -1,6 +1,6 @@
-;�����������������������������������������������������������������������������Ŀ
-;� Disk Module                                                                 �
-;�������������������������������������������������������������������������������
+;ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+;³ Disk Module                                                                 ³
+;ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
 
 include switch.inc
 include network.inc
@@ -8,9 +8,9 @@ include network.inc
                         Jumps
                         .386
 
-;�����������������������������������������������������������������������������Ŀ
-;� Externals                                                                   �
-;�������������������������������������������������������������������������������
+;ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+;³ Externals                                                                   ³
+;ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
 
 Segment         Object1 BYTE Public 'Data'
 EndS
@@ -139,9 +139,9 @@ ENDIF
                 Extrn   GetKeyboardLock:Far, GetTimerCounter:Far
                 Extrn   MouseUpdateEnable:Far, MouseUpdateDisable:Far
 
-;�����������������������������������������������������������������������������Ŀ
-;� Globals                                                                     �
-;�������������������������������������������������������������������������������
+;ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+;³ Globals                                                                     ³
+;ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
 
                 Global  D_GetFileName:Far
                 Global  D_SetDriveDirectoryFar:Far
@@ -256,7 +256,7 @@ ELSE
                 Public  D_LoadXM
 ENDIF
 
-;�������������������������������������������������������������������������������
+;ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
 
 Segment                 Disk BYTE Public 'Code' USE16
                         Assume CS:Disk, DS:Nothing
@@ -264,9 +264,9 @@ Segment                 Disk BYTE Public 'Code' USE16
 CREATENEWLOGFILE        EQU     0
 include debug.inc
 
-;�����������������������������������������������������������������������������Ŀ
-;� Variables                                                                   �
-;�������������������������������������������������������������������������������
+;ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+;³ Variables                                                                   ³
+;ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
 
 SampleInMemory          DW      0FFFFh
 NoSaveError             DB      0
@@ -968,9 +968,9 @@ LSViewWindowKeys        Label
 
 
 
-;�����������������������������������������������������������������������������Ŀ
-;� Functions                                                                   �
-;�������������������������������������������������������������������������������
+;ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+;³ Functions                                                                   ³
+;ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
 
 Proc            D_InitDisk Far
 
@@ -1319,7 +1319,7 @@ D_NoFontFile:
 EndP            D_InitDisk
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_UnInitDisk Far
 
@@ -1346,7 +1346,7 @@ D_UnInitDisk1:
 EndP            D_UnInitDisk
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_GetDriveDirectory             ; DS:SI points to buffer
 
@@ -1373,7 +1373,7 @@ Proc            D_GetDriveDirectory             ; DS:SI points to buffer
 
 EndP            D_GetDriveDirectory
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_SetDriveDirectory             ; DS:SI points to dir.
 
@@ -1431,7 +1431,7 @@ D_SetDriveDirectory2:
 
 EndP            D_SetDriveDirectory
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_LoadFileNames
 
@@ -1579,7 +1579,7 @@ D_LoadFileNames6:
 EndP            D_LoadFileNames
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_SortRoutine
 
@@ -1669,7 +1669,7 @@ D_SortRoutine1:
 
 EndP            D_SortRoutine
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_SortFileNames
 
@@ -1681,7 +1681,7 @@ Proc            D_SortFileNames
 
 EndP            D_SortFileNames
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_SortDirNames
 
@@ -1694,7 +1694,7 @@ Proc            D_SortDirNames
 
 EndP            D_SortDirNames
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_InitLoadModule Far
 
@@ -1757,7 +1757,7 @@ EndP            D_InitLoadModule2
 EndP            D_InitLoadModule
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_DrawFileWindow Far            ; Layout of filenames in memory
                                                 ; Start at offset 2000
@@ -2174,7 +2174,7 @@ D_DrawFileWindow27:
 EndP            D_DrawFileWindow
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_DrawDirectoryWindow Far
 
@@ -2264,7 +2264,7 @@ D_DrawDirectoryWindow7:
 EndP            D_DrawDirectoryWindow
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_DrawDriveWindow Far
 
@@ -2330,7 +2330,7 @@ D_DrawDriveWindow5:
 EndP            D_DrawDriveWindow
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_LoadFileHeader                ; Given DS:SI = filename
 
@@ -2423,7 +2423,7 @@ D_LoadFileHeader5:
 D_LoadFileHeader4:
                 Test    BP, BP
                 JZ      D_LoadFileHeader3
-                                                ; Reenable MMTSR
+                                                ; Re-enable MMTSR
                 Mov     AX, 4371h
                 Int     21h
 
@@ -2441,7 +2441,7 @@ D_LoadFileHeader1:
 
 EndP            D_LoadFileHeader
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_LoadModuleHeader
 
@@ -2458,7 +2458,7 @@ Proc            D_LoadModuleHeader
 
 EndP            D_LoadModuleHeader
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_LoadSongNames Far             ; Part of idle list.
 
@@ -2497,7 +2497,7 @@ D_LoadSongNames3:
 
 EndP            D_LoadSongNames
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_PreFileWindow Far
 
@@ -2546,7 +2546,7 @@ D_PreFileWindow3:
 EndP            D_PreFileWindow
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_PreDirectoryWindow Far
 
@@ -2578,7 +2578,7 @@ D_PreDirectoryWindow1:
 EndP            D_PreDirectoryWindow
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_PreDriveWindow Far
 
@@ -2608,7 +2608,7 @@ D_PreDriveWindow1:
 EndP            D_PreDriveWindow
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_LoadFileOpenErrorMsg Far
 
@@ -2629,7 +2629,7 @@ Proc            D_LoadFileOpenErrorMsg Far
 EndP            D_LoadFileOpenErrorMsg
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_Decompress16BitData
 
@@ -2742,7 +2742,7 @@ D_Decompress16BitB:
 
 EndP            D_Decompress16BitData
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_Decompress8BitData    ; DS:SI = source
                                         ; ES:DI = destination
@@ -2859,7 +2859,7 @@ D_Decompress8BitC:                      ; 9 bit representation
 
 EndP            D_Decompress8BitData
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 TempData                DW      0
 DisableStereoMenu       DB      0
@@ -3259,7 +3259,7 @@ D_LoadSampleData1:
 
 EndP            D_LoadSampleData
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            ConvertWriteData        ; DS:DX points to data
                                         ; BP = 1, convert, BP = 2, 16-bit
@@ -3298,7 +3298,7 @@ ConvertWriteData1:
 
 EndP            ConvertWriteData
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_SaveSampleDataConvert         ; AX = sample number (1 based)
 
@@ -3359,7 +3359,7 @@ D_SaveSampleDataConvert2:
 
 EndP            D_SaveSampleDataConvert
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            WriteBits               ; CH = bits to write
                                         ; CL = current bit.
@@ -3395,7 +3395,7 @@ D_WriteBits2:
 
 EndP            WriteBits
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 ; Data layout:
 ;     DiskDataArea:16384 = deltas
@@ -3973,7 +3973,7 @@ D_SaveSampleDataCompressed2:
 
 EndP            D_SaveSampleDataCompressed
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_SaveSampleData                ; AX = sample number (1 based)
 
@@ -4024,12 +4024,12 @@ D_SaveSampleData2:
 
 EndP            D_SaveSampleData
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 include it_timer.inc
 include it_d_rm.inc
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_CheckOverWrite                ; DS:DX points to filename
                                                 ; Returns Carry set if not ok
@@ -4067,7 +4067,7 @@ D_CheckOverWrite2:
 
 EndP            D_CheckOverWrite
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_PostFileSaveWindow Far
 
@@ -4115,7 +4115,7 @@ D_PostFileSaveWindow4:
 EndP            D_PostFileSaveWindow
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_PostFileLoadWindow Far
 
@@ -4177,7 +4177,7 @@ D_PostFileLoadWindow1:
 
 EndP            D_PostFileLoadWindow
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_PostFileWindow Far
 
@@ -4272,7 +4272,7 @@ D_PostFileWindow20:
 EndP            D_PostFileWindow
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_PostDirectoryWindow Far
 
@@ -4356,7 +4356,7 @@ D_PostDirectoryWindow20:
 EndP            D_PostDirectoryWindow
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_PostDriveWindow Far
 
@@ -4377,7 +4377,7 @@ D_PostDriveWindow1:
 EndP            D_PostDriveWindow
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_PostSaveDriveWindow Far
 
@@ -4398,7 +4398,7 @@ D_PostSaveDriveWindow1:
 EndP            D_PostSaveDriveWindow
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_NewSpecifier Far
 
@@ -4512,7 +4512,7 @@ D_NewSpecifier2:
 EndP            D_NewSpecifier
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_NewDirectory Far
 
@@ -4536,7 +4536,7 @@ D_NewDirectory1:
 
 EndP            D_NewDirectory
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_ClearFileSpecifier Far
 
@@ -4561,7 +4561,7 @@ Proc            D_ClearFileSpecifier Far
 
 EndP            D_ClearFileSpecifier
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_SaveModule Far
 
@@ -4684,7 +4684,7 @@ D_SaveModule12:
 EndP            D_SaveModule
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_NoSaveMessage Far
 
@@ -4701,7 +4701,7 @@ Proc            D_NoSaveMessage Far
 
 EndP            D_NoSaveMessage
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_SaveBlock             ; DS:DX points to buffer
                                         ; BX = file handle
@@ -4744,7 +4744,7 @@ D_SaveBlock1:
 
 EndP            D_SaveBlock
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_DeleteIfError         ; DS:DX = filename
 
@@ -4766,7 +4766,7 @@ D_DeleteIfError1:
 
 EndP            D_DeleteIfError
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_UpdateFileName
 
@@ -4830,11 +4830,11 @@ D_UpdateFileNameEnd:
 
 EndP            D_UpdateFileName
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 include it_d_wm.inc
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_InitLoadSamples Far
 
@@ -4983,7 +4983,7 @@ D_InitLoadSamples2:
 EndP            D_InitLoadSamples
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            DeleteSampleCacheFile
 
@@ -5002,7 +5002,7 @@ Proc            DeleteSampleCacheFile
 
 EndP            DeleteSampleCachefile
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            DeleteInstrumentCacheFile
 
@@ -5021,7 +5021,7 @@ Proc            DeleteInstrumentCacheFile
 
 EndP            DeleteInstrumentCachefile
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_GetNumFiles   ; DS = DiskDaraArea
 
@@ -5119,7 +5119,7 @@ D_GetNumFilesError:
 
 EndP            D_GetNumFiles
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_LoadSampleFiles
 
@@ -5255,7 +5255,7 @@ D_LoadSampleFiles8:
 
 EndP            D_LoadSampleFiles
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_DrawLoadSampleWindow Far              ; Has to handle
                                                         ; 1) Sample list
@@ -5747,7 +5747,7 @@ D_DrawLoadSampleWindow54:
 EndP            D_DrawLoadSampleWindow
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_PreLoadSampleWindow Far
 
@@ -5787,7 +5787,7 @@ D_PreLoadSample3:
 
 EndP            D_PreLoadSampleWindow
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_PostLoadSampleWindow Far
 
@@ -5884,7 +5884,7 @@ D_PostLoadSampleWindow3:
 EndP            D_PostLoadSampleWindow
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_PostViewSampleLibrary Far
 
@@ -5900,7 +5900,7 @@ Proc            D_PostViewSampleLibrary Far
 
 EndP            D_PostViewSampleLibrary
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_LSDrawDriveWindow Far
 
@@ -5966,7 +5966,7 @@ D_LSDrawDriveWindow5:
 EndP            D_LSDrawDriveWindow
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_LSPreDriveWindow Far
 
@@ -5996,7 +5996,7 @@ D_LSPreDriveWindow1:
 EndP            D_LSPreDriveWindow
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_LSPostDriveWindow Far
 
@@ -6017,7 +6017,7 @@ D_LSPostDriveWindow1:
 EndP            D_LSPostDriveWindow
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_LIDrawDriveWindow Far
 
@@ -6066,7 +6066,7 @@ D_LIDrawDriveWindow5:
 EndP            D_LIDrawDriveWindow
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_LIPreDriveWindow Far
 
@@ -6096,7 +6096,7 @@ D_LIPreDriveWindow1:
 EndP            D_LIPreDriveWindow
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_LIPostDriveWindow Far
 
@@ -6117,7 +6117,7 @@ D_LIPostDriveWindow1:
 EndP            D_LIPostDriveWindow
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_LoadSampleHeader              ; Given BX = sample number.
 
@@ -6138,7 +6138,7 @@ Proc            D_LoadSampleHeader              ; Given BX = sample number.
 
 EndP            D_LoadSampleHeader
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_LoadInstrumentHeader          ; Given BX = instrument num
 
@@ -6160,11 +6160,11 @@ Proc            D_LoadInstrumentHeader          ; Given BX = instrument num
 
 EndP            D_LoadInstrumentHeader
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 include it_d_inf.inc
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_SaveSampleCacheFile           ; Assumes DS=Disk
 
@@ -6222,7 +6222,7 @@ D_SaveSampleCacheFile1:
 EndP            D_SaveSampleCacheFile
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_SaveInstrumentCacheFile           ; Assumes DS=Disk
 
@@ -6277,7 +6277,7 @@ D_SaveInstrumentCacheFile1:
 EndP            D_SaveInstrumentCacheFile
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_LoadSampleNames Far
 
@@ -6342,7 +6342,7 @@ D_LoadSampleNames4:
 EndP            D_LoadSampleNames
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_GetLoadSampleVars Far         ; Returns SI with offset of
 
@@ -6361,7 +6361,7 @@ Proc            D_GetLoadSampleVars Far         ; Returns SI with offset of
 
 EndP            D_GetLoadSampleVars
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_GotoStartingDirectory Far
 
@@ -6377,7 +6377,7 @@ Proc            D_GotoStartingDirectory Far
 
 EndP            D_GotoStartingDirectory
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_SaveDirectoryConfiguration Far
 
@@ -6429,7 +6429,7 @@ D_SaveDirectoryConfiguration1:
 EndP            D_SaveDirectoryConfiguration
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            FileWindow_Up Far
 
@@ -6448,7 +6448,7 @@ FileWindow_Up1:
 EndP            FileWindow_Up
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            FileWindow_Down Far
 
@@ -6468,7 +6468,7 @@ FileWindow_Down1:
 EndP            FileWindow_Down
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            FileWindow_PgUp Far
 
@@ -6489,7 +6489,7 @@ FileWindow_PgUp1:
 EndP            FileWindow_PgUp
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            FileWindow_PgDn Far
 
@@ -6515,7 +6515,7 @@ FileWindow_PgDn1:
 EndP            FileWindow_PgDn
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            FileWindow_Right Far
 
@@ -6529,7 +6529,7 @@ Proc            FileWindow_Right Far
 EndP            FileWindow_Right
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            FileWindow_Left Far
 
@@ -6543,7 +6543,7 @@ Proc            FileWindow_Left Far
 EndP            FileWindow_Left
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            FileWindow_ShiftTab Far
 
@@ -6557,7 +6557,7 @@ Proc            FileWindow_ShiftTab Far
 EndP            FileWindow_ShiftTab
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            FileWindow_Home Far
 
@@ -6571,7 +6571,7 @@ Proc            FileWindow_Home Far
 EndP            FileWindow_Home
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            FileWindow_End Far
 
@@ -6590,7 +6590,7 @@ FileWindow_End1:
 EndP            FileWindow_End
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            FileWindow_DeleteFile Far
 
@@ -6668,7 +6668,7 @@ FileWindow_DeleteFile26:
 EndP            FileWindow_DeleteFile
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
 
 Proc            DirectoryWindow_Up Far
 
@@ -6686,7 +6686,7 @@ DirectoryWindow_Up1:
 
 EndP            DirectoryWindow_Up
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            DirectoryWindow_Down Far
 
@@ -6705,7 +6705,7 @@ DirectoryWindow_Down1:
 
 EndP            DirectoryWindow_Down
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            DirectoryWindow_PgUp Far
 
@@ -6722,7 +6722,7 @@ Proc            DirectoryWindow_PgUp Far
 
 EndP            DirectoryWindow_PgUp
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            DirectoryWindow_PgDn Far
 
@@ -6740,7 +6740,7 @@ Proc            DirectoryWindow_PgDn Far
 
 EndP            DirectoryWindow_PgDn
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            DirectoryWindow_Home Far
 
@@ -6753,7 +6753,7 @@ Proc            DirectoryWindow_Home Far
 
 EndP            DirectoryWindow_Home
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            DirectoryWindow_End Far
 
@@ -6771,7 +6771,7 @@ DirectoryWindow_End1:
 
 EndP            DirectoryWindow_End
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            DirectoryWindow_Left Far
 
@@ -6784,7 +6784,7 @@ Proc            DirectoryWindow_Left Far
 
 EndP            DirectoryWindow_Left
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            DirectoryWindow_Enter Far
 
@@ -6834,7 +6834,7 @@ DirectoryWindow_Enter2:
 
 EndP            DirectoryWindow_Enter
 
-;�������������������������������������������������������������������������������
+;ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
 
 Proc            DriveWindow_Up Far
 
@@ -6853,7 +6853,7 @@ DriveWindow_Up1:
 EndP            DriveWindow_Up
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            DriveWindow_Down Far
 
@@ -6873,7 +6873,7 @@ DriveWindow_Down1:
 EndP            DriveWindow_Down
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            DriveWindow_Tab Far
 
@@ -6887,7 +6887,7 @@ Proc            DriveWindow_Tab Far
 EndP            DriveWindow_Tab
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            LIDriveWindow_Tab Far
 
@@ -6901,7 +6901,7 @@ Proc            LIDriveWindow_Tab Far
 EndP            LIDriveWindow_Tab
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            SaveDriveWindow_Tab Far
 
@@ -6915,7 +6915,7 @@ Proc            SaveDriveWindow_Tab Far
 EndP            SaveDriveWindow_Tab
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            DriveWindow_Enter Far
 
@@ -6953,7 +6953,7 @@ DriveWindow_Enter1:
 EndP            DriveWindow_Enter
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
 
 Proc            LS_DriveWindow_Enter Far
 
@@ -6982,7 +6982,7 @@ Proc            LS_DriveWindow_Enter Far
 
 EndP            LS_DriveWindow_Enter
 
-;�������������������������������������������������������������������������������
+;ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
 
 Proc            LI_DriveWindow_Enter Far
 
@@ -7011,7 +7011,7 @@ Proc            LI_DriveWindow_Enter Far
 
 EndP            LI_DriveWindow_Enter
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            LSDriveWindow_Right Far
 
@@ -7022,7 +7022,7 @@ Proc            LSDriveWindow_Right Far
 
 EndP            LSDriveWindow_Right
 
-;�������������������������������������������������������������������������������
+;ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
 
 Proc            LoadSample              ; AX = Sample number
                                         ; DS:SI points to sample header.
@@ -7137,11 +7137,11 @@ LoadSample1:
 
 EndP            LoadSample
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 include it_d_ris.inc
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            LSViewWindow_Enter Far
 
@@ -7168,7 +7168,7 @@ Proc            LSViewWindow_Enter Far
 
 EndP            LSViewWindow_Enter
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            LSWindow_Enter  Far
 
@@ -7378,7 +7378,7 @@ LSWindow_Enter2:
 EndP            LSWindow_Enter
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            LSWindow_Space Far
 
@@ -7449,7 +7449,7 @@ LS_WindowSpace4:
 
 EndP            LSWindow_Space
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            LSWindow_Up  Far
 
@@ -7471,7 +7471,7 @@ LSWindow_Up1:
 EndP            LSWindow_Up
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            LSWindow_Down  Far
 
@@ -7495,7 +7495,7 @@ LSWindow_Down1:
 EndP            LSWindow_Down
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            LSWindow_PgUp   Far
 
@@ -7518,7 +7518,7 @@ LSWindow_PgUp1:
 EndP            LSWindow_PgUp
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            LSWindow_PgDn   Far
 
@@ -7542,7 +7542,7 @@ LSWindow_PgDn1:
 EndP            LSWindow_PgDn
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            LSWindow_Home   Far
 
@@ -7560,7 +7560,7 @@ LSWindow_Home1:
 EndP            LSWindow_Home
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            LSWindow_End    Far
 
@@ -7583,7 +7583,7 @@ LSWindow_End1:
 EndP            LSWindow_End
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_LSCheckLoopValues Far
 
@@ -7617,7 +7617,7 @@ D_LSCheckLoopValues1:
 
 EndP            D_LSCheckLoopValues
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_LSCheckSusLoopValues Far
 
@@ -7651,7 +7651,7 @@ D_LSCheckSusLoopValues1:
 
 EndP            D_LSCheckSusLoopValues
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_SaveSong Far
 
@@ -7713,7 +7713,7 @@ D_SaveSong4:
 EndP            D_SaveSong
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_PreSaveSample
 
@@ -7753,7 +7753,7 @@ D_PreSaveSample1:
 
 EndP            D_PreSaveSample
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_SaveSample Far
 
@@ -7823,7 +7823,7 @@ EndP            D_SaveSampleInternal
 
 EndP            D_SaveSample
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_SaveRawSample Far
                 Assume DS:Disk
@@ -7938,7 +7938,7 @@ D_SaveRawSampleEnd:
 
 EndP            D_SaveRawSample
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_SaveST3Sample Far
 
@@ -8051,7 +8051,7 @@ D_SaveST3SampleEnd:
 
 EndP            D_SaveST3Sample
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_SaveInstrument Far
 
@@ -8275,7 +8275,7 @@ D_SaveInstrumentEnd:
 EndP            D_SaveInstrument
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_DeleteSampleFile Far
 
@@ -8368,7 +8368,7 @@ D_DeleteSampleFile1:
 EndP            D_DeleteSampleFile
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            CheckSampleModified
 
@@ -8537,7 +8537,7 @@ CheckSampleModified1:
 EndP            CheckSampleModified
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_DrawWaveForm Far
 
@@ -8784,7 +8784,7 @@ D_DrawWaveFormEnd:
 
 EndP            D_DrawWaveForm
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_ClearFileName Far
 
@@ -8808,7 +8808,7 @@ Proc            D_ClearFileName Far
 
 EndP            D_ClearFileName
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_GetFormatType Far
 
@@ -8820,7 +8820,7 @@ Proc            D_GetFormatType Far
 
 EndP            D_GetFormatType
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_DisableFileColours Far
 
@@ -8830,7 +8830,7 @@ Proc            D_DisableFileColours Far
 
 EndP            D_DisableFileColours
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_LoadInstrumentFiles
 
@@ -8979,7 +8979,7 @@ D_LoadInstrumentFiles8:
 
 EndP            D_LoadInstrumentFiles
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_InitLoadInstruments Far
 
@@ -9147,7 +9147,7 @@ D_InitLoadInstrument2:
 
 EndP            D_InitLoadInstruments
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_LoadInstrumentNames Far
 
@@ -9216,7 +9216,7 @@ D_LoadInstrumentNames4:
 
 EndP            D_LoadInstrumentNames
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_DrawLoadInstrument Far
 
@@ -9459,7 +9459,7 @@ D_DrawLoadInstrumentEnd2:                       ; Put Unused Sample msg.
 EndP            D_DrawLoadInstrument
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_PreLoadInstrument Far
 
@@ -9500,7 +9500,7 @@ D_PreLoadInstrument3:
 
 EndP            D_PreLoadInstrument
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_PostLoadInstrument Far
 
@@ -9520,7 +9520,7 @@ D_PostLoadInstrument1:
 
 EndP            D_PostLoadInstrument
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_ViewInstrument Far
 
@@ -9540,7 +9540,7 @@ D_ViewInstrument1:
 
 EndP            D_ViewInstrument
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            LIWindow_Up  Far
 
@@ -9559,7 +9559,7 @@ LIWindow_Up1:
 EndP            LIWindow_Up
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            LIWindow_Down  Far
 
@@ -9580,7 +9580,7 @@ LIWindow_Down1:
 EndP            LIWindow_Down
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            LIWindow_PgUp   Far
 
@@ -9600,7 +9600,7 @@ LIWindow_PgUp1:
 EndP            LIWindow_PgUp
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            LIWindow_PgDn   Far
 
@@ -9621,7 +9621,7 @@ LIWindow_PgDn1:
 EndP            LIWindow_PgDn
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            LIWindow_Home   Far
 
@@ -9634,7 +9634,7 @@ Proc            LIWindow_Home   Far
 EndP            LIWindow_Home
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            LIWindow_End    Far
 
@@ -9654,7 +9654,7 @@ LIWindow_End1:
 EndP            LIWindow_End
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            LIViewWindow_Tab Far
 
@@ -9665,11 +9665,11 @@ Proc            LIViewWindow_Tab Far
 
 EndP            LIViewWindow_Tab
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 include it_d_ri.inc
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            LIViewWindow_Enter  Far
 
@@ -9697,7 +9697,7 @@ LIViewWindow_Enter2:
 EndP            LIViewWindow_Enter
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            LIWindow_Enter  Far
 
@@ -10127,7 +10127,7 @@ LIWindow_Enter13:
 EndP            LIWindow_Enter
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_DeleteInstrumentFile Far
 
@@ -10219,7 +10219,7 @@ D_DeleteInstrumentFile1:
 EndP            D_DeleteInstrumentFile
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_GetPreShellDirectory Far
 
@@ -10237,7 +10237,7 @@ Proc            D_GetPreShellDirectory Far
 
 EndP            D_GetPreShellDirectory
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_RestorePreShellDirectory Far
 
@@ -10251,7 +10251,7 @@ Proc            D_RestorePreShellDirectory Far
 
 EndP            D_RestorePreShellDirectory
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_SetDriveDirectoryFar Far
 
@@ -10260,7 +10260,7 @@ Proc            D_SetDriveDirectoryFar Far
 
 EndP            D_SetDriveDirectoryFar
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_GetFileName Far
 
@@ -10272,7 +10272,7 @@ Proc            D_GetFileName Far
 
 EndP            D_GetFileName
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_ResetTimer Far
 
@@ -10294,7 +10294,7 @@ Proc            D_ResetTimer Far
 EndP            D_ResetTimer
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Hours                   DB      "0000:"
 Minutes                 DB      "00:"
@@ -10383,7 +10383,7 @@ D_ShowTimeEnd:
 EndP            D_ShowTime
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 IF TIMERSCREEN
 
@@ -10415,7 +10415,7 @@ TimerListKeys           Label
 
                         DB      0FFh
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_PostTimerList Far
 
@@ -10436,7 +10436,7 @@ D_PostTimerList1:
 
 EndP            D_PostTimerList
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_TimerListUp Far
                 Assume DS:Disk
@@ -10450,7 +10450,7 @@ Proc            D_TimerListUp Far
 EndP            D_TimerListUp
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_TimerListDown Far
                 Assume DS:Disk
@@ -10469,7 +10469,7 @@ D_TimerListDown1:
 EndP            D_TimerListDown
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_TimerListPgUp Far
                 Assume DS:Disk
@@ -10486,7 +10486,7 @@ D_TimerListPgUp1:
 EndP            D_TimerListPgUp
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_TimerListPgDn Far
                 Assume DS:Disk
@@ -10509,7 +10509,7 @@ D_TimerListPgDn1:
 EndP            D_TimerListPgDn
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 ShowTimes       DB      0
 
@@ -10640,7 +10640,7 @@ EndP            D_DrawTimer
 
 ENDIF
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_ReleaseTimer Far
 
@@ -10650,7 +10650,7 @@ Proc            D_ReleaseTimer Far
 
 EndP            D_ReleaseTimer
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 IF TIMERSCREEN
 
@@ -10667,8 +10667,8 @@ EndP            D_ToggleShowTimes
 
 ENDIF
 
-;�������������������������������������������������������������������������������
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_SlowSampleSort Far
 
@@ -10792,7 +10792,7 @@ ENDIF
 
 EndP            D_SlowSampleSort
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            D_SlowInstrumentSort Far
 
@@ -10925,16 +10925,16 @@ ENDIF
 
 EndP            D_SlowInstrumentSort
 
-;�������������������������������������������������������������������������������
+;ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
 
 Segment         DiskData PARA Public 'Data'
         DB      65536 Dup (0)
 EndS
 
-;�������������������������������������������������������������������������������
+;ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
 
 EndS
 
-;�������������������������������������������������������������������������������
+;ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
 
 End
