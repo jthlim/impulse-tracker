@@ -3,6 +3,15 @@
 Full source code for Impulse Tracker, including sound drivers, network drivers,
 and some supporting documentation
 
+This was originally released on BitBucket in 2014 alongside an article series
+titled "20 years of Impulse Tracker", but BitBucket sunset mercurial
+repositories, and so this is now made available on GitHub.
+
+- [First Article](https://roartindon.blogspot.com/2014/02/20-years-of-impulse-tracker.html)
+- [Second Article](https://roartindon.blogspot.com/2014/03/20-years-of-impulse-tracker-part-2.html)
+- [Third Article](https://roartindon.blogspot.com/2014/10/20-years-of-impulse-tracker-part-3.html)
+- [Fourth Article](https://roartindon.blogspot.com/2014/12/20-years-of-impulse-tracker-part-4.html)
+
 ## Pre-Requisite Software
 
 To build Impulse Tracker, you will need:
