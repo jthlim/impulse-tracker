@@ -1,6 +1,6 @@
-;�����������������������������������������������������������������������������Ŀ
-;� Instrument List module                                                      �
-;�������������������������������������������������������������������������������
+;ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+;³ Instrument List module                                                      ³
+;ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
 
                         Jumps
                         .386
@@ -8,9 +8,9 @@
 include switch.inc
 include network.inc
 
-;�����������������������������������������������������������������������������Ŀ
-;� Externals                                                                   �
-;�������������������������������������������������������������������������������
+;ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+;³ Externals                                                                   ³
+;ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
 
 Segment         Object1 BYTE Public 'Data'
                 Extrn   SampleFrequency:Word
@@ -107,9 +107,9 @@ EndS
                 Extrn   Fourier_Transform:Far, Fourier_CreateTable:Far
 
 
-;�����������������������������������������������������������������������������Ŀ
-;� Globals                                                                     �
-;�������������������������������������������������������������������������������
+;ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+;³ Globals                                                                     ³
+;ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
 
                 Global  I_DrawPitchPanCenter:Far
                 Global  I_PrePitchPanCenter:Far
@@ -216,14 +216,14 @@ EndS
 
                 Global  InstrumentAmplification
 
-;�������������������������������������������������������������������������������
+;ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
 
 Segment                 Inst WORD Public 'Code' USE16
                         Assume CS:Inst, DS:Nothing
 
-;�����������������������������������������������������������������������������Ŀ
-;� Variables                                                                   �
-;�������������������������������������������������������������������������������
+;ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+;³ Variables                                                                   ³
+;ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
 
 SLAVECHANNELSIZE        EQU     128
 HOSTCHANNELSIZE         EQU     80
@@ -376,7 +376,7 @@ PresetEnvelopes Label   Byte
                 DB      0, 2, 0, 0, 0, 0, 32, 0, 0, 32, 100, 0, 69 Dup (0)
                 DB      0, 2, 0, 0, 0, 0, 32, 0, 0, 32, 100, 0, 69 Dup (0)
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 InstrumentScreenTable   Label
         DW      Offset O1_InstrumentListGeneral
@@ -384,7 +384,7 @@ InstrumentScreenTable   Label
         DW      Offset O1_InstrumentListPanning
         DW      Offset O1_InstrumentListPitch
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 SampleListKeys          Label
                         DB      0               ; Mouse left button
@@ -804,11 +804,11 @@ PitchPanCenterKeys      Label
 
                         DB      0FFh
 
-;�����������������������������������������������������������������������������Ŀ
-;� Functions                                                                   �
-;�������������������������������������������������������������������������������
+;ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+;³ Functions                                                                   ³
+;ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_GetInstrumentScreen Far
 
@@ -820,7 +820,7 @@ Proc            I_GetInstrumentScreen Far
 
 EndP            I_GetInstrumentScreen
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_GetInstrumentOffset Far
 
@@ -834,7 +834,7 @@ Proc            I_GetInstrumentOffset Far
 
 EndP            I_GetInstrumentOffset
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_GetSampleOffset Far
 
@@ -848,7 +848,7 @@ Proc            I_GetSampleOffset Far
 
 EndP            I_GetSampleOffset
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_GetEnvelopeOffset             ; Returns DS:SI
 
@@ -864,7 +864,7 @@ Proc            I_GetEnvelopeOffset             ; Returns DS:SI
 
 EndP            I_GetEnvelopeOffset
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_SelectScreen Far
 
@@ -886,7 +886,7 @@ Proc            I_SelectScreen Far
 
 EndP            I_SelectScreen
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            MouseSelectOff Far
 
@@ -898,7 +898,7 @@ Proc            MouseSelectOff Far
 
 EndP            MouseSelectOff
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            MouseSelectNoteOff Far
 
@@ -909,7 +909,7 @@ Proc            MouseSelectNoteOff Far
 
 EndP            MouseSelectNoteOff
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            MouseSelectNote Far
 
@@ -939,7 +939,7 @@ MouseSelectNote2:
 
 EndP            MouseSelectNote
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            MouseSelectInst Far
 
@@ -976,7 +976,7 @@ MouseSelectInst3:
 
 EndP            MouseSelectInst
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            AddSelectEvent
 
@@ -993,7 +993,7 @@ AddSelectEvent1:
 
 EndP            AddSelectEvent
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_DrawSampleList Far
 
@@ -1156,7 +1156,7 @@ I_DrawSampleList7:
 EndP            I_DrawSampleList
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_PreSampleList Far
 
@@ -1214,7 +1214,7 @@ I_PreSampleList1:
 
 EndP            I_PreSampleList
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_PostSampleList Far
 
@@ -1382,7 +1382,7 @@ I_PostSampleList9:
 
 EndP            I_PostSampleList
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_SampleLeft Far
 
@@ -1398,7 +1398,7 @@ I_SampleLeft1:
 
 EndP            I_SampleLeft
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_SampleRight Far
 
@@ -1415,7 +1415,7 @@ I_SampleRight1:
 
 EndP            I_SampleRight
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_RedrawWave
 
@@ -1437,7 +1437,7 @@ I_RedrawWave2:
 
 EndP            I_RedrawWave
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_SelectInstrument2
                 Assume DS:Inst
@@ -1509,7 +1509,7 @@ EndP            I_SelectInstrument
 EndP            I_SelectInstrument2
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_SampleDown Far
 
@@ -1534,7 +1534,7 @@ I_SampleDown1:
 EndP            I_SampleDown
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_SampleUp Far
 
@@ -1557,7 +1557,7 @@ I_SampleUp1:
 EndP            I_SampleUp
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_SamplePgUp Far
 
@@ -1588,7 +1588,7 @@ I_SamplePgUp3:
 EndP            I_SamplePgUp
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_SamplePgDn Far
 
@@ -1617,7 +1617,7 @@ I_SamplePgDn2:
 EndP            I_SamplePgDn
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_SampleCtrlPgUp Far
 
@@ -1633,7 +1633,7 @@ Proc            I_SampleCtrlPgUp Far
 
 EndP            I_SampleCtrlPgUp
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_SampleCtrlPgDn Far
 
@@ -1649,7 +1649,7 @@ Proc            I_SampleCtrlPgDn Far
 
 EndP            I_SampleCtrlPgDn
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_SampleEnd Far
 
@@ -1660,7 +1660,7 @@ Proc            I_SampleEnd Far
 
 EndP            I_SampleEnd
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_SampleHome Far
 
@@ -1671,7 +1671,7 @@ Proc            I_SampleHome Far
 
 EndP            I_SampleHome
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_SampleTab Far
 
@@ -1682,7 +1682,7 @@ Proc            I_SampleTab Far
 
 EndP            I_SampleTab
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_ShowSampleInfo Far
 
@@ -1723,7 +1723,7 @@ I_ShowSampleInfo2:
 
 EndP            I_ShowSampleInfo
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_VibratoButtonSelect Far
 
@@ -1756,7 +1756,7 @@ I_VibratoButtonSelect2:
 
 EndP            I_VibratoButtonSelect
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_SetVibratoWaveform Far                ; AH = waveform.
 
@@ -1771,7 +1771,7 @@ Proc            I_SetVibratoWaveform Far                ; AH = waveform.
 
 EndP            I_SetVibratoWaveform
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_CheckLoopValues Far
 
@@ -1806,7 +1806,7 @@ I_CheckLoopValues1:
 
 EndP            I_CheckLoopValues
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_CheckSusLoopValues Far
 
@@ -1841,7 +1841,7 @@ I_CheckSusLoopValues1:
 
 EndP            I_CheckSusLoopValues
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_DrawWaveForm Far
 
@@ -2111,7 +2111,7 @@ I_DrawWaveFormEnd:
 
 EndP            I_DrawWaveForm
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_DeleteSample Far
 
@@ -2144,7 +2144,7 @@ I_DeleteSample1:
 EndP            I_DeleteSample
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 C5Speed         DD      0
 
@@ -2307,7 +2307,7 @@ I_CalculateC5SpeedEnd:
 
 EndP            I_CalculateC5Speed
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_PrintC5Frequency Far
 
@@ -2330,7 +2330,7 @@ Proc            I_PrintC5Frequency Far
 EndP            I_PrintC5Frequency
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_DeleteInstrument Far
 
@@ -2378,7 +2378,7 @@ I_DeleteInstrument1:
 
 EndP            I_DeleteInstrument
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_ConvertSample Far             ; Signed/Unsigned
 
@@ -2441,7 +2441,7 @@ I_ConvertSample3:
 
 EndP            I_ConvertSample
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_InvertSample Far             ; Signed/Unsigned
 
@@ -2503,7 +2503,7 @@ I_InvertSample_16Bit2:
 
 EndP            I_InvertSample
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_CutSampleBeforeLoopUpdateLoop Near
 
@@ -2518,7 +2518,7 @@ I_CutSampleBeforeLoopUpdateLoop1:
 
 EndP            I_CutSampleBeforeLoopUpdateLoop
 
-;��������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_CutSampleBeforeLoop Far
 
@@ -2653,7 +2653,7 @@ I_CutSampleBeforeLoop10:
 
 EndP            I_CutSampleBeforeLoop
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_CutSample Far
 
@@ -2710,7 +2710,7 @@ EndP            I_CutSampleCheckValue
 
 EndP            I_CutSample
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_ClearSampleName Far
                 Assume DS:Inst
@@ -2744,7 +2744,7 @@ I_ClearSampleName3:
 EndP            I_ClearSampleName
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_InsertSample Far
 
@@ -2842,7 +2842,7 @@ I_InsertSampleEnd:
 
 EndP            I_InsertSample
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_RemoveSample Far
 
@@ -2930,7 +2930,7 @@ I_RemoveSampleEnd:
 
 EndP            I_RemoveSample
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_InsertInstrument Far
 
@@ -2983,7 +2983,7 @@ I_InsertInstrumentEnd:
 
 EndP            I_InsertInstrument
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_RemoveInstrument Far
 
@@ -3031,7 +3031,7 @@ I_RemoveInstrumentEnd:
 
 EndP            I_RemoveInstrument
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            GetSampleNumber                         ; Carry if not a num.
                                                         ; DX otherwise,
@@ -3072,7 +3072,7 @@ GetSampleNumber2:
 
 EndP            GetSampleNumber
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            GetNumberInput          ; DI = Offset of list.
                                         ; Returns DX with sample number.
@@ -3112,7 +3112,7 @@ GetNumberInput1:
 
 EndP            GetNumberInput
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_ExchangeSamples Far
 
@@ -3158,7 +3158,7 @@ I_ExchangeSamples1:
 
 EndP            I_ExchangeSamples
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_SwapSamples Far
 
@@ -3254,7 +3254,7 @@ I_SwapSamples1:
 
 EndP            I_SwapSamples
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_ReplaceSample Far
 
@@ -3323,7 +3323,7 @@ I_ReplaceSample1:
 
 EndP            I_ReplaceSample
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_ReMix
                 Assume DS:Nothing
@@ -3669,7 +3669,7 @@ I_ReMixEnd:
 EndP            I_ReMix
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_ResizeSample Far
 
@@ -3678,7 +3678,7 @@ Proc            I_ResizeSample Far
 
 EndP            I_ResizeSample
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_ResizeSampleNoInt Far
 
@@ -3730,7 +3730,7 @@ I_ResizeSampleNoInt1:
 EndP            I_ResizeSampleNoInt
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_CenterSample Far
 
@@ -3889,7 +3889,7 @@ I_CenterSampleEnd:
 
 EndP            I_CenterSample
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_AmplifySample Far
 
@@ -4095,7 +4095,7 @@ I_AmplifySampleEnd:
 
 EndP            I_AmplifySample
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_ReverseSample Far
 
@@ -4322,7 +4322,7 @@ I_ReverseSample1:
 
 EndP            I_ReverseSample
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_SwapMemoryAllocation
 
@@ -4339,7 +4339,7 @@ Proc            I_SwapMemoryAllocation
 
 EndP            I_SwapMemoryAllocation
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_RepositionSample
 
@@ -4365,7 +4365,7 @@ Proc            I_RepositionSample
 
 EndP            I_RepositionSample
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_ToggleSampleQuality Far
 
@@ -4648,7 +4648,7 @@ I_ToggleSampleQuality1:
 
 EndP            I_ToggleSampleQuality
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_DrawInstrumentWindow Far
 
@@ -4777,7 +4777,7 @@ I_DrawInstrumentNoMouse:
 EndP            I_DrawInstrumentWindow
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_PreInstrumentWindow Far
 
@@ -4819,7 +4819,7 @@ I_PreInstrumentWindow2:
 EndP            I_PreInstrumentWindow
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            MIDI_AllocateChannel Far   ; Given AX = Base channel, DL = note
                                            ; Finds physical channel, returns AX
@@ -4880,7 +4880,7 @@ MIDI_AllocateChannelEnd:
 EndP            MIDI_AllocateChannel
 
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            MIDI_GetChannel Far
 
@@ -4890,7 +4890,7 @@ Proc            MIDI_GetChannel Far
 
 EndP            MIDI_GetChannel
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            MIDI_FindChannel Far    ; Given BX = Note, returns AX = channel
                                         ; number, cleans up table, AL = 0FFh =
@@ -4904,7 +4904,7 @@ Proc            MIDI_FindChannel Far    ; Given BX = Note, returns AX = channel
 
 EndP            MIDI_FindChannel
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            MIDI_ClearTable Far
 
@@ -4924,7 +4924,7 @@ Proc            MIDI_ClearTable Far
 
 EndP            MIDI_ClearTable
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            MIDI_NoteOff Far
 
@@ -4960,7 +4960,7 @@ MIDI_NoteOff1:
 EndP            MIDI_NoteOff
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            MIDI_PlayNote Far
 
@@ -5003,7 +5003,7 @@ MIDI_PlayNote1:
 EndP            MIDI_PlayNote
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_PlayNote Far
 
@@ -5101,7 +5101,7 @@ I_PlayNote5:
 EndP            I_PlayNote
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_PostInstrumentWindow Far
                         Assume DS:Inst
@@ -5226,7 +5226,7 @@ I_PostInstrumentWindow14:
 EndP            I_PostInstrumentWindow
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_InstrumentLeft Far
 
@@ -5251,7 +5251,7 @@ I_InstrumentLeft1:
 EndP            I_InstrumentLeft
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_InstrumentRight Far
 
@@ -5277,7 +5277,7 @@ I_InstrumentRight1:
 EndP            I_InstrumentRight
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_InstrumentHome Far
 
@@ -5291,7 +5291,7 @@ Proc            I_InstrumentHome Far
 EndP            I_InstrumentHome
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_InstrumentEnd Far
 
@@ -5305,7 +5305,7 @@ Proc            I_InstrumentEnd Far
 EndP            I_InstrumentEnd
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_InstrumentTab Far
 
@@ -5316,7 +5316,7 @@ Proc            I_InstrumentTab Far
 
 EndP            I_InstrumentTab
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_InstrumentShiftTab Far
 
@@ -5327,7 +5327,7 @@ Proc            I_InstrumentShiftTab Far
 
 EndP            I_InstrumentShiftTab
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_InstrumentNameClear Far
 
@@ -5352,7 +5352,7 @@ Proc            I_InstrumentNameClear Far
 
 EndP            I_InstrumentNameClear
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_InstrumentClear Far
 
@@ -5369,7 +5369,7 @@ Proc            I_InstrumentClear Far
 
 EndP            I_InstrumentClear
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_DrawNoteWindow Far
 
@@ -5499,7 +5499,7 @@ I_DrawNoteWindow6:
 
 EndP            I_DrawNoteWindow
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_PreNoteWindow Far
 
@@ -5514,7 +5514,7 @@ Proc            I_PreNoteWindow Far
                 Mov     BX, 160
                 Mul     BX
                 Add     AX, 32*2
-                Mov     DI, AX                  ; First hilight the row..
+                Mov     DI, AX                  ; First highlight the row..
 
                 Mov     CX, 10
                 Push    DI
@@ -5541,7 +5541,7 @@ I_PreNoteWindow1:
 EndP            I_PreNoteWindow
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_PostNoteWindow Far
 
@@ -5728,7 +5728,7 @@ I_PostNoteWindowEnd:
 EndP            I_PostNoteWindow
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_SelectNoteMouse Far
                 Assume DS:Inst
@@ -5755,7 +5755,7 @@ I_SelectNoteMouse2:
 EndP            I_SelectNoteMouse
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_NoteUp Far
 
@@ -5778,7 +5778,7 @@ I_NoteUp1:
 EndP            I_NoteUp
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_NoteDown Far
 
@@ -5800,7 +5800,7 @@ I_NoteDown1:
 EndP            I_NoteDown
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_NotePgUp Far
 
@@ -5821,7 +5821,7 @@ I_NotePgUp1:
 EndP            I_NotePgUp
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_NotePgDn Far
 
@@ -5843,7 +5843,7 @@ I_NotePgDn1:
 EndP            I_NotePgDn
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_NoteRight Far
 
@@ -5867,7 +5867,7 @@ I_NoteRight1:
 EndP            I_NoteRight
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_NoteLeft Far
 
@@ -5885,7 +5885,7 @@ I_NoteLeft1:
 EndP            I_NoteLeft
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_NoteHome Far
                 Assume DS:Inst
@@ -5898,7 +5898,7 @@ Proc            I_NoteHome Far
 EndP            I_NoteHome
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_NoteEnd Far
                 Assume DS:Inst
@@ -5911,7 +5911,7 @@ Proc            I_NoteEnd Far
 EndP            I_NoteEnd
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_NoteTab Far
 
@@ -5923,7 +5923,7 @@ Proc            I_NoteTab Far
 EndP            I_NoteTab
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_NoteShiftTab Far
 
@@ -5935,7 +5935,7 @@ Proc            I_NoteShiftTab Far
 EndP            I_NoteShiftTab
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_NoteSampleIncrease Far
 
@@ -5955,7 +5955,7 @@ I_NoteSampleIncrease1:
 EndP            I_NoteSampleIncrease
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_NoteSampleDecrease Far
 
@@ -5974,7 +5974,7 @@ I_NoteSampleDecrease1:
 EndP            I_NoteSampleDecrease
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_NoteSamplePickUp Far
 
@@ -5996,7 +5996,7 @@ Proc            I_NoteSamplePickUp Far
 
 EndP            I_NoteSamplePickUp
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_NoteNext Far
                 Assume DS:Inst
@@ -6028,7 +6028,7 @@ I_NoteNext1:
 EndP            I_NoteNext
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_NotePrevious Far
                 Assume DS:Inst
@@ -6071,7 +6071,7 @@ I_NotePrevious1:
 EndP            I_NotePrevious
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_NoteAll Far
 
@@ -6114,7 +6114,7 @@ I_NoteAll2:
 EndP            I_NoteAll
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_NoteInsert Far
 
@@ -6139,7 +6139,7 @@ Proc            I_NoteInsert Far
 
 EndP            I_NoteInsert
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_NoteDelete Far
 
@@ -6163,7 +6163,7 @@ Proc            I_NoteDelete Far
 
 EndP            I_NoteDelete
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_NoteTransposeUp Far
 
@@ -6197,7 +6197,7 @@ I_NoteTransposeUp2:
 EndP            I_NoteTransposeUp
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_NoteTransposeDown Far
 
@@ -6227,7 +6227,7 @@ I_NoteTransposeDown1:
 EndP            I_NoteTransposeDown
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_NoteSpace Far
 
@@ -6253,7 +6253,7 @@ I_NoteSpace1:
 EndP            I_NoteSpace
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_ExchangeInstruments Far
 
@@ -6296,7 +6296,7 @@ I_ExchangeInstruments1:
 
 EndP            I_ExchangeInstruments
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_DoubleSampleSpeed Far
 
@@ -6316,7 +6316,7 @@ I_DoubleSampleSpeed1:
 
 EndP            I_DoubleSampleSpeed
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_HalveSampleSpeed Far
 
@@ -6330,7 +6330,7 @@ Proc            I_HalveSampleSpeed Far
 
 EndP            I_HalveSampleSpeed
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_SampleSpeedSemiUp Far
 
@@ -6352,7 +6352,7 @@ I_SampleSpeedSemiUp1:
 
 EndP            I_SampleSpeedSemiUp
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_SampleSpeedSemiDown Far
 
@@ -6369,7 +6369,7 @@ Proc            I_SampleSpeedSemiDown Far
 
 EndP            I_SampleSpeedSemiDown
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_ReplaceInstrument Far
 
@@ -6398,7 +6398,7 @@ I_ReplaceInstrument1:
 
 EndP            I_ReplaceInstrument
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_ScaleSampleVolumes Far
 
@@ -6443,7 +6443,7 @@ I_ScaleSampleVolumesEnd:
 
 EndP            I_ScaleSampleVolumes
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_ScaleInstrumentVolumes Far
 
@@ -6488,7 +6488,7 @@ I_ScaleInstrumentVolumesEnd:
 
 EndP            I_ScaleInstrumentVolumes
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_CopyInstrument Far
 
@@ -6517,7 +6517,7 @@ Proc            I_CopyInstrument Far
 
 EndP            I_CopyInstrument
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_SwapInstruments Far
 
@@ -6570,7 +6570,7 @@ I_SwapInstruments1:
 
 EndP            I_SwapInstruments
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_UpdateInstrument Far
 
@@ -6593,7 +6593,7 @@ Proc            I_UpdateInstrument Far
 
 EndP            I_UpdateInstrument
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            MouseEnvelopeEvent1 Far
 
@@ -6608,7 +6608,7 @@ Proc            MouseEnvelopeEvent1 Far
 
 EndP            MouseEnvelopeEvent1
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            MouseEnvelopeEvent4 Far ; Delete node
 
@@ -6627,7 +6627,7 @@ MouseEnvelopeEvent4_1:
 
 EndP            MouseEnvelopeEvent4
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            MouseEnvelopeEvent2 Far ; Envelope drag
 
@@ -6642,7 +6642,7 @@ Proc            MouseEnvelopeEvent2 Far ; Envelope drag
 
 EndP            MouseEnvelopeEvent2
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            MouseEnvelopeEvent3 Far ; Release envelope
 
@@ -6654,7 +6654,7 @@ Proc            MouseEnvelopeEvent3 Far ; Release envelope
 
 EndP            MouseEnvelopeEvent3
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            DrawEnvelopeHeader      ; AH = colour, DS = inst
                 Assume DS:Inst
@@ -6673,7 +6673,7 @@ Proc            DrawEnvelopeHeader      ; AH = colour, DS = inst
 EndP            DrawEnvelopeHeader
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_DrawEnvelope Far
 
@@ -6761,7 +6761,7 @@ I_DrawEnvelope4:
 EndP            I_DrawEnvelope
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_PreEnvelope Far
 
@@ -6776,7 +6776,7 @@ Proc            I_PreEnvelope Far
 EndP            I_PreEnvelope
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_PostEnvelope Far
 
@@ -6891,7 +6891,7 @@ ENDIF                                           ; PRESETENVELOPES
 
 EndP            I_PostEnvelope
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_MapEnvelope Far
 
@@ -7288,7 +7288,7 @@ I_MapEnvelopeEnd:
 EndP            I_MapEnvelope
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_GetMouseNode               ; Returns DI, carry if none
 
@@ -7352,7 +7352,7 @@ I_GetMouseNode2:
 
 EndP            I_GetMouseNode
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_MouseEnvelopeDelete Far
 
@@ -7370,7 +7370,7 @@ I_MouseEnvelopeDelete1:
 
 EndP            I_MouseEnvelopeDelete
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_MouseEnvelopePress Far
                 Assume DS:Nothing
@@ -7554,7 +7554,7 @@ I_MouseEnvelopePressError:
 EndP            I_MouseEnvelopePress
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_MouseEnvelopeDrag Far
                 Assume DS:Nothing
@@ -7667,7 +7667,7 @@ I_GetMousePositionEnd:
 EndP            I_MouseEnvelopeDrag
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_MouseEnvelopeReleased Far
                 Assume DS:Inst
@@ -7688,7 +7688,7 @@ Proc            I_MouseEnvelopeReleased Far
 EndP            I_MouseEnvelopeReleased
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_VolumeEnvelopeRight Far
 
@@ -7709,7 +7709,7 @@ I_VolumeEnvelopeRight1:
 EndP            I_VolumeEnvelopeRight
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_VolumeEnvelopeLeft Far
 
@@ -7728,7 +7728,7 @@ I_VolumeEnvelopeLeft1:
 EndP            I_VolumeEnvelopeLeft
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_VolumeEnvelopeUp Far
 
@@ -7739,7 +7739,7 @@ Proc            I_VolumeEnvelopeUp Far
 
 EndP            I_VolumeEnvelopeUp
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_VolumeEnvelopeDown Far
 
@@ -7750,7 +7750,7 @@ Proc            I_VolumeEnvelopeDown Far
 
 EndP            I_VolumeEnvelopeDown
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_VolumeEnvelopeHeldUp Far
 
@@ -7784,7 +7784,7 @@ I_VolumeEnvelopeHeldUp1:
 EndP            I_VolumeEnvelopeHeldUp
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_VolumeEnvelopeHeldDown Far
 
@@ -7817,7 +7817,7 @@ I_VolumeEnvelopeHeldDown1:
 EndP            I_VolumeEnvelopeHeldDown
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_VolumeEnvelopeHeldLeft Far
 
@@ -7853,7 +7853,7 @@ I_VolumeEnvelopeHeldLeft1:
 EndP            I_VolumeEnvelopeHeldLeft
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_VolumeEnvelopeHeldLeftFast Far
 
@@ -7898,7 +7898,7 @@ I_VolumeEnvelopeHeldLeftFast2:
 EndP            I_VolumeEnvelopeHeldLeftFast
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_VolumeEnvelopeHeldHome Far
 
@@ -7930,7 +7930,7 @@ I_VolumeEnvelopeHeldHome1:
 EndP            I_VolumeEnvelopeHeldHome
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_VolumeEnvelopeHeldRight Far
 
@@ -7973,7 +7973,7 @@ I_VolumeEnvelopeHeldRight1:
 EndP            I_VolumeEnvelopeHeldRight
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_VolumeEnvelopeHeldEnd Far
 
@@ -8013,7 +8013,7 @@ I_VolumeEnvelopeHeldEnd1:
 EndP            I_VolumeEnvelopeHeldEnd
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_VolumeEnvelopeHeldRightFast Far
 
@@ -8063,7 +8063,7 @@ I_VolumeEnvelopeHeldRightFast1:
 EndP            I_VolumeEnvelopeHeldRightFast
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_VolumeEnvelopeHeldPgDn Far
 
@@ -8100,7 +8100,7 @@ I_VolumeEnvelopeHeldPgDn1:
 EndP            I_VolumeEnvelopeHeldPgDn
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_VolumeEnvelopeHeldPgUp Far
 
@@ -8138,7 +8138,7 @@ I_VolumeEnvelopeHeldPgUp1:
 EndP            I_VolumeEnvelopeHeldPgUp
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_VolumeEnvelopeInsert Far
                         Assume DS:Inst
@@ -8237,7 +8237,7 @@ I_VolumeEnvelopeInsert1:
 EndP            I_VolumeEnvelopeInsert
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_VolumeEnvelopeDelete Far
 
@@ -8344,7 +8344,7 @@ I_VolumeEnvelopeDelete1:
 
 EndP            I_VolumeEnvelopeDelete
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_EnvelopeSelected
 
@@ -8370,7 +8370,7 @@ ENDIF
 
 EndP            I_EnvelopeSelected
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_VolumeEnvelopeEnter Far
 
@@ -8388,7 +8388,7 @@ I_VolumeEnvelopeEnter1:
 EndP            I_VolumeEnvelopeEnter
                 Assume  DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_InstrumentListSpace Far
 
@@ -8417,7 +8417,7 @@ I_InstrumentSpace1:
 EndP            I_InstrumentListSpace
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_InstrumentListNoteOff Far
 
@@ -8438,7 +8438,7 @@ Proc            I_InstrumentListNoteOff Far
 EndP            I_InstrumentListNoteOff
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_ShowSamplePlay Far
                                         ; Clear table first.
@@ -8493,7 +8493,7 @@ I_ShowSamplePlay2:
 
 EndP            I_ShowSamplePlay
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_ShowInstrumentPlay Far
                                         ; Clear table first.
@@ -8585,7 +8585,7 @@ I_ShowInstrumentPlayEnd:
 
 EndP            I_ShowInstrumentPlay
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_ClearTables Far
 
@@ -8602,7 +8602,7 @@ Proc            I_ClearTables Far
 
 EndP            I_ClearTables
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_TagInstrument Far
 
@@ -8611,7 +8611,7 @@ Proc            I_TagInstrument Far
 
 EndP            I_TagInstrument
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_TagSample Far
 
@@ -8620,7 +8620,7 @@ Proc            I_TagSample Far
 
 EndP            I_TagSample
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            MIDI_PlaySample Far
 
@@ -8652,7 +8652,7 @@ MIDI_PlaySample2:
 
 EndP            MIDI_PlaySample
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_PlaySample Far
 
@@ -8672,7 +8672,7 @@ Proc            I_PlaySample Far
 EndP            I_PlaySample
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_IncreasePlayChannel Far
 
@@ -8700,7 +8700,7 @@ I_IncreasePlayChannel1:
 EndP            I_IncreasePlayChannel
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_DecreasePlayChannel Far
 
@@ -8728,7 +8728,7 @@ I_DecreasePlayChannel1:
 EndP            I_DecreasePlayChannel
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            UpdateMultiChannel
 
@@ -8771,7 +8771,7 @@ UpdateMultiChannel1:
 EndP            UpdateMultiChannel
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_ToggleMultiChannel Far
 
@@ -8794,7 +8794,7 @@ I_ToggleMultiChannel1:
 EndP            I_ToggleMultiChannel
                 Assume DS:Nothing
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_DrawPitchPanCenter Far
 
@@ -8826,7 +8826,7 @@ Proc            I_DrawPitchPanCenter Far
 
 EndP            I_DrawPitchPanCenter
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_PrePitchPanCenter Far
 
@@ -8843,7 +8843,7 @@ Proc            I_PrePitchPanCenter Far
 
 EndP            I_PrePitchPanCenter
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_PostPitchPanCenter Far
 
@@ -8863,7 +8863,7 @@ I_PostPitchPanCenter1:
 
 EndP            I_PostPitchPanCenter
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_PitchPanCenterUp Far
 
@@ -8873,7 +8873,7 @@ Proc            I_PitchPanCenterUp Far
 
 EndP            I_PitchPanCenterUp
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_PitchPanCenterDown Far
 
@@ -8883,7 +8883,7 @@ Proc            I_PitchPanCenterDown Far
 
 EndP            I_PitchPanCenterDown
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_PitchPanCenterSemiUp Far
 
@@ -8904,7 +8904,7 @@ I_PitchPanCenterSemiUp1:
 
 EndP            I_PitchPanCenterSemiUp
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_PitchPanCenterSemiDown Far
 
@@ -8924,7 +8924,7 @@ I_PitchPanCenterSemiDown1:
 
 EndP            I_PitchPanCenterSemiDown
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_IdleUpdateEnvelope Far
 
@@ -8969,7 +8969,7 @@ I_IdleUpdateEnvelope3:
 
 EndP            I_IdleUpdateEnvelope
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            UpdateWAVEForm Far
 
@@ -8978,7 +8978,7 @@ Proc            UpdateWAVEForm Far
 
 EndP            UpdateWAVEForm
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_SampleButtonHandler Far
 
@@ -9002,7 +9002,7 @@ I_SampleButtonHandler1:
 
 EndP            I_SampleButtonHandler
 
-;�������������������������������������������������������������������������������
+;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 Proc            I_GetPresetEnvelopeOffset Far
 
@@ -9014,10 +9014,10 @@ Proc            I_GetPresetEnvelopeOffset Far
 
 EndP            I_GetPresetEnvelopeOffset
 
-;�������������������������������������������������������������������������������
+;ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
 
 EndS
 
-;�������������������������������������������������������������������������������
+;ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
 
 End
