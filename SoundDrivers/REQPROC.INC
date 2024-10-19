@@ -3,7 +3,7 @@ ProcedureTableStart     Label
 Update                  DD      0
 GetSampleHeader         DD      0
 GetSampleLocation       DD      0
-                        DD      0
+UpdateSampleLocation    DD      0
 GetEMSPageFrame         DD      0
 SaveEMSPageFrame        DD      0
 RestoreEMSPageFrame     DD      0
