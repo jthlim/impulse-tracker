@@ -12,6 +12,10 @@ repositories, and so this is now made available on GitHub.
 - [Third Article](https://roartindon.blogspot.com/2014/10/20-years-of-impulse-tracker-part-3.html)
 - [Fourth Article](https://roartindon.blogspot.com/2014/12/20-years-of-impulse-tracker-part-4.html)
 
+Note that this repository is purely sharing what used to be -- there is no
+active development, and changes/fixes will not be merged other than issues
+preventing build.
+
 ## Pre-Requisite Software
 
 To build Impulse Tracker, you will need:
